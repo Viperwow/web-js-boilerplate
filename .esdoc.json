@@ -1,0 +1,24 @@
+{
+  "title": "VALO Cloud messaging",
+  "index": "./README.md",
+  "package": "./package.json",
+  "source": "./src",
+  "destination": "./docs/esdoc",
+  "includeSource": true,
+  "builtinExternal": true,
+  "access": ["public", "protected", "private"],
+  "coverage": true,
+  "autoPrivate": true,
+  "experimentalProposal": {
+    "classProperties": true,
+    "objectRestSpread": true,
+    "decorators": true,
+    "doExpressions": true,
+    "functionBind": true,
+    "asyncGenerators": true,
+    "exportExtensions": true,
+    "dynamicImport": true
+  },
+  "unexportIdentifier": false,
+  "undocumentIdentifier": false
+}

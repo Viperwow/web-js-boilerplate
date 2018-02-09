@@ -1,0 +1,7 @@
+# Browsers which webpack will use while its internal autoprefixer instance do prefixes clean-up
+
+# By default, whenever you'll write in 'browsers' option of the postcss's autoprefixer it'll be negated and prefixes might be deleted
+# As you wish you may read more here: https://github.com/ai/browserslist#config-file and https://github.com/postcss/autoprefixer ('Outdated prefixes' section)
+
+last 2 versions
+ie >= 11

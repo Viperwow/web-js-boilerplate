@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component should render correctly With default props 1`] = `
+<div
+  className="root"
+>
+  <p>
+    Stub
+  </p>
+</div>
+`;
