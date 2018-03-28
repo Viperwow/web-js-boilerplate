@@ -11,6 +11,7 @@ const ROOT_PATH = path.join(path.resolve(__dirname), "/../..");
 const NODE_MODULES_PATH = path.join(ROOT_PATH, "/node_modules");
 const APP_PATH = path.join(ROOT_PATH, '/app');
 const SPECS_PATH = path.join(ROOT_PATH, '/specs');
+const GEMINI_PATH = path.join(ROOT_PATH, '/gemini');
 
 // Configs
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserlistrc');
@@ -57,7 +58,8 @@ module.exports = function (data) {
       modules: [ // So there are an array of paths where to look for modules based on publicPath
         'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
         APP_PATH, // App modules root to import from
-        SPECS_PATH // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups)
+        SPECS_PATH, // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups))
+        GEMINI_PATH // Gemini tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. gemini setups))
       ],
       extensions: [".js", ".jsx", ".css", '.sass', '.md', '.json'] // Allow files with following extensions being recognized without extension in import
     },
