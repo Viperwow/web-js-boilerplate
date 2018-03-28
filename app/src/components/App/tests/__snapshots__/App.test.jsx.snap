@@ -4,8 +4,8 @@ exports[`App component should render correctly With default props 1`] = `
 <div
   className="root"
 >
-  <p>
-    Stub
-  </p>
+  <Layout>
+    Put_content_here
+  </Layout>
 </div>
 `;

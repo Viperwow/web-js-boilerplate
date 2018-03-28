@@ -4,11 +4,11 @@ import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
 // UI
-import App from '../App';
+import Layout from '../Layout';
 
-describe('App component should render correctly', () => {
+describe('Layout component should render correctly', () => {
   test('With default props', () => {
-    const output = shallow(<App />);
+    const output = shallow(<Layout />);
 
     expect(shallowToJson(output)).toMatchSnapshot();
   });

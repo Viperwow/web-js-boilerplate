@@ -4,11 +4,13 @@ const path = require("path");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const _without = require('lodash/without');
 
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), "/../..");
 const NODE_MODULES_PATH = path.join(ROOT_PATH, "/node_modules");
 const APP_PATH = path.join(ROOT_PATH, '/app');
+const SPECS_PATH = path.join(ROOT_PATH, '/specs');
 
 // Configs
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserlistrc');
@@ -22,18 +24,21 @@ const packageJson = require(path.join(ROOT_PATH, '/package.json'));
 module.exports = function (data) {
   const ENVIRONMENT = data.env === 'production' || data.env === 'rc' ? 'production' : 'development';
 
+  const DEPENDENCIES = Object.keys(packageJson.dependencies);
+
+  const ORDERED_DEPENDENCIES = [
+    'babel-polyfill' // Babel polyfill MUST be the first dependency to use polyfills
+  ];
+
   const APP_DEPENDENCIES = [
-    "babel-polyfill", // Babel polyfill MUST be the first dependency to be applied first
-    'react-hot-loader/patch', //activate HMR for React
     path.join(APP_PATH, '/src/index.jsx'), // Add our js entry point
     path.join(APP_PATH, '/assets/sass/app.sass') // Add our sass/css entry point
-  ]
-    .filter(dependency => ENVIRONMENT === 'development' || dependency !== 'react-hot-loader/patch'); // In production we should exclude react-hot-loader
+  ];
 
-  const VENDOR_DEPENDENCIES = [...Object.keys(packageJson.dependencies)
-    .filter(dependency => // In production we should exclude react-hot-loader and we should exclude babel-polyfill from vendors because it is listed in dependencies list, but already included in the app
-      ENVIRONMENT === 'production' ? !['react-hot-loader', 'babel-polyfill'].includes(dependency) : !['babel-polyfill'].includes(dependency)
-    )];
+  const VENDOR_DEPENDENCIES = [
+    ...ORDERED_DEPENDENCIES,
+    ..._without(DEPENDENCIES, ...ORDERED_DEPENDENCIES)
+  ];
 
   return {
     bail: true, // To stop building process on the first error
@@ -50,9 +55,9 @@ module.exports = function (data) {
     },
     resolve: {
       modules: [ // So there are an array of paths where to look for modules based on publicPath
-        "node_modules",
-        'app',
-        'app/src'
+        'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
+        APP_PATH, // App modules root to import from
+        SPECS_PATH // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups)
       ],
       extensions: [".js", ".jsx", ".css", '.sass', '.md', '.json'] // Allow files with following extensions being recognized without extension in import
     },
@@ -90,14 +95,14 @@ module.exports = function (data) {
                 loader: 'css-loader',
                 options: {
                   minimize: false, // Do not minimize css (because we already did it in postcss
-                  importLoaders: 2, // Because we have 2 loaders behind of css-loader
+                  importLoaders: 2 // Because we have 2 loaders behind of css-loader
                 }
               },
               {
                 loader: 'postcss-loader',
                 options: {
                   config: {
-                    path: POSTCSS_CONFIG,
+                    path: POSTCSS_CONFIG
                   }
                 }
               },
@@ -148,11 +153,11 @@ module.exports = function (data) {
     plugins: [
       new StyleLintPlugin({
         configFile: STYLELINT_CONFIG,
-        customSyntax: path.join(NODE_MODULES_PATH, "/postcss-sass"), // Enabling Sass parsing
+        customSyntax: path.join(NODE_MODULES_PATH, "/postcss-sass") // Enabling Sass parsing
       }),
       // It will exclude all locales from moment, but it will include [en-gb, ru]
       new webpack.ContextReplacementPlugin(
-        /moment[\\/\\]locale/,
+        /moment[\/\\]locale/,
         /(en-gb|ru)/
       ),
       new HtmlWebpackPlugin({

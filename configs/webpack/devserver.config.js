@@ -2,6 +2,7 @@ module.exports = {
   host: "0.0.0.0", // Local machine ip address + localhost
   compress: true, // Compress things using gzip
   hot: true, // Hot module reloading enabled (no need of --hot in CLI)
+  https: true, // To start dev server in secure mode (it's much more strict and should help to find and resolve errors)
   hotOnly: true, // Do no update app in case of failure while HMR
   historyApiFallback: { // Proxying to index file
     disableDotRule: true

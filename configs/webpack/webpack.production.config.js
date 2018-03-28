@@ -17,7 +17,7 @@ const DIST = path.join(ROOT_PATH, '/dist');
 module.exports = function productionWebpackConfig(data) {
   return webpackMerge(BaseWebpackConfig(data), {
     output: {
-      path: DIST,
+      path: DIST
     },
     plugins: [
       // It will make a separated from js code css bundle and it is superior, because of css loading goes in parallel
@@ -26,18 +26,19 @@ module.exports = function productionWebpackConfig(data) {
         allChunks: true
       }),
       new CleanWebpackPlugin('dist', {
-        root: ROOT_PATH,
+        root: ROOT_PATH
       }),
       new UglifyjsWebpackPlugin({
         parallel: true,
         uglifyOptions: {
           compress: {
-            drop_console: true
-          },
-        },
+            drop_console: true,
+            warnings: false
+          }
+        }
       }),
       new ImageminWebpackPlugin({
-        test: /\.(svg|png|jpe?g)$/,
+        test: /\.(svg|png|gif|jpe?g)$/,
         svgo: {
           removeTitle: true,
           removeDesc: true

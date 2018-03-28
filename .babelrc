@@ -1,5 +1,12 @@
 {
   "plugins": [
+    ["module-resolver", {
+      "root": [
+        "./", // Project root
+        "./app", // App sources root
+        "./specs" // Specs root
+      ]
+    }],
     "transform-decorators-legacy",
     "lodash",
     "transform-strict-mode"
@@ -10,7 +17,7 @@
       "env",
       {
         "modules": false,
-        "useBuiltIns": true
+        "useBuiltIns": "entry"
       }
     ],
     "react",
@@ -23,6 +30,18 @@
       ]
     },
     "test": {
+      "plugins": [
+        ["module-resolver", {
+          "root": [
+            "./", // Project root
+            "./app", // App sources root
+            "./specs" // Specs root
+          ]
+        }],
+        "transform-decorators-legacy",
+        "lodash",
+        "transform-strict-mode"
+      ],
       "presets": [
         "jest",
         [

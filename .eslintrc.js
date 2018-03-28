@@ -10,12 +10,7 @@ module.exports = {
   },
   "settings": {
     "import/resolver": {
-      "node": {
-        "paths": [
-          "app",
-          "app/src"
-        ]
-      }
+      "babel-module": {}
     }
   },
   "rules": {
@@ -27,7 +22,11 @@ module.exports = {
       "components": ["Link"],
       "specialLink": ["to"],
       "aspects": ["noHref", "invalidHref", "preferButton"]
-    }]
+    }],
+    "linebreak-style": "off",
+    "import/extensions": "never",
+    "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
   },
   "plugins": ["jest"]
 };
