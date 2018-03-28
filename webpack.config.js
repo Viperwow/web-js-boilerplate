@@ -1,3 +1,3 @@
-module.exports = function (env) { // Get env parameter from --env
-  return require("./configs/webpack/webpack." + env + ".config.js")({env: env}) // Import selected configuration and leave env as a parameter to the imported configuration
+module.exports = function (data) { // Get env parameter from --env
+  return require("./configs/webpack/webpack." + data.env + ".config.js")({env: data.env, brand: data.brand}) // Import selected configuration and leave env as a parameter to the imported configuration
 };

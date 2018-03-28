@@ -5,14 +5,7 @@ exports[`App component should render correctly With default props 1`] = `
   className="root"
 >
   <Layout>
-    <p>
-      Users
-    </p>
-  </Layout>
-  <Layout>
-    <p>
-      Chat
-    </p>
+    Put_content_here
   </Layout>
 </div>
 `;
