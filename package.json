@@ -1,7 +1,7 @@
 {
-  "name": "project-home",
+  "name": "web-js-boilerplate",
   "version": "0.0.2",
-  "description": "Project Home",
+  "description": "Boilerplate for any web project",
   "main": "index.js",
   "readme": "./README.md",
   "private": true,
@@ -22,11 +22,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/Viperwow/Project-home-frontend.git"
+    "url": "https://gitlab.com/Viperwow/web-js-boilerplate.git"
   },
   "keywords": [
     "viperwow",
-    "projecthome"
+    "web",
+    "boilerplate"
   ],
   "author": "viperwow",
   "license": "ISC",
