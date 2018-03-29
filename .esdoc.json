@@ -1,24 +1,59 @@
 {
-  "title": "VALO Cloud messaging",
-  "index": "./README.md",
-  "package": "./package.json",
-  "source": "./src",
-  "destination": "./docs/esdoc",
-  "includeSource": true,
-  "builtinExternal": true,
-  "access": ["public", "protected", "private"],
-  "coverage": true,
-  "autoPrivate": true,
-  "experimentalProposal": {
-    "classProperties": true,
-    "objectRestSpread": true,
-    "decorators": true,
-    "doExpressions": true,
-    "functionBind": true,
-    "asyncGenerators": true,
-    "exportExtensions": true,
-    "dynamicImport": true
-  },
-  "unexportIdentifier": false,
-  "undocumentIdentifier": false
+  "source": "./app/src",
+  "destination": "./docs",
+  "includes": ["\\.js(x)?$"],
+  "excludes": ["((\\.config)|index).js(x)?$"],
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "lint": {
+          "enable": true
+        },
+        "coverage": {
+          "enable": true
+        },
+        "accessor": {
+          "access": [
+            "public",
+            "protected",
+            "private"
+          ],
+          "autoPrivate": true
+        },
+        "undocumentIdentifier": {
+          "enable": false
+        },
+        "unexportedIdentifier": {
+          "enable": false
+        },
+        "typeInference": {
+          "enable": true
+        },
+        "brand": {
+          "title": "web-js-boilerplate",
+          "description": "Boilerplate for any web project",
+          "repository": "https://gitlab.com/Viperwow/web-js-boilerplate.git",
+          "author": "Viperwow"
+        },
+        "test": {
+          "source": "./app",
+          "interfaces": ["describe", "it", "context", "suite", "test"],
+          "includes": ["(spec|Spec|test|Test)\\.js(x)?$"],
+          "excludes": ["((\\.config)|index).js(x)?$"]
+        },
+        "manual": {
+          "index": "./README.md",
+          "globalIndex": true,
+          "files": [
+            "./README.md",
+            "./CHANGELOG.md"
+          ]
+        }
+      }
+    },
+    {"name": "esdoc-react-plugin"},
+    {"name": "esdoc-ecmascript-proposal-plugin", "option": {"all": true}},
+    {"name": "esdoc-jsx-plugin", "option": {"enable": true}}
+  ]
 }
