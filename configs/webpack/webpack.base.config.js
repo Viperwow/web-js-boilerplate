@@ -51,6 +51,7 @@ module.exports = function (data) {
       vendor: VENDOR_DEPENDENCIES
     },
     output: {
+      chunkFilename: '[name].[chunkhash].js', // Output dynamic imported chunks would be named according to provided template
       filename: "[name].[chunkhash].js", // Output bundles would be named according to provided template
       publicPath: "/" // Place from where everything would be served in webpack-dev-server
     },

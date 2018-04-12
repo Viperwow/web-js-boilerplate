@@ -17,7 +17,9 @@ const DIST = path.join(ROOT_PATH, '/dist');
 module.exports = function productionWebpackConfig(data) {
   return webpackMerge(BaseWebpackConfig(data), {
     output: {
-      path: DIST
+      path: DIST,
+      filename: "[name].[chunkhash].js", // Output bundles would be named according to provided template
+      chunkFilename: '[id].[chunkhash].js', // Output dynamic imported chunks would be named according to provided template ([id] is to hide internals of the app)
     },
     plugins: [
       // It will make a separated from js code css bundle and it is superior, because of css loading goes in parallel
