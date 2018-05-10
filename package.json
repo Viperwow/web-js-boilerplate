@@ -10,7 +10,7 @@
     "build:rc": "webpack --progress --env.env=rc",
     "build:prod": "webpack --progress --env.env=production",
     "build:docs": "rimraf ./docs && esdoc",
-    "test": "npm run test:jest && npm run test:gemini",
+    "test": "npm run test:jest",
     "test:jest": "jest -c ./configs/jest/jest.config.js",
     "test:jest:update": "npm run test:jest -- -u",
     "test:gemini": "gemini test",
