@@ -1,14 +1,14 @@
 // Vendors
 const webpack = require('webpack');
-const path = require("path");
+const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const _without = require('lodash/without');
 
 // Path
-const ROOT_PATH = path.join(path.resolve(__dirname), "/../..");
-const NODE_MODULES_PATH = path.join(ROOT_PATH, "/node_modules");
+const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
+const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 const APP_PATH = path.join(ROOT_PATH, '/app');
 const SPECS_PATH = path.join(ROOT_PATH, '/specs');
 const GEMINI_PATH = path.join(ROOT_PATH, '/gemini');
@@ -23,7 +23,9 @@ const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
 const packageJson = require(path.join(ROOT_PATH, '/package.json'));
 
 module.exports = function (data) {
-  const ENVIRONMENT = data.env === 'production' || data.env === 'rc' ? 'production' : 'development';
+  const ENVIRONMENT = data.env === 'production' || data.env === 'rc'
+    ? 'production'
+    : 'development';
 
   const DEPENDENCIES = Object.keys(packageJson.dependencies);
 
@@ -52,8 +54,8 @@ module.exports = function (data) {
     },
     output: {
       chunkFilename: '[name].[chunkhash].js', // Output dynamic imported chunks would be named according to provided template
-      filename: "[name].[chunkhash].js", // Output bundles would be named according to provided template
-      publicPath: "/" // Place from where everything would be served in webpack-dev-server
+      filename: '[name].[chunkhash].js', // Output bundles would be named according to provided template
+      publicPath: '/' // Place from where everything would be served in webpack-dev-server
     },
     resolve: {
       modules: [ // So there are an array of paths where to look for modules based on publicPath
@@ -62,7 +64,7 @@ module.exports = function (data) {
         SPECS_PATH, // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups))
         GEMINI_PATH // Gemini tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. gemini setups))
       ],
-      extensions: [".js", ".jsx", ".css", '.sass', '.md', '.json'] // Allow files with following extensions being recognized without extension in import
+      extensions: [ '.js', '.jsx', '.css', '.sass', '.md', '.json' ] // Allow files with following extensions being recognized without extension in import
     },
     module: {
       rules: [
@@ -70,7 +72,7 @@ module.exports = function (data) {
           test: /\.jsx?$/,
           exclude: NODE_MODULES_PATH,
           use: [
-            "babel-loader", // Do babel transform
+            'babel-loader', // Do babel transform
             {
               loader: 'eslint-loader', // Do eslint before any transformations
               options: {
@@ -82,7 +84,10 @@ module.exports = function (data) {
         {
           test: /\.worker\.js$/,
           exclude: NODE_MODULES_PATH,
-          use: ["worker-loader"]
+          use: [
+            'worker-loader',
+            'babel-loader' // To support polyfilling of workers
+          ]
         },
         {
           test: /\.(css|sass)$/,
@@ -156,7 +161,7 @@ module.exports = function (data) {
     plugins: [
       new StyleLintPlugin({
         configFile: STYLELINT_CONFIG,
-        customSyntax: path.join(NODE_MODULES_PATH, "/postcss-sass") // Enabling Sass parsing
+        customSyntax: path.join(NODE_MODULES_PATH, '/postcss-sass') // Enabling Sass parsing
       }),
       // It will exclude all locales from moment, but it will include [en-gb, ru]
       new webpack.ContextReplacementPlugin(
@@ -164,9 +169,9 @@ module.exports = function (data) {
         /(en-gb|ru)/
       ),
       new HtmlWebpackPlugin({
-        title: "VALO Cloud messaging", // Page title
+        title: 'VALO Cloud messaging', // Page title
         template: path.join(APP_PATH, '/src/index.html'), // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
-        chunksSort: "dependency",
+        chunksSort: 'dependency',
         minify: {
           collapseWhitespace: true, // Remove all whitespaces
           removeRedundantAttributes: true, // remove attributes that is not needed
