@@ -86,7 +86,13 @@ module.exports = function (data) {
           exclude: NODE_MODULES_PATH,
           use: [
             'worker-loader',
-            'babel-loader' // To support polyfilling of workers
+            'babel-loader', // To support polyfilling of workers
+            {
+              loader: 'eslint-loader', // Do eslint before any transformations
+              options: {
+                configFile: ESLINT_CONFIG // Get config from there
+              }
+            }
           ]
         },
         {
