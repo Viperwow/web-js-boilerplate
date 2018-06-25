@@ -18,7 +18,7 @@ module.exports = function productionWebpackConfig(data) {
   return webpackMerge(BaseWebpackConfig(data), {
     output: {
       path: DIST,
-      filename: "[name].[chunkhash].js", // Output bundles would be named according to provided template
+      filename: "[name].[hash].js", // Output bundles would be named according to provided template
       chunkFilename: '[id].[chunkhash].js', // Output dynamic imported chunks would be named according to provided template ([id] is to hide internals of the app)
     },
     plugins: [

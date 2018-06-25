@@ -44,6 +44,7 @@ module.exports = function (data) {
   ];
 
   return {
+    mode: ENVIRONMENT,
     bail: true, // To stop building process on the first error
     node: {
       fs: 'empty' // To fix babel-plugin-react-css-modules's error of the unavailability of resolved 'fs' in target: "web" (webpack default) (see https://github.com/webpack-contrib/css-loader/issues/447 for more info)
@@ -54,7 +55,7 @@ module.exports = function (data) {
     },
     output: {
       chunkFilename: '[name].[chunkhash].js', // Output dynamic imported chunks would be named according to provided template
-      filename: '[name].[chunkhash].js', // Output bundles would be named according to provided template
+      filename: '[name].[hash].js', // Output bundles would be named according to provided template
       publicPath: '/' // Place from where everything would be served in webpack-dev-server
     },
     resolve: {
@@ -164,6 +165,18 @@ module.exports = function (data) {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            name: 'vendor.[hash].js', // Name of the common parts being separated from 'vendor' entry
+          },
+          manifest: {
+            filename: 'manifest.[hash].js', // Name of the common parts being separated from 'manifest' entry
+          },
+        },
+      },
+    },
     plugins: [
       new StyleLintPlugin({
         configFile: STYLELINT_CONFIG,
@@ -184,16 +197,6 @@ module.exports = function (data) {
           removeComments: true, // Remove comments from html
           minifyURLs: true // Minify all urls
         }
-      }),
-      new webpack.optimize.CommonsChunkPlugin({ // see https://webpack.js.org/plugins/commons-chunk-plugin/ for more info
-        name: 'vendor', // Will use entry with name 'vendor' to find common parts
-        filename: 'vendor.[chunkhash].js', // Name of the common parts being separated from 'vendor' entry
-        minChunks: Infinity // Include everything that is seems common
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'manifest', // Will use entry with name 'manifest' to find common parts (manifest is a file with metadata)
-        filename: 'manifest.[hash].js', // Name of the common parts being separated from 'manifest' entry
-        minChunks: Infinity // Include everything that is seems common
       }),
       new webpack.EnvironmentPlugin({
         BABEL_ENV: ENVIRONMENT, // Set BABEL_ENV global variable with provided value

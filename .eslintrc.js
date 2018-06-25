@@ -29,7 +29,8 @@ module.exports = {
     "import/extensions": "never",
     "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "one-var": ["error", "always"]
+    "one-var": ["error", "always"],
+    "comma-dangle": ["error", "always-multiline"]
   },
   "plugins": ["jest"]
 };
