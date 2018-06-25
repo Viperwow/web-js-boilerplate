@@ -6,7 +6,9 @@ module.exports = {
   "parser": "babel-eslint",
   "env": {
     "browser": true,
-    "jest": true
+    "jest": true,
+    "worker": true,
+    "es6": true
   },
   "settings": {
     "import/resolver": {
@@ -16,7 +18,7 @@ module.exports = {
   "rules": {
     "no-underscore-dangle": "off", // Allow names with underscores and their usage
     "no-trailing-spaces": ["error", {"skipBlankLines": true}], // Allow whitespaces if line is empty
-    "arrow-parens": ["error", "as-needed"], // Ignore single parameter fucntions on arrow function definition
+    "arrow-parens": ["error", "as-needed"], // Ignore single parameter functions on arrow function definition
     "react/prefer-stateless-function": "off", // Allow React component to be a class and not to be a pure functions strictly
     "jsx-a11y/anchor-is-valid": ["error", {
       "components": ["Link"],
@@ -26,7 +28,8 @@ module.exports = {
     "linebreak-style": "off",
     "import/extensions": "never",
     "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "one-var": ["error", "always"]
   },
   "plugins": ["jest"]
 };
