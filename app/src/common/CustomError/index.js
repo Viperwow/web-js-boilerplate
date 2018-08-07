@@ -4,7 +4,7 @@ export default class CustomError {
     code = -1,
     causedBy = null,
     data = null,
-  }) {
+  } = {}) {
     this._message = message;
     this._code = code;
     this._causedBy = causedBy;
