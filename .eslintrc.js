@@ -25,7 +25,6 @@ module.exports = {
       "specialLink": ["to"],
       "aspects": ["noHref", "invalidHref", "preferButton"]
     }],
-    "linebreak-style": "off", // Do not mind about line ending
     "import/extensions": "never",
     "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
