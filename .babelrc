@@ -10,6 +10,8 @@
     }],
     "transform-decorators-legacy",
     "lodash",
+    "graphql-tag",
+    "import-graphql",
     "transform-strict-mode"
   ],
   "presets": [
@@ -36,11 +38,14 @@
           "root": [
             "./", // Project root
             "./app", // App sources root
-            "./specs" // Specs root
+            "./specs", // Specs root
+            "./gemini" // Gemini root
           ]
         }],
         "transform-decorators-legacy",
         "lodash",
+        "graphql-tag",
+        "import-graphql",
         "transform-strict-mode"
       ],
       "presets": [

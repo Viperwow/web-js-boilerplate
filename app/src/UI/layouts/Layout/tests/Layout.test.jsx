@@ -1,7 +1,7 @@
 // Vendors
 import React from 'react';
-import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
+import {shallow} from 'enzyme';
+import {shallowToJson} from 'enzyme-to-json';
 // UI
 import Layout from '../index';
 

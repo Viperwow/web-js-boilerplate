@@ -15,7 +15,7 @@ const SPECS_PATH = path.join(ROOT_PATH, '/specs');
 const GEMINI_PATH = path.join(ROOT_PATH, '/gemini');
 
 // Configs
-const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserlistrc');
+const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
 const POSTCSS_CONFIG = path.join(ROOT_PATH, '/configs/postcss.config.js');
 const ESLINT_CONFIG = path.join(ROOT_PATH, '/.eslintrc.js');
 const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
@@ -72,10 +72,15 @@ module.exports = function (data) {
         SPECS_PATH, // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups))
         GEMINI_PATH, // Gemini tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. gemini setups))
       ],
-      extensions: [ '.js', '.jsx', '.css', '.scss', '.sass', '.md', '.json' ], // Allow files with following extensions being recognized without extension in import
+      extensions: [ '.js', '.jsx', '.css', '.scss', '.sass', '.md', '.json', '.mjs', '.graphql', '.gql' ], // Allow files with following extensions being recognized without extension in import
     },
     module: {
       rules: [
+        { // To support graphql .mjs imports for webpack 4.x.x
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: "javascript/auto",
+        },
         {
           test: /\.jsx?$/,
           exclude: NODE_MODULES_PATH,
@@ -88,6 +93,11 @@ module.exports = function (data) {
               },
             },
           ],
+        },
+        {
+          test: /\.(graphql|gql)$/,
+          exclude: /node_modules/,
+          loader: 'graphql-tag/loader'
         },
         {
           test: /\.worker\.js$/,
@@ -220,11 +230,12 @@ module.exports = function (data) {
       new webpack.EnvironmentPlugin({
         BABEL_ENV: ENVIRONMENT, // Set BABEL_ENV global variable with provided value
         NODE_ENV: ENVIRONMENT, // Set NODE_ENV global variable with provided value (by default NODE_ENV is based on BABEL_ENV, so we may not to provide it at all) (see https://babeljs.io/docs/usage/babelrc/#env-option for more info)
-        BROWSERSLIST_CONFIG: BROWSERSLIST_CONFIG, // Browserlist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
+        BROWSERSLIST_CONFIG: BROWSERSLIST_CONFIG, // Browserslist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
       }),
       new CircularDependencyPlugin({ // Try to find circular dependencies at the build-time
         exclude: /a\.js|node_modules/, // Exclude node_modules
-        failOnError: false // Show a warning when there is a circular dependency
+        failOnError: true, // Show a warning when there is a circular dependency
+        allowAsyncCycles: false, // Disallow import cycles that include an async import, e.g. via import(/* webpackMode: "weak" */ './file.js')
       })
     ],
   };

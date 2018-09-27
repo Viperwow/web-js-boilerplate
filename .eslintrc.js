@@ -1,35 +1,72 @@
 module.exports = {
-  "extends": [
-    "airbnb",
-    "plugin:jest/recommended"
+  'extends': [
+    'airbnb',
+    'plugin:promise/recommended',
+    'plugin:unicorn/recommended',
+    'plugin:jest/recommended',
   ],
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "jest": true,
-    "worker": true,
-    "es6": true
+  'parser': 'babel-eslint',
+  'parserOptions': {
+    'ecmaVersion': 2018,
+    'sourceType': 'module',
   },
-  "settings": {
-    "import/resolver": {
-      "babel-module": {}
-    }
+  'env': {
+    'browser': true,
+    'jest': true,
+    'worker': true,
+    'es6': true,
   },
-  "rules": {
-    "no-underscore-dangle": "off", // Allow names with underscores and their usage
-    "no-trailing-spaces": ["error", {"skipBlankLines": true}], // Allow whitespaces if line is empty
-    "arrow-parens": ["error", "as-needed"], // Ignore single parameter functions on arrow function definition
-    "react/prefer-stateless-function": "off", // Allow React component to be a class and not to be a pure functions strictly
-    "jsx-a11y/anchor-is-valid": ["error", {
-      "components": ["Link"],
-      "specialLink": ["to"],
-      "aspects": ["noHref", "invalidHref", "preferButton"]
+  'settings': {
+    'import/resolver': {
+      'babel-module': {},
+    },
+  },
+  'rules': {
+    // Airbnb / eslint
+    'no-underscore-dangle': 0, // Allow names with underscores and their usage
+    'arrow-parens': [2, 'as-needed'], // Ignore single parameter functions on arrow function definition
+    'react/prefer-stateless-function': 0, // Allow React component to be a class and not to be a pure functions strictly
+    'jsx-a11y/anchor-is-valid': [2, { // Check for valid react-router <Link />
+      'components': ['Link'],
+      'specialLink': ['to'],
+      'aspects': ['noHref', 'invalidHref', 'preferButton'],
     }],
-    "import/extensions": "never",
-    "import/no-unresolved": [2, { "commonjs": true, "amd": true }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "one-var": ["error", "always"],
-    "comma-dangle": ["error", "always-multiline"]
+    'react/jsx-curly-spacing': [2, 'never'], // Enforce the usage of the no spaces between curly brackets
+    'object-curly-spacing': [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets
+    'max-len': [2, { // Overwrite airbnb defaults to use 2-spaced indents and 120 line length
+      'code': 120,
+      'tabWidth': 2,
+    }],
+    // Unicorn
+    'unicorn/filename-case': 0, // Remove necessity of the file special filename casing, because we need to use kebabCase for the most of the files, but for classes and react components we should prefer PascalCasing
+    // JSDoc
+    'jsdoc/check-param-names': 2,
+    'jsdoc/check-tag-names': 2,
+    'jsdoc/check-types': 2,
+    'jsdoc/newline-after-description': 2,
+    'jsdoc/no-undefined-types': 2, // FIXME Set this field to '0' when Flow will be in
+    'jsdoc/require-description-complete-sentence': 2,
+    'jsdoc/require-example': 2,
+    'jsdoc/require-hyphen-before-param-description': 2,
+    'jsdoc/require-param': 2,
+    'jsdoc/require-param-description': 2,
+    'jsdoc/require-param-name': 2,
+    'jsdoc/require-param-type': 2, // FIXME Set this field to '0' when Flow will be in
+    'jsdoc/require-returns-description': 2,
+    'jsdoc/require-returns-type': 2, // FIXME Set this field to '0' when Flow will be in
+    'jsdoc/valid-types': 2,
+    // Promise
+    'promise/no-nesting': 2, // No nested promises
+    'promise/no-promise-in-callback': 2, // No more promises as a callbacks
+    'promise/no-callback-in-promise': 2, // To avoid side-effects
+    'promise/avoid-new': 2, // Force the usage of the new while dealing with the Promise
+    'promise/no-return-in-finally': 2, // Avoid returning any values in finally
+    'promise/valid-params': 2, // Always valid number of arguments should be provided to the promise's functions
   },
-  "plugins": ["jest"]
+  'plugins': [
+    'jest',
+    'promise',
+    'unicorn',
+    'jsdoc',
+  ],
 };

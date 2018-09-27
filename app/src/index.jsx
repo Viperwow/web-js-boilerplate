@@ -1,8 +1,15 @@
 // Vendors
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import {ApolloProvider} from 'react-apollo';
 // UI
-import App from 'src/components/App';
+import Layout from 'src/layout';
+// Apollo client
+import ApolloExtendedClient from 'src/apollo';
 
-ReactDOM.render(<App />, document.querySelector('app'));
+ReactDOM.render(
+  <ApolloProvider client={ApolloExtendedClient}>
+    <Layout />
+  </ApolloProvider>,
+  document.querySelector('app'),
+);
