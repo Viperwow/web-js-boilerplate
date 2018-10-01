@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ThirdPage component should render correctly With default props 1`] = `
+<div
+  className="page"
+>
+  THIRD_PAGE_PLACEHOLDER
+</div>
+`;

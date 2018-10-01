@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout component should render correctly With default props 1`] = `
+<BrowserRouter>
+  <div
+    className="layout"
+  >
+    <Switch>
+      <Redirect
+        exact={true}
+        from="/"
+        push={false}
+        to="/1"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/1"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/2"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/3"
+      />
+      <Route
+        component={[Function]}
+      />
+    </Switch>
+  </div>
+</BrowserRouter>
+`;
