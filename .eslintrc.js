@@ -4,6 +4,7 @@ module.exports = {
     'plugin:promise/recommended',
     'plugin:unicorn/recommended',
     'plugin:jest/recommended',
+    'plugin:lodash/canonical',
   ],
   'parser': 'babel-eslint',
   'parserOptions': {
@@ -62,11 +63,24 @@ module.exports = {
     'promise/avoid-new': 2, // Force the usage of the new while dealing with the Promise
     'promise/no-return-in-finally': 2, // Avoid returning any values in finally
     'promise/valid-params': 2, // Always valid number of arguments should be provided to the promise's functions
+    // Lodash
+    'lodash/import-scope': [2, 'full'], // To easier use of the lodash in code (do not mind about optimization, because webpack plugin will take all the tree-shaking job)
+    'lodash/path-style': [2, 'string'], // Prefer string path, because of a consistent code style and better readability
+    'lodash/prefer-constant': 0, // Its better to use arrow functions instead to improve the readability
+    'lodash/prefer-noop': 0, // Its better to use arrow functions instead to improve the readability too
+    'lodash/prefer-lodash-method': [2, { // Whitelist all of the native functions, but force to use lodash for the rest of the cases
+      'ignoreMethods': [
+        'concat', 'fill', '(last)?IndexOf', 'join', 'reverse', 'slice',
+        'find(Index)?', 'each', 'every', 'filter', 'includes', 'map', 'reduce(Right)?', 'some', 'bind', 'partial',
+        'assign', 'keys', 'values', 'repeat', 'template', 'to(Lower|Upper|Pairs)', 'trim', 'replace',
+      ]
+    }],
   },
   'plugins': [
     'jest',
     'promise',
     'unicorn',
     'jsdoc',
+    'lodash'
   ],
 };
