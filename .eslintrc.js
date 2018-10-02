@@ -72,28 +72,27 @@ module.exports = {
       ]
     }],
     // Ignore native realization for methods from the list below, but prefer native for everything else from the list (www.npmjs.com/package/eslint-plugin-you-dont-need-lodash-underscore)
-    'you-dont-need-lodash-underscore/compact': 0,
-    'you-dont-need-lodash-underscore/find': 0,
-    'you-dont-need-lodash-underscore/findIndex': 0,
-    'you-dont-need-lodash-underscore/flatten': 0,
-    'you-dont-need-lodash-underscore/flattenDeep': 0,
-    'you-dont-need-lodash-underscore/fromPairs': 0,
-    'you-dont-need-lodash-underscore/without': 0,
-    'you-dont-need-lodash-underscore/isArray': 0,
-    'you-dont-need-lodash-underscore/each': 0,
-    'you-dont-need-lodash-underscore/every': 0,
-    'you-dont-need-lodash-underscore/filter': 0,
-    'you-dont-need-lodash-underscore/groupBy': 0,
-    'you-dont-need-lodash-underscore/includes': 0,
-    'you-dont-need-lodash-underscore/map': 0,
-    'you-dont-need-lodash-underscore/minBy': 0,
-    'you-dont-need-lodash-underscore/maxBy': 0,
-    'you-dont-need-lodash-underscore/reduce': 0,
-    'you-dont-need-lodash-underscore/range': 0,
-    'you-dont-need-lodash-underscore/reduceRight': 0,
-    'you-dont-need-lodash-underscore/size': 0,
-    'you-dont-need-lodash-underscore/some': 0,
-    'you-dont-need-lodash-underscore/uniq': 0,
+    'you-dont-need-lodash-underscore/compact': 0, // We want to use lodash instead, because it's shorter
+    'you-dont-need-lodash-underscore/find': 0, // We want to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/findIndex': 0, // We want to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/flatten': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
+    'you-dont-need-lodash-underscore/flattenDeep': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
+    'you-dont-need-lodash-underscore/fromPairs': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
+    'you-dont-need-lodash-underscore/without': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
+    'you-dont-need-lodash-underscore/each': 0, // We want to unify our iteration and to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/every': 0, // We want to unify our iteration and to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/filter': 0, // We want to unify our iteration and to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/groupBy': 0, // We want to use lodash instead, because it's shorter
+    'you-dont-need-lodash-underscore/includes': 0, // We want to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/map': 0, // We want to unify our iteration and to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/minBy': 0, // We want to use lodash instead, because it's shorter
+    'you-dont-need-lodash-underscore/maxBy': 0, // We want to use lodash instead, because it's shorter
+    'you-dont-need-lodash-underscore/reduce': 0, // We want to unify our iteration and to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/range': 0, // We want to use lodash instead, because it's shorter
+    'you-dont-need-lodash-underscore/reduceRight': 0, // We want to unify our iteration and to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/size': 0, // We want to use lodash instead, because it's shorter
+    'you-dont-need-lodash-underscore/some': 0, // We want to unify our iteration and to use _.property shortcutting syntax
+    'you-dont-need-lodash-underscore/uniq': 0, // We don't want unreadable and not self-descriptive code
   },
   'plugins': [
     'jest',
