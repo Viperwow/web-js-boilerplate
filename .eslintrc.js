@@ -5,20 +5,16 @@ module.exports = {
     'plugin:unicorn/recommended',
     'plugin:jest/recommended',
     'plugin:lodash/canonical',
+    'plugin:you-dont-need-lodash-underscore/compatible',
   ],
   'parser': 'babel-eslint',
-  'parserOptions': {
-    'ecmaVersion': 2018,
-    'sourceType': 'module',
-  },
   'env': {
-    'browser': true,
     'jest': true,
     'worker': true,
-    'es6': true,
   },
   'settings': {
     'import/resolver': {
+      // Related to the usage of the babel-plugin-module-resolver (https://github.com/tleunen/babel-plugin-module-resolver)
       'babel-module': {},
     },
   },
@@ -69,12 +65,35 @@ module.exports = {
     'lodash/prefer-constant': 0, // Its better to use arrow functions instead to improve the readability
     'lodash/prefer-noop': 0, // Its better to use arrow functions instead to improve the readability too
     'lodash/prefer-lodash-method': [2, { // Whitelist all of the native functions, but force to use lodash for the rest of the cases
-      'ignoreMethods': [
+      'ignoreMethods': [ // We donn't care for these methods about how the user write code using lodash or not
         'concat', 'fill', '(last)?IndexOf', 'join', 'reverse', 'slice',
-        'find(Index)?', 'each', 'every', 'filter', 'includes', 'map', 'reduce(Right)?', 'some', 'bind', 'partial',
-        'assign', 'keys', 'values', 'repeat', 'template', 'to(Lower|Upper|Pairs)', 'trim', 'replace',
+        'find(Index)?', 'each', 'every', 'filter', 'includes', 'map', 'reduce(Right)?', 'some', 'partial',
+        'assign', 'keys', 'values', 'repeat', 'template', 'to(Lower|Upper|Pairs)', 'trim', 'replace'
       ]
     }],
+    // Ignore native realization for methods from the list below, but prefer native for everything else from the list (www.npmjs.com/package/eslint-plugin-you-dont-need-lodash-underscore)
+    'you-dont-need-lodash-underscore/compact': 0,
+    'you-dont-need-lodash-underscore/find': 0,
+    'you-dont-need-lodash-underscore/findIndex': 0,
+    'you-dont-need-lodash-underscore/flatten': 0,
+    'you-dont-need-lodash-underscore/flattenDeep': 0,
+    'you-dont-need-lodash-underscore/fromPairs': 0,
+    'you-dont-need-lodash-underscore/without': 0,
+    'you-dont-need-lodash-underscore/isArray': 0,
+    'you-dont-need-lodash-underscore/each': 0,
+    'you-dont-need-lodash-underscore/every': 0,
+    'you-dont-need-lodash-underscore/filter': 0,
+    'you-dont-need-lodash-underscore/groupBy': 0,
+    'you-dont-need-lodash-underscore/includes': 0,
+    'you-dont-need-lodash-underscore/map': 0,
+    'you-dont-need-lodash-underscore/minBy': 0,
+    'you-dont-need-lodash-underscore/maxBy': 0,
+    'you-dont-need-lodash-underscore/reduce': 0,
+    'you-dont-need-lodash-underscore/range': 0,
+    'you-dont-need-lodash-underscore/reduceRight': 0,
+    'you-dont-need-lodash-underscore/size': 0,
+    'you-dont-need-lodash-underscore/some': 0,
+    'you-dont-need-lodash-underscore/uniq': 0,
   },
   'plugins': [
     'jest',
