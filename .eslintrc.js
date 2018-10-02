@@ -64,11 +64,13 @@ module.exports = {
     'lodash/path-style': [2, 'string'], // Prefer string path, because of a consistent code style and better readability
     'lodash/prefer-constant': 0, // Its better to use arrow functions instead to improve the readability
     'lodash/prefer-noop': 0, // Its better to use arrow functions instead to improve the readability too
+    'lodash/prefer-reject': 0, // Its much more readable instead of additional wrapping
+    'lodash/prefer-matches': 0, // Its much more readable instead of additional wrapping
     'lodash/prefer-lodash-method': [2, { // Whitelist all of the native functions, but force to use lodash for the rest of the cases
       'ignoreMethods': [ // We donn't care for these methods about how the user write code using lodash or not
         'concat', 'fill', '(last)?IndexOf', 'join', 'reverse', 'slice',
         'find(Index)?', 'each', 'every', 'filter', 'includes', 'map', 'reduce(Right)?', 'some', 'partial',
-        'assign', 'keys', 'values', 'repeat', 'template', 'to(Lower|Upper|Pairs)', 'trim', 'replace'
+        'assign', 'keys', 'values', 'repeat', 'template', 'to(Lower|Upper|Pairs)', 'trim', 'replace', 'is(Array|NaN)',
       ]
     }],
     // Ignore native realization for methods from the list below, but prefer native for everything else from the list (www.npmjs.com/package/eslint-plugin-you-dont-need-lodash-underscore)
