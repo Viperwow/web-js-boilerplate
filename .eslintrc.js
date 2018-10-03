@@ -61,39 +61,28 @@ module.exports = {
     'promise/valid-params': 2, // Always valid number of arguments should be provided to the promise's functions
     // Lodash
     'lodash/import-scope': [2, 'full'], // To ease the use of the lodash in code (do not mind about optimization, because webpack plugin will take all the tree-shaking job)
-    'lodash/path-style': [2, 'string'], // Prefer string path, because of a consistent code style and better readability
-    'lodash/prefer-constant': 0, // Its better to use arrow functions instead to improve the readability
-    'lodash/prefer-noop': 0, // Its better to use arrow functions instead to improve the readability too
     'lodash/prefer-reject': 0, // Its much more readable instead of additional wrapping
     'lodash/prefer-matches': 0, // Its much more readable instead of additional wrapping
+    'lodash/prefer-over-quantifier': 0, // Its much more readable instead of additional wrapping
     'lodash/prefer-lodash-method': [2, { // Whitelist all of the native functions, but force to use lodash for the rest of the cases
       'ignoreMethods': [ // We donn't care for these methods about how the user write code using lodash or not
         'concat', 'fill', '(last)?IndexOf', 'join', 'reverse', 'slice',
-        'find(Index)?', 'each', 'every', 'filter', 'includes', 'map', 'reduce(Right)?', 'some', 'partial',
+        'find(Index)?', 'each', 'forEach', 'every', 'filter', 'includes', 'map', 'reduce(Right)?', 'some', 'partial',
         'assign', 'keys', 'values', 'repeat', 'template', 'to(Lower|Upper|Pairs)', 'trim', 'replace', 'is(Array|NaN)',
+        'slice', 'splice', 'entries'
       ]
     }],
     // Ignore native realization for methods from the list below, but prefer native for everything else from the list (www.npmjs.com/package/eslint-plugin-you-dont-need-lodash-underscore)
     'you-dont-need-lodash-underscore/compact': 0, // We want to use lodash instead, because it's shorter
-    'you-dont-need-lodash-underscore/find': 0, // We want to use _.property shortcutting syntax
-    'you-dont-need-lodash-underscore/find-index': 0, // We want to use _.property shortcutting syntax
     'you-dont-need-lodash-underscore/flatten': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
     'you-dont-need-lodash-underscore/flatten-deep': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
     'you-dont-need-lodash-underscore/from-pairs': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
     'you-dont-need-lodash-underscore/without': 0, // We don't want to write massive equivalent, so, lodash here is an order of magnitude better than native one
-    'you-dont-need-lodash-underscore/each': 0, // We want to unify our iteration and to use _.property shortcutting syntax
-    'you-dont-need-lodash-underscore/every': 0, // We want to unify our iteration and to use _.property shortcutting syntax
-    'you-dont-need-lodash-underscore/filter': 0, // We want to unify our iteration and to use _.property shortcutting syntax
     'you-dont-need-lodash-underscore/group-by': 0, // We want to use lodash instead, because it's shorter
-    'you-dont-need-lodash-underscore/includes': 0, // We want to use _.property shortcutting syntax
-    'you-dont-need-lodash-underscore/map': 0, // We want to unify our iteration and to use _.property shortcutting syntax
     'you-dont-need-lodash-underscore/min-by': 0, // We want to use lodash instead, because it's shorter
     'you-dont-need-lodash-underscore/max-by': 0, // We want to use lodash instead, because it's shorter
-    'you-dont-need-lodash-underscore/reduce': 0, // We want to unify our iteration and to use _.property shortcutting syntax
     'you-dont-need-lodash-underscore/range': 0, // We want to use lodash instead, because it's shorter
-    'you-dont-need-lodash-underscore/reduce-right': 0, // We want to unify our iteration and to use _.property shortcutting syntax
     'you-dont-need-lodash-underscore/size': 0, // We want to use lodash instead, because it's shorter
-    'you-dont-need-lodash-underscore/some': 0, // We want to unify our iteration and to use _.property shortcutting syntax
     'you-dont-need-lodash-underscore/uniq': 0, // We don't want unreadable and not self-descriptive code
   },
   'plugins': [
