@@ -88,6 +88,8 @@ module.exports = {
     'you-dont-need-lodash-underscore/range': 0, // We want to use lodash instead, because it's shorter
     'you-dont-need-lodash-underscore/size': 0, // We want to use lodash instead, because it's shorter
     'you-dont-need-lodash-underscore/uniq': 0, // We don't want unreadable and not self-descriptive code
+    // Jest
+    'jest/no-disabled-tests': 0, // Force the usage of all tests that have been written (it force you to remove old/unnecessary tests)
   },
   'plugins': [
     'jest',
