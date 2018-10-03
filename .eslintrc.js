@@ -31,11 +31,14 @@ module.exports = {
     'react/jsx-curly-spacing': [2, 'never'], // Enforce the usage of the no spaces between curly brackets
     'object-curly-spacing': [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets
     'max-len': [2, { // Overwrite airbnb defaults to use 2-spaced indents and 120 line length
-      'code': 120,
+      'code': 100,
       'tabWidth': 2,
     }],
     // Unicorn
     'unicorn/filename-case': 0, // Remove necessity of the file special filename casing, because we need to use kebabCase for the most of the files, but for classes and react components we should prefer PascalCasing
+    'unicorn/no-process-exit': 0, // Ignore rule for Node.js
+    'unicorn/no-new-buffer': 0, // Ignore rule for Node.js
+    'unicorn/custom-error-definition': 2, // Force the only correct subclassing of the Error object
     // JSDoc
     'jsdoc/check-param-names': 2,
     'jsdoc/check-tag-names': 2,
