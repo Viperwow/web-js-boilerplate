@@ -53,10 +53,11 @@ module.exports = {
     'jsdoc/require-returns-type': 2, // FIXME Set this field to '0' when Flow will be in
     'jsdoc/valid-types': 2,
     // Promise
-    'promise/no-nesting': 2, // No nested promises
-    'promise/no-promise-in-callback': 2, // No more promises as a callbacks
-    'promise/no-callback-in-promise': 2, // To avoid side-effects
-    'promise/avoid-new': 2, // Force the usage of the new while dealing with the Promise
+    "promise/catch-or-return": 0, // Allow omitting of the catch definition
+    'promise/no-nesting': 2, // No nested promises, just chains
+    'promise/no-promise-in-callback': 0, // Ignore rule for Node.js
+    'promise/no-callback-in-promise': 0, // Ignore rule for Node.js
+    'promise/avoid-new': 0, // Force the usage of the new while dealing with the Promise (e.g. new Promise(resolve, reject), not Promise.resolve())
     'promise/no-return-in-finally': 2, // Avoid returning any values in finally
     'promise/valid-params': 2, // Always valid number of arguments should be provided to the promise's functions
     // Lodash
