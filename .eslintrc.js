@@ -5,7 +5,7 @@ module.exports = {
     'plugin:unicorn/recommended',
     'plugin:jest/recommended',
     'plugin:lodash/canonical',
-    'plugin:you-dont-need-lodash-underscore/compatible',
+    'plugin:you-dont-need-lodash-underscore/all',
   ],
   'parser': 'babel-eslint',
   'env': {
