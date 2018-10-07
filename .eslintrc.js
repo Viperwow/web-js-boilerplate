@@ -37,7 +37,7 @@ module.exports = {
     'object-curly-spacing': [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets
     'max-len': [2, { // Overwrite airbnb defaults to use 2-spaced indents and 100 line length
       'code': 100,
-      'tabWidth': [2],
+      'tabWidth': 2,
     }],
     // Unicorn
     'unicorn/filename-case': [0], // Remove necessity of the file special filename casing, because we need to use kebabCase for the most of the files, but for classes and react components we should prefer PascalCasing
