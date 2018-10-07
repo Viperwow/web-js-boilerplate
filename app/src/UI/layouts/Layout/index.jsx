@@ -1,6 +1,11 @@
 // Vendors
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 // UI
 import MainPage from 'src/UI/pages/MainPage';
 import SecondPage from 'src/UI/pages/SecondPage';
