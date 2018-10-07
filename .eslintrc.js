@@ -8,6 +8,15 @@ module.exports = {
     'plugin:you-dont-need-lodash-underscore/all',
     'plugin:compat/recommended',
   ],
+  'plugins': [
+    'jest',
+    'promise',
+    'unicorn',
+    'jsdoc',
+    'lodash',
+    'compat',
+    'sort-class-members'
+  ],
   'parser': 'babel-eslint',
   'env': { // You might have seen, that there is no 'es6: true' and etc. This is because it's inherited from plugins configurations
     'worker': true,
@@ -95,13 +104,27 @@ module.exports = {
     'you-dont-need-lodash-underscore/uniq': [0], // We don't want unreadable and not self-descriptive code
     // Jest
     'jest/no-disabled-tests': [0], // Force the usage of all tests that have been written (it force you to remove old/unnecessary tests)
+    // Class member sorting
+    'sort-class-members/sort-class-members': [2, {
+      'groups': {
+        'public-callbacks': [{ 'name': '/on.+/', 'type': 'method' }], // Add custom sorting group for public callbacks
+        'private-callbacks': [{ 'name': '/_on.+/', 'type': 'method' }], // Add custom sorting group for private callbacks
+      },
+      'order': [
+        '[arrow-function-properties]',
+        '[static-properties]',
+        '[properties]',
+        '[conventional-private-properties]',
+        'constructor',
+        '[getters]',
+        '[setters]',
+        '[static-methods]',
+        '[public-callbacks]',
+        '[methods]',
+        '[private-callbacks]',
+        '[conventional-private-methods]'
+      ],
+      'accessorPairPositioning': 'getThenSet',
+    }]
   },
-  'plugins': [
-    'jest',
-    'promise',
-    'unicorn',
-    'jsdoc',
-    'lodash',
-    'compat',
-  ],
 };

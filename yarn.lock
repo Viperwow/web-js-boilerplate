@@ -4636,6 +4636,11 @@ eslint-plugin-react@7.10.0:
     jsx-ast-utils "^2.0.1"
     prop-types "^15.6.2"
 
+eslint-plugin-sort-class-members@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sort-class-members/-/eslint-plugin-sort-class-members-1.4.0.tgz#71295d127752131e798ed1e5e76970f2c2c3ae48"
+  integrity sha512-FQG6d4Cy2vYmG9gr6J138E91WaltqwOk/b/7GCssPqnUmizrcgOeN91bV5eOTuoS4RSH1Jdn4ukWEtyWLwV8ig==
+
 eslint-plugin-unicorn@6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-unicorn/-/eslint-plugin-unicorn-6.0.0.tgz#af24ab13f4654865832c78d1a7fc5b0d7de6d30a"
