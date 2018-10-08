@@ -26,7 +26,19 @@ module.exports = {
   },
   'settings': {
     'import/resolver': {
-      'babel-module': {}, // Related to the usage of the babel-plugin-module-resolver (https://github.com/tleunen/babel-plugin-module-resolver)
+      'babel-module': {
+        "root": [ // Same as in .babelrc, but for ESLint
+          "./", // Project root
+          "./app", // App sources root
+          "./specs", // Specs root
+          "./gemini" // Gemini root
+        ]
+      },
+      "extensions": [ // Available extensions to be resolved via babel-module
+        ".js",
+        ".jsx",
+        '.mjs',
+      ]
     },
     'polyfills': [ // Add babel polyfills here that is compatible with browsers from the .browserslistrc (see more at https://github.com/amilajack/eslint-plugin-compat/wiki/Adding-polyfills)
       'promises',
@@ -107,7 +119,7 @@ module.exports = {
     // Class member sorting
     'sort-class-members/sort-class-members': [2, {
       'groups': {
-        'public-callbacks': [{ 'name': '/on.+/', 'type': 'method' }], // Add custom sorting group for public callbacks
+        'callbacks': [{ 'name': '/on.+/', 'type': 'method' }], // Add custom sorting group for public callbacks
         'private-callbacks': [{ 'name': '/_on.+/', 'type': 'method' }], // Add custom sorting group for private callbacks
       },
       'order': [
@@ -119,7 +131,7 @@ module.exports = {
         '[getters]',
         '[setters]',
         '[static-methods]',
-        '[public-callbacks]',
+        '[callbacks]',
         '[methods]',
         '[private-callbacks]',
         '[conventional-private-methods]'

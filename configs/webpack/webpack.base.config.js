@@ -72,7 +72,7 @@ module.exports = function (data) {
         SPECS_PATH, // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups))
         GEMINI_PATH, // Gemini tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. gemini setups))
       ],
-      extensions: [ '.js', '.jsx', '.css', '.scss', '.sass', '.md', '.json', '.mjs', '.graphql', '.gql' ], // Allow files with following extensions being recognized without extension in import
+      extensions: [ '.js', '.jsx', '.mjs'], // Allow files with following extensions being recognized without extension in import
     },
     module: {
       rules: [
