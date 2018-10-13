@@ -15,7 +15,7 @@ module.exports = {
     'jsdoc',
     'lodash',
     'compat',
-    'sort-class-members'
+    'sort-class-members',
   ],
   'parser': 'babel-eslint',
   'env': { // You might have seen, that there is no 'es6: true' and etc. This is because it's inherited from plugins configurations
@@ -27,18 +27,18 @@ module.exports = {
   'settings': {
     'import/resolver': {
       'babel-module': {
-        "root": [ // Same as in .babelrc, but for ESLint
-          "./", // Project root
-          "./app", // App sources root
-          "./specs", // Specs root
-          "./gemini" // Gemini root
-        ]
+        'root': [ // Same as in .babelrc, but for ESLint
+          './', // Project root
+          './app', // App sources root
+          './specs', // Specs root
+          './gemini', // Gemini root
+        ],
       },
-      "extensions": [ // Available extensions to be resolved via babel-module
-        ".js",
-        ".jsx",
+      'extensions': [ // Available extensions to be resolved via babel-module
+        '.js',
+        '.jsx',
         '.mjs',
-      ]
+      ],
     },
     'polyfills': [ // Add babel polyfills here that is compatible with browsers from the .browserslistrc (see more at https://github.com/amilajack/eslint-plugin-compat/wiki/Adding-polyfills)
       'promises',
@@ -49,6 +49,7 @@ module.exports = {
     'no-underscore-dangle': [0], // Allow names with underscores and their usage
     'arrow-parens': [2, 'as-needed'], // Ignore single parameter functions on arrow function definition
     'react/prefer-stateless-function': [0], // Allow React component to be a class and not to be a pure functions strictly
+    'react/sort-comp': [0], // Everything has been controlled by custom rules already
     'jsx-a11y/anchor-is-valid': [2, { // Check for valid react-router <Link />
       'components': ['Link'],
       'specialLink': ['to'],
@@ -119,12 +120,50 @@ module.exports = {
     // Class member sorting
     'sort-class-members/sort-class-members': [2, {
       'groups': {
-        'callbacks': [{ 'name': '/on.+/', 'type': 'method' }], // Add custom sorting group for public callbacks
-        'private-callbacks': [{ 'name': '/_on.+/', 'type': 'method' }], // Add custom sorting group for private callbacks
+        'callbacks': [{
+          'name': '/on.+/',
+          'type': 'method',
+        }], // Add custom sorting group for public callbacks
+        'private-callbacks': [{
+          'name': '/_on.+/',
+          'type': 'method',
+        }], // Add custom sorting group for private callbacks
+        'react-lifecycle-class-data': [
+          'displayName',
+          'propTypes',
+          'contextTypes',
+          'childContextTypes',
+        ],
+        'react-lifecycle-properties': [
+          'defaultProps',
+          'state',
+          {'name': '/_mixin.+/'},
+        ],
+        'react-lifecycle-methods': [
+          'getDefaultProps',
+          'getInitialState',
+          'getChildContext',
+          'getDerivedStateFromProps',
+          'componentWillMount',
+          'UNSAFE_componentWillMount',
+          'componentDidMount',
+          'componentWillReceiveProps',
+          'UNSAFE_componentWillReceiveProps',
+          'shouldComponentUpdate',
+          'componentWillUpdate',
+          'UNSAFE_componentWillUpdate',
+          'getSnapshotBeforeUpdate',
+          'componentDidUpdate',
+          'componentDidCatch',
+          'componentWillUnmount',
+          'render',
+        ],
       },
       'order': [
+        '[react-lifecycle-class-data]',
         '[arrow-function-properties]',
         '[static-properties]',
+        '[react-lifecycle-properties]',
         '[properties]',
         '[conventional-private-properties]',
         'constructor',
@@ -133,10 +172,11 @@ module.exports = {
         '[static-methods]',
         '[callbacks]',
         '[methods]',
+        '[react-lifecycle-methods]',
         '[private-callbacks]',
-        '[conventional-private-methods]'
+        '[conventional-private-methods]',
       ],
       'accessorPairPositioning': 'getThenSet',
-    }]
+    }],
   },
 };
