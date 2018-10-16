@@ -5,7 +5,6 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const _without = require('lodash/without');
 
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
@@ -23,27 +22,24 @@ const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
 // Package JSON
 const packageJson = require(path.join(ROOT_PATH, '/package.json'));
 
+// Constants
+const IMG_SIZE_LIMIT = 10 * 1024; // 10kB
+const FONTS_SIZE_LIMIT = 10 * 1024; // 10kB
+
 module.exports = function (data) {
-  const isRc = data.env === 'rc';
-  const ENVIRONMENT = data.env === 'production' || isRc
+  const IS_RC = data.env === 'rc';
+  const ENVIRONMENT = data.env === 'production' || IS_RC
     ? 'production'
     : 'development';
-  const isDevMode = ENVIRONMENT === 'development';
+  const IS_DEVELOPMENT_MODE = ENVIRONMENT === 'development';
+  const IS_SOURCE_MAP = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps for development and rc modes
 
   const DEPENDENCIES = Object.keys(packageJson.dependencies);
-
-  const ORDERED_DEPENDENCIES = [
-    'babel-polyfill', // Babel polyfill MUST be the first dependency to use polyfills
-  ];
 
   const APP_DEPENDENCIES = [
     path.join(APP_PATH, '/src/index.jsx'), // Add our js entry point
     path.join(APP_PATH, '/assets/sass/index.sass'), // Add our sass/css entry point
-  ];
-
-  const VENDOR_DEPENDENCIES = [
-    ...ORDERED_DEPENDENCIES,
-    ..._without(DEPENDENCIES, ...ORDERED_DEPENDENCIES),
+    'normalize.css'
   ];
 
   return {
@@ -54,14 +50,13 @@ module.exports = function (data) {
     },
     entry: {
       app: APP_DEPENDENCIES,
-      vendors: VENDOR_DEPENDENCIES,
     },
     output: {
       publicPath: '/', // Place from where everything would be served in webpack-dev-server
-      filename: isDevMode
+      filename: IS_DEVELOPMENT_MODE
         ? '[name].js'
         : '[name].[chunkhash].js', // Output bundles would be named according to provided template
-      chunkFilename: isDevMode
+      chunkFilename: IS_DEVELOPMENT_MODE
         ? '[id].js' // Id <=> name, because of optimize.namedChunks: true in 'development mode'
         : '[id].[name].[contenthash].js',
     },
@@ -76,7 +71,7 @@ module.exports = function (data) {
     },
     module: {
       rules: [
-        { // To support graphql .mjs imports for webpack 4.x.x
+        { // To support apollo graphql .mjs imports for webpack 4.x.x
           test: /\.mjs$/,
           include: /node_modules/,
           type: "javascript/auto",
@@ -120,7 +115,7 @@ module.exports = function (data) {
             {
               loader: 'css-loader',
               options: {
-                sourceMap: isDevMode || isRc, // Enable source maps for development and rc modes
+                sourceMap: IS_SOURCE_MAP,
                 minimize: false, // Do not minimize css (because we already did it in postcss)
                 importLoaders: 2, // Because we have 2 loaders applied before of css-loader
               },
@@ -128,6 +123,7 @@ module.exports = function (data) {
             {
               loader: 'postcss-loader',
               options: {
+                sourceMap: IS_SOURCE_MAP,
                 config: {
                   path: POSTCSS_CONFIG,
                 },
@@ -142,7 +138,7 @@ module.exports = function (data) {
             {
               loader: 'url-loader',
               options: {
-                limit: 10 * 1024, // 10kB
+                limit: IMG_SIZE_LIMIT,
                 name: '[name].[ext]?[hash]',
                 outputPath: 'assets/img/',
               },
@@ -155,7 +151,7 @@ module.exports = function (data) {
             {
               loader: 'svg-url-loader',
               options: {
-                limit: 10 * 1024, // 10kB
+                limit: IMG_SIZE_LIMIT,
                 iesafe: true, // To support IE's 4kB limit
               },
             },
@@ -167,7 +163,7 @@ module.exports = function (data) {
             {
               loader: 'url-loader',
               options: {
-                limit: 10 * 1024, // 10kB
+                limit: FONTS_SIZE_LIMIT,
                 name: '[name].[ext]?[hash]',
                 outputPath: 'assets/fonts/',
               },
@@ -177,21 +173,22 @@ module.exports = function (data) {
       ],
     },
     optimization: {
+      sideEffects: false,
       runtimeChunk: 'single', // Add only one 'runtime' file for all chunks
       splitChunks: {
-        minChunks: 2, // More than 2 imports should be occurred
         minSize: 0, // Ignore default 30 Kb minimum requirement for file to be splitted
         chunks: 'all', // Use code splitting for both sync/async imports
         cacheGroups: {
-          app: {
-            name: 'app.common', // Name of the common parts being separated from 'app' entry (you might want to split common code by naming it like 'app.common', but if not - set its name as a name of corresponding entry point)
-            priority: -20, // It means that all imports from main app will a part of the this chunk because the priority is lower then in vendor chunk
-            reuseExistingChunk: true, // reuseExistingChunk tells SplitChunksPlugin to use existing chunk if available instead of creating new one
+          common: {
+            name: 'common',
+            priority: -20,
+            reuseExistingChunk: true,
+            minChunks: 2, // More than 2 imports should be occurred
           },
           vendors: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendors.common', // Name of the common parts being separated from 'vendors' entry (you might want to split common code by naming it like 'vendors.common', but if not - set its name as a name of corresponding entry point)
-            priority: -10, // Enforce to add imported from node_modules modules to be a part of this chunk if they can be as well in another common chunk
+            name: 'vendors', // Name of the common parts being separated from 'vendors' entry (you might want to split common code by naming it like 'vendors.common', but if not - set its name as a name of corresponding entry point)
+            priority: -10,
           },
         },
       },
@@ -199,23 +196,18 @@ module.exports = function (data) {
     plugins: [
       new ExtractCssChunks({
         // Options similar to the same options in webpackOptions.output
-        filename: isDevMode
+        filename: IS_DEVELOPMENT_MODE
           ? '[name].css'
           : '[name].[contenthash].css',
-        chunkFilename: isDevMode
+        chunkFilename: IS_DEVELOPMENT_MODE
           ? '[id].css' // Id <=> name, because of optimize.namedChunks: true in 'development mode'
           : '[id].[name].[contenthash].css',
-        hot: isDevMode, // Enable hot module replacement only in 'development'
+        hot: IS_DEVELOPMENT_MODE, // Enable hot module replacement only in 'development'
       }),
       new StyleLintPlugin({
         configFile: STYLELINT_CONFIG,
         customSyntax: path.join(NODE_MODULES_PATH, '/postcss-sass'), // Enabling Sass parsing
       }),
-      // It will exclude all locales from moment, but it will include [en-gb, ru]
-      new webpack.ContextReplacementPlugin(
-        /moment[\/\\]locale/,
-        /(en-gb|ru)/
-      ),
       new HtmlWebpackPlugin({
         title: 'Web boilerplate', // Page title
         template: path.join(APP_PATH, '/src/index.html'), // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
@@ -225,6 +217,8 @@ module.exports = function (data) {
           removeRedundantAttributes: true, // remove attributes that is not needed
           removeComments: true, // Remove comments from html
           minifyURLs: true, // Minify all urls
+          sortAttributes: true,
+          sortClassName: true,
         },
       }),
       new webpack.EnvironmentPlugin({

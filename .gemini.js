@@ -11,7 +11,7 @@ module.exports = {
   },
   system: {
     plugins: {
-      babel: {}, // Allow babel polyfills to be used with gemini (it'll pick .babelrc configs automatically)
+      babel: {}, // Allow babel polyfills to be used with gemini (it'll pick babel.config.js configs automatically)
     },
     exclude: [
       'node_modules/*', // Ignore node modules (we got nothing to test here)
