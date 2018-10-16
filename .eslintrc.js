@@ -27,7 +27,7 @@ module.exports = {
   'settings': {
     'import/resolver': {
       'babel-module': {
-        'root': [ // Same as in .babelrc, but for ESLint
+        'root': [ // Same as in babel.config.js, but for ESLint
           './', // Project root
           './app', // App sources root
           './specs', // Specs root
@@ -46,6 +46,7 @@ module.exports = {
   },
   'rules': {
     // Airbnb / eslint
+    'no-confusing-arrow': [0], // Allow using arrow functions with conditional return for a single parameter
     'no-underscore-dangle': [0], // Allow names with underscores and their usage
     'arrow-parens': [2, 'as-needed'], // Ignore single parameter functions on arrow function definition
     'react/prefer-stateless-function': [0], // Allow React component to be a class and not to be a pure functions strictly
@@ -91,7 +92,7 @@ module.exports = {
     'promise/no-return-in-finally': [2], // Avoid returning any values in finally
     'promise/valid-params': [2], // Always valid number of arguments should be provided to the promise's functions
     // Lodash
-    'lodash/import-scope': [2, 'full'], // To ease the use of the lodash in code (do not mind about optimization, because webpack plugin will take all the tree-shaking job)
+    'lodash/import-scope': [2, 'member'], // To ease the use of the lodash in code (do not mind about optimization, because webpack plugin will take all the tree-shaking job)
     'lodash/prefer-reject': [0], // Its much more readable instead of additional wrapping
     'lodash/prefer-matches': [0], // Its much more readable instead of additional wrapping
     'lodash/prefer-over-quantifier': [0], // Its much more readable instead of additional wrapping
