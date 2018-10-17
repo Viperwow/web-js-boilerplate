@@ -5,6 +5,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
@@ -19,9 +20,6 @@ const POSTCSS_CONFIG = path.join(ROOT_PATH, '/configs/postcss.config.js');
 const ESLINT_CONFIG = path.join(ROOT_PATH, '/.eslintrc.js');
 const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
 
-// Package JSON
-const packageJson = require(path.join(ROOT_PATH, '/package.json'));
-
 // Constants
 const IMG_SIZE_LIMIT = 10 * 1024; // 10kB
 const FONTS_SIZE_LIMIT = 10 * 1024; // 10kB
@@ -33,8 +31,6 @@ module.exports = function (data) {
     : 'development';
   const IS_DEVELOPMENT_MODE = ENVIRONMENT === 'development';
   const IS_SOURCE_MAP = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps for development and rc modes
-
-  const DEPENDENCIES = Object.keys(packageJson.dependencies);
 
   const APP_DEPENDENCIES = [
     path.join(APP_PATH, '/src/index.jsx'), // Add our js entry point
@@ -230,7 +226,16 @@ module.exports = function (data) {
         exclude: /a\.js|node_modules/, // Exclude node_modules
         failOnError: true, // Show a warning when there is a circular dependency
         allowAsyncCycles: false, // Disallow import cycles that include an async import, e.g. via import(/* webpackMode: "weak" */ './file.js')
-      })
+      }),
+      new LodashModuleReplacementPlugin({ // Shrink down all unnecessary lodash helpers and functionality, except whitelisted below (see mapping https://github.com/lodash/lodash-webpack-plugin/blob/master/src/mapping.js to find out more info about each option)
+        shorthands: true,
+        caching: true,
+        exotics: true,
+        guards: true,
+        memoizing: true,
+        flattening: true,
+        paths: true,
+      }),
     ],
   };
 };
