@@ -61,6 +61,7 @@ module.exports = {
     'max-len': [2, { // Overwrite airbnb defaults to use 2-spaced indents and 100 line length
       'code': 100,
       'tabWidth': 2,
+      'ignoreTrailingComments': true, // Allow non-fixed comments on the same line as
     }],
     // Unicorn
     'unicorn/filename-case': [0], // Remove necessity of the file special filename casing, because we need to use kebabCase for the most of the files, but for classes and react components we should prefer PascalCasing

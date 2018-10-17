@@ -1,32 +1,27 @@
-import * as React from 'react';
+// Vendors
+import React, {Component} from 'react';
 
 export default (
   preparation,
   processorSuccess = result => ({result: result || null}),
   processorError = error => ({error: error || null}),
-) => Wrapped => class LoadableWrapper extends React.Component {
+) => Wrapped => class PreparationWrapper extends Component {
   state = {
     result: null,
     error: null,
-    isPreparing: false,
+    isPreparing: true,
   };
 
   _isMounted = false;
 
-  _processPreparation = async () => {
-    this.setState(prevState => ({
-      ...prevState,
-      isPreparing: true,
-    }));
-
-    return preparation(this.props);
-  };
+  _processPreparation = async () => preparation(this.props); // Coercion to convert the result of the operation to the Promise
 
   _onProcessSuccess = result => {
     if (this._isMounted) {
       this.setState(prevState => ({
         ...prevState,
-        ...processorSuccess(result),
+        isPreparing: false,
+        result,
       }));
     }
   };
@@ -35,7 +30,8 @@ export default (
     if (this._isMounted) {
       this.setState(prevState => ({
         ...prevState,
-        ...processorError(error),
+        isPreparing: false,
+        error,
       }));
     }
   };
@@ -52,6 +48,17 @@ export default (
   }
 
   render() {
-    return <Wrapped {...this.props} {...this.state} />;
+    const {
+      result,
+      error,
+      ...restState
+    } = this.state;
+    const providedState = {
+      ...restState,
+      ...processorSuccess(result),
+      ...processorError(error),
+    };
+
+    return <Wrapped {...this.props} {...providedState} />;
   }
 };

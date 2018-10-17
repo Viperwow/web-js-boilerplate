@@ -7,10 +7,10 @@ import {
   Switch,
 } from 'react-router-dom';
 // UI
-import MainPage from 'src/UI/pages/MainPage';
-import SecondPage from 'src/UI/pages/SecondPage';
-import ThirdPage from 'src/UI/pages/ThirdPage';
-import UnknownRoutePage from 'src/UI/pages/UnknownRoutePage';
+import DynamicMainPage from 'src/UI/pages/MainPage/DynamicMainPage';
+import DynamicSecondPage from 'src/UI/pages/SecondPage/DynamicSecondPage';
+import DynamicThirdPage from 'src/UI/pages/ThirdPage/DynamicThirdPage';
+import DynamicUnknownRoutePage from 'src/UI/pages/UnknownRoutePage/DynamicUnknownRoutePage';
 
 class Layout extends Component {
   render() {
@@ -19,10 +19,10 @@ class Layout extends Component {
         <div className="layout">
           <Switch>
             <Redirect exact from="/" to="/1" />
-            <Route exact path="/1" component={MainPage} />
-            <Route exact path="/2" component={SecondPage} />
-            <Route exact path="/3" component={ThirdPage} />
-            <Route component={UnknownRoutePage} />
+            <Route exact path="/1" component={DynamicMainPage} />
+            <Route exact path="/2" component={DynamicSecondPage} />
+            <Route exact path="/3" component={DynamicThirdPage} />
+            <Route component={DynamicUnknownRoutePage} />
           </Switch>
         </div>
       </Router>
