@@ -1,12 +1,8 @@
-import React from 'react';
-import dynamic from 'src/common/dynamic';
+// HoC
+import loadable from 'src/common/loadable';
 
-const DynamicMainPage = () => {
-  const Component = dynamic(
-    import('src/UI/pages/MainPage' /* webpackChunkName: "MainPage" */),
-  );
-
-  return <Component />;
-};
+const DynamicMainPage = loadable(
+  import('src/UI/pages/MainPage' /* webpackChunkName: "MainPage" */),
+);
 
 export default DynamicMainPage;

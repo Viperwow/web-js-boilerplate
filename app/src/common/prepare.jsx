@@ -51,14 +51,14 @@ export default (
     const {
       result,
       error,
-      ...restState
+      isPreparing,
     } = this.state;
     const providedState = {
-      ...restState,
       ...processorSuccess(result),
       ...processorError(error),
     };
 
-    return <Wrapped {...this.props} {...providedState} />;
+    return isPreparing
+      && <Wrapped {...this.props} {...providedState} />;
   }
 };
