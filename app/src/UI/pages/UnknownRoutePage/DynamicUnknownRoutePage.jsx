@@ -1,12 +1,8 @@
-import React from 'react';
-import dynamic from 'src/common/dynamic';
+// HoC
+import loadable from 'src/common/loadable';
 
-const DynamicUnknownRoutePage = () => {
-  const Component = dynamic(
-    import('src/UI/pages/UnknownRoutePage' /* webpackChunkName: "UnknownRoutePage" */),
-  );
-
-  return <Component />;
-};
+const DynamicUnknownRoutePage = loadable(
+  import('src/UI/pages/UnknownRoutePage' /* webpackChunkName: "UnknownRoutePage" */),
+);
 
 export default DynamicUnknownRoutePage;

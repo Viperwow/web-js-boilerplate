@@ -1,12 +1,8 @@
-import React from 'react';
-import dynamic from 'src/common/dynamic';
+// HoC
+import loadable from 'src/common/loadable';
 
-const DynamicSecondPage = () => {
-  const Component = dynamic(
-    import('src/UI/pages/SecondPage' /* webpackChunkName: "SecondPage" */),
-  );
-
-  return <Component />;
-};
+const DynamicSecondPage = loadable(
+  import('src/UI/pages/SecondPage' /* webpackChunkName: "SecondPage" */),
+);
 
 export default DynamicSecondPage;

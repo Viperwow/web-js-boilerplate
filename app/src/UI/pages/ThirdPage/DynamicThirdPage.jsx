@@ -1,12 +1,8 @@
-import React from 'react';
-import dynamic from 'src/common/dynamic';
+// HoC
+import loadable from 'src/common/loadable';
 
-const DynamicThirdPage = () => {
-  const Component = dynamic(
-    import('src/UI/pages/ThirdPage' /* webpackChunkName: "ThirdPage" */),
-  );
-
-  return <Component />;
-};
+const DynamicThirdPage = loadable(
+  import('src/UI/pages/ThirdPage' /* webpackChunkName: "ThirdPage" */),
+);
 
 export default DynamicThirdPage;
