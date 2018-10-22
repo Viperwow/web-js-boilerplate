@@ -10,7 +10,6 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
-const APP_PATH = path.join(ROOT_PATH, '/app');
 const SPECS_PATH = path.join(ROOT_PATH, '/specs');
 const GEMINI_PATH = path.join(ROOT_PATH, '/gemini');
 
@@ -33,8 +32,8 @@ module.exports = function (data) {
   const IS_SOURCE_MAP = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps for development and rc modes
 
   const APP_DEPENDENCIES = [
-    path.join(APP_PATH, '/src/index.jsx'), // Add our js entry point
-    path.join(APP_PATH, '/assets/sass/index.sass'), // Add our sass/css entry point
+    path.join(ROOT_PATH, '/src/index.jsx'), // Add our js entry point
+    path.join(ROOT_PATH, '/assets/sass/index.sass'), // Add our sass/css entry point
     'normalize.css'
   ];
 
@@ -59,7 +58,7 @@ module.exports = function (data) {
     resolve: {
       modules: [ // So there are an array of paths where to look for modules based on publicPath
         'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
-        APP_PATH, // App modules root to import from
+        ROOT_PATH, // App modules root to import from
         SPECS_PATH, // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups))
         GEMINI_PATH, // Gemini tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. gemini setups))
       ],
@@ -206,7 +205,7 @@ module.exports = function (data) {
       }),
       new HtmlWebpackPlugin({
         title: 'Web boilerplate', // Page title
-        template: path.join(APP_PATH, '/src/index.html'), // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
+        template: path.join(ROOT_PATH, '/src/index.html'), // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
         chunksSortMode: 'dependency',
         minify: {
           collapseWhitespace: true, // Remove all whitespaces

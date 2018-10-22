@@ -3,7 +3,6 @@ module.exports = {
     ['module-resolver', {
       root: [
         './', // Project root
-        './app', // App sources root
         './specs', // Specs root
         './gemini', // Gemini root
       ],
