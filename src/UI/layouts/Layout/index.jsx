@@ -14,6 +14,9 @@ import DynamicUnknownRoutePage from 'src/UI/pages/UnknownRoutePage/DynamicUnknow
 
 class Layout extends Component {
   render() {
+    console.warn('DynamicMain');
+    console.log(DynamicMainPage);
+
     return (
       <Router>
         <div className="layout">
