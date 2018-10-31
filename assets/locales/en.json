@@ -1,0 +1,8 @@
+{
+  "pages": {
+    "main": "Main page",
+    "second": "Second page",
+    "third": "Third page",
+    "unknown": "Unknown page"
+  }
+}

@@ -58,7 +58,7 @@ export default (
       ...processorError(error),
     };
 
-    return isPreparing
+    return !isPreparing
       && <Wrapped {...this.props} {...providedState} />;
   }
 };
