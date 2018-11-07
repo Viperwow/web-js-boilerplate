@@ -1,13 +1,13 @@
 // Vendors
 import React, {Component} from 'react';
-// Constants
-const SECOND_PAGE_PLACEHOLDER = 'SECOND_PAGE_PLACEHOLDER';
 
 class SecondPage extends Component {
   render() {
+    const {text} = this.props;
+
     return (
       <div className="page">
-        {SECOND_PAGE_PLACEHOLDER}
+        {text}
       </div>
     );
   }

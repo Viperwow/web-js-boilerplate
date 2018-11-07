@@ -1,13 +1,13 @@
 // Vendors
 import React, {Component} from 'react';
-// Constants
-const THIRD_PAGE_PLACEHOLDER = 'THIRD_PAGE_PLACEHOLDER';
 
 class ThirdPage extends Component {
   render() {
+    const {text} = this.props;
+
     return (
       <div className="page">
-        {THIRD_PAGE_PLACEHOLDER}
+        {text}
       </div>
     );
   }

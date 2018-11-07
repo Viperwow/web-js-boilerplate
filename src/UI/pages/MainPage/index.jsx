@@ -1,13 +1,13 @@
 // Vendors
 import React, {Component} from 'react';
-// Constants
-const MAIN_PAGE_PLACEHOLDER = 'MAIN_PAGE_PLACEHOLDER';
 
 class MainPage extends Component {
   render() {
+    const {text} = this.props;
+
     return (
       <div className="page">
-        {MAIN_PAGE_PLACEHOLDER}
+        {text}
       </div>
     );
   }

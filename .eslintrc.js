@@ -56,6 +56,7 @@ module.exports = {
       'aspects': ['noHref', 'invalidHref', 'preferButton'],
     }],
     'react/jsx-curly-spacing': [2, 'never'], // Enforce the usage of the no spaces between curly brackets
+    'react/prop-types': [1], // FIXME Set this field to '0' when Flow will be in
     'object-curly-spacing': [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets
     'max-len': [2, { // Overwrite airbnb defaults to use 2-spaced indents and 100 line length
       'code': 100,
