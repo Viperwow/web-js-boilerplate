@@ -8,12 +8,12 @@ import connect from 'src/common/connect';
 // Helpers
 import {initLocale} from 'src/helpers/locale';
 
+const initialPreparations = async ({client}) => {
+  await initLocale(client);
+};
+
 export default hot(module)(
   connect()(
-    prepare(async ({client}) => {
-      await initLocale(client);
-
-      return client;
-    })(Layout),
+    prepare(initialPreparations)(Layout),
   ),
 );

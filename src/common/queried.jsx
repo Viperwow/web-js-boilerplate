@@ -1,6 +1,6 @@
 // Vendors
 import React, {Component} from 'react';
-import {ApolloConsumer} from 'react-apollo';
+import {Query} from 'react-apollo';
 import {merge} from 'lodash';
 
 const _doubleIdentity = (client, props = {}) => ({client, ...props});
@@ -16,16 +16,28 @@ const mergeProps = (
 );
 
 const connect = (
+  query,
   mapStateToProps,
   mapClientToProps,
 ) => Wrapped => class Connected extends Component {
   render() {
     return (
-      <ApolloConsumer>
-        {client => (
-          <Wrapped {...{...mergeProps(client, this.props, mapStateToProps, mapClientToProps)}} />
+      <Query query={query}>
+        {({client, ...restQueryProps}) => (
+          <Wrapped {...{
+            ...mergeProps(
+              client,
+              {
+                ...this.props,
+                query: restQueryProps,
+              },
+              mapStateToProps,
+              mapClientToProps,
+            ),
+          }}
+          />
         )}
-      </ApolloConsumer>
+      </Query>
     );
   }
 };

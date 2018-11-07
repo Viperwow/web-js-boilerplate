@@ -1,12 +1,13 @@
 // Vendors
 import React, {Component} from 'react';
-import i18n from 'i18next';
 
 class MainPage extends Component {
   render() {
+    const {text} = this.props;
+
     return (
       <div className="page">
-        {i18n.t('pages.main')}
+        {text}
       </div>
     );
   }

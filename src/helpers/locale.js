@@ -5,7 +5,7 @@ import i18nFetchBackend from 'i18next-fetch-backend';
 // GQL
 import {MUTATION_LOCALE} from 'src/client-gql/locale';
 
-const _setAppStateLocale = (client, locale = i18n.language) => {
+const _setStoreLocale = (client, locale = i18n.language) => {
   client.mutate({mutation: MUTATION_LOCALE, variables: {locale}});
 };
 
@@ -30,10 +30,10 @@ const initLocale = client => new Promise((resolve, reject) => {
       if (error) {
         reject(error);
       } else {
-        _setAppStateLocale(client, getLocale());
+        _setStoreLocale(client, getLocale());
 
         i18n.on('languageChanged', locale => {
-          _setAppStateLocale(client, locale);
+          _setStoreLocale(client, locale);
         });
 
         resolve(getLocale());
