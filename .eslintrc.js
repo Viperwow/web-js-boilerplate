@@ -29,8 +29,6 @@ module.exports = {
       'babel-module': {
         'root': [ // Same as in babel.config.js, but for ESLint
           './', // Project root
-          './specs', // Specs root
-          './gemini', // Gemini root
         ],
       },
       'extensions': [ // Available extensions to be resolved via babel-module

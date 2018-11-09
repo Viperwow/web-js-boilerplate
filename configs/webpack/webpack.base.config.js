@@ -10,8 +10,6 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
-const SPECS_PATH = path.join(ROOT_PATH, '/specs');
-const GEMINI_PATH = path.join(ROOT_PATH, '/gemini');
 
 // Configs
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
@@ -29,17 +27,15 @@ module.exports = function (data) {
     ? 'production'
     : 'development';
   const IS_DEVELOPMENT_MODE = ENVIRONMENT === 'development';
-  const IS_SOURCE_MAP = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps for development and rc modes
-
+  const IS_SOURCE_MAP_ENABLED = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps for development and rc modes
   const ORDERED_DEPENDENCIES = [
     'unfetch/polyfill/index.js', // To support Fetch API in older browsers and i18n-fetch-backend (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
   ];
-
   const APP_DEPENDENCIES = [
     ...ORDERED_DEPENDENCIES,
     path.join(ROOT_PATH, '/src/index.jsx'), // Add our js entry point
     path.join(ROOT_PATH, '/assets/sass/index.sass'), // Add our sass/css entry point
-    'normalize.css'
+    'normalize.css',
   ];
 
   return {
@@ -64,26 +60,30 @@ module.exports = function (data) {
       modules: [ // So there are an array of paths where to look for modules based on publicPath
         'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
         ROOT_PATH, // App modules root to import from
-        SPECS_PATH, // Tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. setups))
-        GEMINI_PATH, // Gemini tests import root (we need it, because sometimes we might want to use shared parts for tests (e.g. gemini setups))
       ],
-      extensions: [ '.js', '.jsx', '.mjs'], // Allow files with following extensions being recognized without extension in import
+      extensions: ['.js', '.jsx', '.mjs'], // Allow files with following extensions being recognized without extension in import
     },
     module: {
       rules: [
         { // To support apollo graphql .mjs imports for webpack 4.x.x
           test: /\.mjs$/,
           include: /node_modules/,
-          type: "javascript/auto",
+          type: 'javascript/auto',
         },
         {
           test: /\.jsx?$/,
           exclude: NODE_MODULES_PATH,
           use: [
-            'babel-loader', // Do babel transform
+            {
+              loader: 'babel-loader', // Do babel transform
+              options: {
+                cacheDirectory: true, // Cache traspilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+              },
+            },
             {
               loader: 'eslint-loader', // Do eslint before any transformations
               options: {
+                cache: true,
                 configFile: ESLINT_CONFIG, // Get config from there
               },
             },
@@ -91,31 +91,36 @@ module.exports = function (data) {
         },
         {
           test: /\.(graphql|gql)$/,
-          exclude: /node_modules/,
-          loader: 'graphql-tag/loader'
+          exclude: NODE_MODULES_PATH,
+          loader: 'graphql-tag/loader',
         },
         {
           test: /\.worker\.js$/,
           exclude: NODE_MODULES_PATH,
           use: [
             'worker-loader',
-            'babel-loader', // To support polyfilling of workers
+            {
+              loader: 'babel-loader', // To support polyfilling of workers
+              options: {
+                cacheDirectory: true, // Cache traspilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+              },
+            },
             {
               loader: 'eslint-loader', // Do eslint before any transformations
               options: {
+                cache: true,
                 configFile: ESLINT_CONFIG, // Get config from there
               },
             },
           ],
         },
         {
-          test: /\.(sa|sc|c)ss$/,
+          test: /\.(sa|sc|c)ss$/, // WARNING: just keep in mind that normalize.css require to not exclude node_modules and not the only
           use: [
             ExtractCssChunks.loader,
             {
               loader: 'css-loader',
               options: {
-                sourceMap: IS_SOURCE_MAP,
                 minimize: false, // Do not minimize css (because we already did it in postcss)
                 importLoaders: 2, // Because we have 2 loaders applied before of css-loader
               },
@@ -123,7 +128,7 @@ module.exports = function (data) {
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: IS_SOURCE_MAP,
+                sourceMap: IS_SOURCE_MAP_ENABLED,
                 config: {
                   path: POSTCSS_CONFIG,
                 },
@@ -134,6 +139,7 @@ module.exports = function (data) {
         },
         {
           test: /\.(png|jpe?g|gif)$/,
+          exclude: NODE_MODULES_PATH,
           use: [
             {
               loader: 'url-loader',
@@ -147,18 +153,21 @@ module.exports = function (data) {
         },
         {
           test: /\.svg$/,
+          exclude: NODE_MODULES_PATH,
           use: [
             {
               loader: 'svg-url-loader',
               options: {
                 limit: IMG_SIZE_LIMIT,
                 iesafe: true, // To support IE's 4kB limit
+                outputPath: 'assets/img/',
               },
             },
           ],
         },
         {
           test: /\.woff2?$/,
+          exclude: NODE_MODULES_PATH,
           use: [
             {
               loader: 'url-loader',
@@ -222,12 +231,12 @@ module.exports = function (data) {
         },
       }),
       new webpack.EnvironmentPlugin({
-        BABEL_ENV: ENVIRONMENT, // Set BABEL_ENV global variable with provided value
+        BABEL_ENV: ENVIRONMENT,
         NODE_ENV: ENVIRONMENT, // Set NODE_ENV global variable with provided value (by default NODE_ENV is based on BABEL_ENV, so we may not to provide it at all) (see https://babeljs.io/docs/usage/babelrc/#env-option for more info)
         BROWSERSLIST_CONFIG: BROWSERSLIST_CONFIG, // Browserslist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
       }),
-      new CircularDependencyPlugin({ // Try to find circular dependencies at the build-time
-        exclude: /a\.js|node_modules/, // Exclude node_modules
+      new CircularDependencyPlugin({ // Try to find circular dependencies at the build-time (it'd be used for dynamic import statements)
+        exclude: /node_modules/, // Exclude node_modules (it doesn't support direct path, just RegExp)
         failOnError: true, // Show a warning when there is a circular dependency
         allowAsyncCycles: false, // Disallow import cycles that include an async import, e.g. via import(/* webpackMode: "weak" */ './file.js')
       }),
