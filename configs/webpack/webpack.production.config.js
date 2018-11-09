@@ -21,6 +21,7 @@ module.exports = function productionWebpackConfig(data) {
     optimization: {
       minimizer: [
         new UglifyJsWebpackPlugin({
+          cache: true,
           parallel: true, // Uses all cores available on given machine
           uglifyOptions: {
             compress: {

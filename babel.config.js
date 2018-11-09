@@ -3,8 +3,6 @@ module.exports = {
     ['module-resolver', {
       root: [
         './', // Project root
-        './specs', // Specs root
-        './gemini', // Gemini root
       ],
     }],
     // Additional non-babel-preset-env
