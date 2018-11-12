@@ -27,7 +27,7 @@ module.exports = function (data) {
     ? 'production'
     : 'development';
   const IS_DEVELOPMENT_MODE = ENVIRONMENT === 'development';
-  const IS_SOURCE_MAP_ENABLED = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps for development and rc modes
+  const IS_DEBUG_MODE = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps and another debug info for development and rc modes
   const ORDERED_DEPENDENCIES = [
     'unfetch/polyfill/index.js', // To support Fetch API in older browsers and i18n-fetch-backend (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
   ];
@@ -57,7 +57,7 @@ module.exports = function (data) {
         : '[id].[name].[contenthash].js',
     },
     resolve: {
-      modules: [ // So there are an array of paths where to look for modules based on publicPath
+      modules: [ // So there are an array of paths where to look for modules based on publicPath (by the way, keep in mind, that this paths affects every file extension, so babel module resolver's paths complement it for JS)
         'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
         ROOT_PATH, // App modules root to import from
       ],
@@ -128,13 +128,20 @@ module.exports = function (data) {
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: IS_SOURCE_MAP_ENABLED,
+                sourceMap: IS_DEBUG_MODE,
                 config: {
                   path: POSTCSS_CONFIG,
                 },
               },
             },
-            'sass-loader',
+            {
+              loader: 'sass-loader',
+              options: { // Speed up sass processing using recommendations from https://www.npmjs.com/package/sass-loader
+                implementation: require('sass'), // To use fast Dart Sass implementation instead of Node Sass
+                fiber: require('fibers'), // Make build faster using coroutines
+                sourceMap: IS_DEBUG_MODE,
+              },
+            },
           ],
         },
         {
