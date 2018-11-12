@@ -27,7 +27,7 @@ module.exports = function (data) {
     ? 'production'
     : 'development';
   const IS_DEVELOPMENT_MODE = ENVIRONMENT === 'development';
-  const IS_DEBUG_MODE = IS_DEVELOPMENT_MODE || IS_RC; // Enable debug mode (e.g., source maps) for development and rc modes
+  const IS_DEBUG_MODE = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps and another debug info for development and rc modes
   const ORDERED_DEPENDENCIES = [
     'unfetch/polyfill/index.js', // To support Fetch API in older browsers and i18n-fetch-backend (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
   ];
