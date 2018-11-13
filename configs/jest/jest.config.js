@@ -22,6 +22,7 @@ module.exports = {
   // setupFiles: [`${SUPPORT_PATH}`], // FIXME Uncomment this line when you'll add any support files to the <rootDir>/specs/support
   "setupTestFrameworkScriptFile": `${ROOT_PATH}/configs/jest/jest.config.setup.js`,
   "transform": { // It's added here to support additional preprocessors usage and to not forget about such a thing in future (see https://jestjs.io/docs/en/configuration.html#transform-object-string-string for more info) and it might fail on the flow usage without this block
-    "^.+\\.jsx?$": "babel-jest"
+    "^.+\\.jsx?$": "babel-jest", // Transform JS code using babel
+    "^.+\\.(gql|graphql)$": "jest-transform-graphql", // To support graphql-tag usage in jest (see https://github.com/apollographql/graphql-tag#webpack-preprocessing-with-graphql-tagloader for more info)
   },
 };
