@@ -225,7 +225,7 @@ module.exports = function (data) {
         customSyntax: path.join(NODE_MODULES_PATH, '/postcss-sass'), // Enabling Sass parsing
       }),
       new HtmlWebpackPlugin({
-        title: 'Web boilerplate', // Page title
+        title: 'Web-js-boilerplate', // Page title
         template: path.join(ROOT_PATH, '/src/index.html'), // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
         chunksSortMode: 'dependency',
         minify: {
