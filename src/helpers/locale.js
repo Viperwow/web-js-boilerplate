@@ -9,6 +9,10 @@ const _setStoreLocale = (client, locale = i18n.language) => {
   client.mutate({mutation: MUTATION_LOCALE, variables: {locale}});
 };
 
+const _setDocumentTitle = () => {
+  document.title = i18n.t('document.title');
+};
+
 const getLocale = () => i18n.language;
 
 const initLocale = client => new Promise((resolve, reject) => {
@@ -31,9 +35,11 @@ const initLocale = client => new Promise((resolve, reject) => {
         reject(error);
       } else {
         _setStoreLocale(client, getLocale());
+        _setDocumentTitle();
 
         i18n.on('languageChanged', locale => {
           _setStoreLocale(client, locale);
+          _setDocumentTitle();
         });
 
         resolve(getLocale());
