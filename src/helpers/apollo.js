@@ -7,20 +7,19 @@ import {HttpLink} from 'apollo-link-http';
 import {onError} from 'apollo-link-error';
 import {RetryLink} from 'apollo-link-retry';
 // GQL
-import {
-  LOCALE_DEFAULTS,
-  setLocale,
-  TYPE_DEF_LOCALE,
-} from 'src/client-gql/locale';
+import {TYPE_DEF_LOCALE} from 'src/types/gql';
+import setLocale from 'src/resolvers/locale';
 
 const cache = new InMemoryCache(); // Create apollo cache (same thing as meant as Redux app's 'local state')
+
 const httpLink = new HttpLink({
   uri: 'https://launchpad.graphql.com/j90lv4pm5p', // 'http://localhost:3000/graphql',
 });
+
 const localStateLink = withClientState({ // Allows you provide defaults to the 'local state' (default 'local state' is {})
   cache,
   defaults: {
-    ...LOCALE_DEFAULTS,
+    locale: 'en',
   },
   typeDefs: `
     type Mutation {
@@ -33,6 +32,7 @@ const localStateLink = withClientState({ // Allows you provide defaults to the '
     },
   },
 });
+
 const errorLink = onError(({graphQLErrors, networkError}) => { // Just handles errors (log it, for example)
   if (graphQLErrors) {
     graphQLErrors.forEach(({message, locations, path}) => {
@@ -44,6 +44,7 @@ const errorLink = onError(({graphQLErrors, networkError}) => { // Just handles e
     console.error(`[Apollo network error]: ${networkError}`); // eslint-disable-line no-console
   }
 });
+
 const retryLink = new RetryLink(); // To retry failed or time-outed http requests
 
 const ApolloExtendedClient = new ApolloClient({

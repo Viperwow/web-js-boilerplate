@@ -3,7 +3,7 @@ import i18n from 'i18next';
 // Common
 import queried from 'src/common/queried';
 // GQL
-import {QUERY_LOCALE} from 'src/client-gql/locale';
+import QUERY_LOCALE from 'src/queries/locale';
 // UI
 import UnknownRoutePage from '.';
 
