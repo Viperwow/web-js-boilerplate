@@ -55,7 +55,7 @@ module.exports = function (data) {
       chunkFilename: IS_DEVELOPMENT_MODE
         ? '[id].js' // Id <=> name, because of optimize.namedChunks: true in 'development mode'
         : '[id].[name].[contenthash].js',
-      globalObject : `(typeof self !== undefined ? self : this)`, // WARNING: dirty hack to make it works, because webpack 4 is unable to deal with workers in web related environments (see https://github.com/webpack/webpack/issues/6642 for more info)
+      globalObject : `(typeof self === undefined ? this : self)`, // WARNING: dirty hack to make it works, because webpack 4 is unable to deal with workers in web related environments (see https://github.com/webpack/webpack/issues/6642 for more info)
     },
     resolve: {
       modules: [ // So there are an array of paths where to look for modules based on publicPath (by the way, keep in mind, that this paths affects every file extension, so babel module resolver's paths complement it for JS)
@@ -72,7 +72,7 @@ module.exports = function (data) {
           type: 'javascript/auto',
         },
         {
-          test: /\.jsx?$/,
+          test: /(?<!worker)\.js(x)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
           exclude: NODE_MODULES_PATH,
           use: [
             {
@@ -99,7 +99,14 @@ module.exports = function (data) {
           test: /\.worker\.js$/,
           exclude: NODE_MODULES_PATH,
           use: [
-            'worker-loader',
+            {
+              loader: 'worker-loader',
+              options: {
+                name: IS_DEVELOPMENT_MODE
+                  ? '[name].js'
+                  : 'worker.[hash].js'
+              }
+            },
             {
               loader: 'babel-loader', // To support polyfilling of workers
               options: {
