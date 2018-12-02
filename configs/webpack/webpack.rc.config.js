@@ -3,7 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
 
 // Configs
@@ -21,10 +21,10 @@ module.exports = function rcWebpackConfig(data) {
     },
     optimization: {
       minimizer: [
-        new UglifyJsWebpackPlugin({
+        new TerserWebpackPlugin({
           cache: true,
           parallel: true, // Uses all cores available on given machine
-          uglifyOptions: {
+          terserOptions: {
             compress: {
               drop_console: false,
               warnings: true,
