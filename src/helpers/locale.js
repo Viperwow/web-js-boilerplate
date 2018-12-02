@@ -3,7 +3,7 @@ import i18n from 'i18next';
 import i18nBrowserLanguageDetector from 'i18next-browser-languagedetector';
 import i18nFetchBackend from 'i18next-fetch-backend';
 // GQL
-import {MUTATION_LOCALE} from 'src/client-gql/locale';
+import MUTATION_LOCALE from 'src/mutations/locale';
 
 const _setStoreLocale = (client, locale = i18n.language) => {
   client.mutate({mutation: MUTATION_LOCALE, variables: {locale}});
