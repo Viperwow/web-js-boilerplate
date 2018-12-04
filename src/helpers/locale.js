@@ -1,16 +1,18 @@
 // Vendors
 import i18n from 'i18next';
 import i18nBrowserLanguageDetector from 'i18next-browser-languagedetector';
-import i18nFetchBackend from 'i18next-fetch-backend';
 // GQL
 import MUTATION_LOCALE from 'src/mutations/locale';
 
-const _setStoreLocale = (client, locale = i18n.language) => {
-  client.mutate({mutation: MUTATION_LOCALE, variables: {locale}});
+const _loadLocaleDynamically = async (locale = i18n.language) => {
+  const localeModule = await import(`assets/locales/${locale}.js`);
+
+  i18n.addResourceBundle(locale, 'translation', localeModule.default, true, true);
+  document.title = i18n.t('document.title');
 };
 
-const _setDocumentTitle = () => {
-  document.title = i18n.t('document.title');
+const _setStoreLocale = (client, locale = i18n.language) => {
+  client.mutate({mutation: MUTATION_LOCALE, variables: {locale}});
 };
 
 const getLocale = () => i18n.language;
@@ -18,7 +20,6 @@ const getLocale = () => i18n.language;
 const initLocale = client => new Promise((resolve, reject) => {
   i18n
     .use(i18nBrowserLanguageDetector) // To detect user's locale automatically
-    .use(i18nFetchBackend) // To dynamically load translations
     .init({
       fallbackLng: ['en'], // If language is not found - get this one
       load: 'languageOnly', // Ignore something like 'en-EU', just look up for 'en'
@@ -27,19 +28,16 @@ const initLocale = client => new Promise((resolve, reject) => {
         lookupCookie: 'locale',
         lookupLocalStorage: 'locale',
       },
-      backend: {
-        loadPath: 'assets/locales/{{lng}}.json',
-      },
-    }, error => {
+    }, async error => {
       if (error) {
         reject(error);
       } else {
+        await _loadLocaleDynamically(getLocale());
         _setStoreLocale(client, getLocale());
-        _setDocumentTitle();
 
-        i18n.on('languageChanged', locale => {
+        i18n.on('languageChanged', async locale => {
+          await _loadLocaleDynamically(locale);
           _setStoreLocale(client, locale);
-          _setDocumentTitle();
         });
 
         resolve(getLocale());

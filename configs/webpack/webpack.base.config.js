@@ -29,7 +29,7 @@ module.exports = function (data) {
   const IS_DEVELOPMENT_MODE = ENVIRONMENT === 'development';
   const IS_DEBUG_MODE = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps and another debug info for development and rc modes
   const ORDERED_DEPENDENCIES = [
-    'unfetch/polyfill/index.js', // To support Fetch API in older browsers and i18n-fetch-backend (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
+    'unfetch/polyfill/index.js', // To support Fetch API in older browsers, because @babel/polyfill doesn't provide such a polyfill (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
   ];
   const APP_DEPENDENCIES = [
     ...ORDERED_DEPENDENCIES,
@@ -104,7 +104,7 @@ module.exports = function (data) {
               options: {
                 name: IS_DEVELOPMENT_MODE
                   ? '[name].js'
-                  : 'worker.[hash].js'
+                  : '[hash].worker.js'
               }
             },
             {
