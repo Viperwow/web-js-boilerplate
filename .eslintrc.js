@@ -98,7 +98,7 @@ module.exports = {
     'lodash/prefer-over-quantifier': [0], // Its much more readable instead of additional wrapping
     'lodash/prefer-lodash-method': [2, { // Whitelist all of the native functions, but force to use lodash for the rest of the cases
       'ignoreMethods': [ // We donn't care for these methods about how the user write code using lodash or not
-        'concat', 'fill', '(last)?IndexOf', 'join', 'reverse', 'slice',
+        'concat', 'fill', '(last)?IndexOf', 'join', 'reverse', 'slice', 'split',
         'find(Index)?', 'each', 'forEach', 'every', 'filter', 'includes', 'map', 'reduce(Right)?', 'some', 'partial',
         'assign', 'keys', 'values', 'repeat', 'template', 'to(Lower|Upper|Pairs)', 'trim', 'replace', 'is(Array|NaN)',
         'slice', 'splice', 'entries',
