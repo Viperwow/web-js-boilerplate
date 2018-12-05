@@ -197,7 +197,6 @@ module.exports = function (data) {
       ],
     },
     optimization: {
-      sideEffects: false,
       runtimeChunk: 'single', // Add only one 'runtime' file for all chunks
       splitChunks: {
         minSize: 0, // Ignore default 30 Kb minimum requirement for file to be splitted
