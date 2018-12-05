@@ -3,7 +3,5 @@
 exports[`SecondPage component should render correctly With default props 1`] = `
 <div
   className="page"
->
-  SECOND_PAGE_PLACEHOLDER
-</div>
+/>
 `;

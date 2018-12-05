@@ -3,7 +3,5 @@
 exports[`MainPage component should render correctly With default props 1`] = `
 <div
   className="page"
->
-  MAIN_PAGE_PLACEHOLDER
-</div>
+/>
 `;

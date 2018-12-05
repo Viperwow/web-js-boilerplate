@@ -1,5 +1,5 @@
 {
-  "source": "./app/src",
+  "source": "./src",
   "destination": "./docs",
   "includes": ["\\.js(x)?$"],
   "excludes": ["((\\.config)|index).js(x)?$"],
@@ -37,9 +37,9 @@
           "author": "Viperwow"
         },
         "test": {
-          "source": "./app",
+          "source": "./src",
           "interfaces": ["describe", "it", "context", "suite", "test"],
-          "includes": ["(spec|Spec|test|Test)\\.js(x)?$"],
+          "includes": ["(test|spec|steps|support)\\.js(x)?$"],
           "excludes": ["((\\.config)|index).js(x)?$"]
         },
         "manual": {
