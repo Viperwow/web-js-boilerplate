@@ -144,9 +144,7 @@ module.exports = function (data) {
             },
             {
               loader: 'sass-loader',
-              options: { // Speed up sass processing using recommendations from https://www.npmjs.com/package/sass-loader
-                implementation: require('sass'), // To use fast Dart Sass implementation instead of Node Sass
-                fiber: require('fibers'), // Make build faster using coroutines
+              options: {
                 sourceMap: IS_DEBUG_MODE,
               },
             },
