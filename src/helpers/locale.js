@@ -4,7 +4,7 @@ import i18nBrowserLanguageDetector from 'i18next-browser-languagedetector';
 // GQL
 import MUTATION_LOCALE from 'src/mutations/locale';
 
-const _localeNameMappings = { // Is needed to prefer
+const _localeNameMappings = { // Is needed for debugging purposes
   en: () => import('assets/locales/en.js' /* webpackChunkName: "en" */),
   ru: () => import('assets/locales/ru.js' /* webpackChunkName: "ru" */),
 };
