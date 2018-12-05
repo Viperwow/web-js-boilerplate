@@ -4,8 +4,13 @@ import i18nBrowserLanguageDetector from 'i18next-browser-languagedetector';
 // GQL
 import MUTATION_LOCALE from 'src/mutations/locale';
 
+const _localeNameMappings = { // Is needed to prefer
+  en: () => import('assets/locales/en.js' /* webpackChunkName: "en" */),
+  ru: () => import('assets/locales/ru.js' /* webpackChunkName: "ru" */),
+};
+
 const _loadLocaleDynamically = async (locale = i18n.language) => {
-  const localeModule = await import(`assets/locales/${locale}.js`);
+  const localeModule = await _localeNameMappings[locale]();
 
   i18n.addResourceBundle(locale, 'translation', localeModule.default, true, true);
   document.title = i18n.t('document.title');
