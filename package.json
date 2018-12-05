@@ -12,15 +12,13 @@
     "build:prod": "webpack --progress --env.env=production",
     "build:docs": "rimraf ./docs && esdoc",
     "test": "yarn test:eslint && yarn test:jest",
+    "test:eslint": "cross-env TIMING=1 eslint . --ext .js,.jsx",
     "test:jest": "jest -c ./configs/jest/jest.config.js",
     "test:jest:update": "yarn test:jest -- -u",
     "test:gemini": "gemini test",
     "test:gemini:update": "gemini update",
-    "test:eslint": "cross-env TIMING=1 eslint . --ext .js,.jsx",
     "selenium:install": "./node_modules/.bin/selenium-standalone install",
-    "selenium:start": "selenium-standalone start",
-    "prepare": "yarn selenium:install",
-    "analyze": "webpack-bundle-analyzer ./stats.json"
+    "selenium:start": "selenium-standalone start"
   },
   "repository": {
     "type": "git",
@@ -88,6 +86,7 @@
     "babel-eslint": "8.2.6",
     "babel-jest": "23.6.0",
     "babel-loader": "8.0.4",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-graphql-tag": "1.6.0",
     "babel-plugin-import-graphql": "2.6.2",
     "babel-plugin-module-resolver": "3.1.1",
