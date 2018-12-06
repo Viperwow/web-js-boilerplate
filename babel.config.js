@@ -45,7 +45,6 @@ module.exports = {
         preventFullImport: true,
       },
     }],
-    'dynamic-import-node', // Is needed to support dynamic imports in jest tests running by node (see https://github.com/airbnb/enzyme/issues/1460#issuecomment-388358778 for more info)
     'graphql-tag', // Transform graphql-tag at the runtime and remove dependency from the output
     'import-graphql', // To allow import separated .graphql and .gql files
     '@babel/plugin-transform-strict-mode', // To just enable strict mode in each file
@@ -67,6 +66,9 @@ module.exports = {
       ],
     },
     test: {
+      plugins: [
+        'dynamic-import-node', // Is needed to support dynamic imports in jest tests running by node (see https://github.com/airbnb/enzyme/issues/1460#issuecomment-388358778 for more info)
+      ],
       presets: [
         [
           '@babel/env',
