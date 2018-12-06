@@ -5,7 +5,6 @@
   "main": "index.js",
   "readme": "./README.md",
   "private": true,
-  "sideEffects": false,
   "scripts": {
     "build:dev": "webpack-dev-server --progress --env.env=development",
     "build:rc": "webpack --progress --env.env=rc",
