@@ -5,3 +5,11 @@ exports[`SecondPage component should render correctly With default props 1`] = `
   className="page"
 />
 `;
+
+exports[`SecondPage component should render correctly With text prop 1`] = `
+<div
+  className="page"
+>
+  text
+</div>
+`;
