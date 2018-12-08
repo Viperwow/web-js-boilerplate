@@ -5,13 +5,25 @@ module.exports = {
   browsers: {
     chrome: {
       desiredCapabilities: {
-        browserName: 'chrome'
-      }
-    }
+        browserName: 'chrome',
+      },
+    },
   },
   system: {
     plugins: {
-      babel: {} // It'll pick .babelrc configs automatically
-    }
-  }
+      babel: {}, // Allow babel polyfills to be used with gemini (it'll pick babel.config.js configs automatically)
+    },
+    exclude: [
+      'node_modules/*', // Ignore node modules (we got nothing to test here)
+      'specs/*', // Ignore Gherkin tests
+      'configs/*', // Ignore all the configs
+    ],
+    coverage: {
+      exclude: [
+        'node_modules/*', // Ignore node modules (we got nothing to cover here)
+        'specs/*', // Ignore Gherkin tests
+        'configs/*', // Ignore all the configs
+      ],
+    },
+  },
 };

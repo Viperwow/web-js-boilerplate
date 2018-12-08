@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnknownRoutePage component should render correctly With default props 1`] = `
+<div
+  className="page"
+/>
+`;
+
+exports[`UnknownRoutePage component should render correctly With text prop 1`] = `
+<div
+  className="page"
+>
+  text
+</div>
+`;
