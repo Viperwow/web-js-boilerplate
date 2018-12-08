@@ -1,5 +1,5 @@
 // Vendors
-import React, {Component} from 'react';
+import React from 'react';
 import {ApolloConsumer} from 'react-apollo';
 import {merge} from 'lodash';
 
@@ -18,16 +18,12 @@ const mergeProps = (
 const connect = (
   mapStateToProps,
   mapClientToProps,
-) => Wrapped => class Connected extends Component {
-  render() {
-    return (
-      <ApolloConsumer>
-        {client => (
-          <Wrapped {...{...mergeProps(client, this.props, mapStateToProps, mapClientToProps)}} />
-        )}
-      </ApolloConsumer>
-    );
-  }
-};
+) => Wrapped => props => (
+  <ApolloConsumer>
+    {client => (
+      <Wrapped {...{...mergeProps(client, props, mapStateToProps, mapClientToProps)}} />
+    )}
+  </ApolloConsumer>
+);
 
 export default connect;

@@ -5,7 +5,7 @@ export default (
   preparation,
   processorSuccess = result => ({result: result || null}),
   processorError = error => ({error: error || null}),
-) => Wrapped => class PreparationWrapper extends Component {
+) => Wrapped => class Prepared extends Component {
   state = {
     result: null,
     error: null,

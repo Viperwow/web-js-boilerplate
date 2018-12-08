@@ -1,5 +1,5 @@
 // Vendors
-import React, {Component} from 'react';
+import React from 'react';
 import {Query} from 'react-apollo';
 import {merge} from 'lodash';
 
@@ -19,27 +19,23 @@ const connect = (
   query,
   mapStateToProps,
   mapClientToProps,
-) => Wrapped => class Connected extends Component {
-  render() {
-    return (
-      <Query query={query}>
-        {({client, ...restQueryProps}) => (
-          <Wrapped {...{
-            ...mergeProps(
-              client,
-              {
-                ...this.props,
-                query: restQueryProps,
-              },
-              mapStateToProps,
-              mapClientToProps,
-            ),
-          }}
-          />
-        )}
-      </Query>
-    );
-  }
-};
+) => Wrapped => props => (
+  <Query query={query}>
+    {({client, ...restQueryProps}) => (
+      <Wrapped {...{
+        ...mergeProps(
+          client,
+          {
+            ...props,
+            query: restQueryProps,
+          },
+          mapStateToProps,
+          mapClientToProps,
+        ),
+      }}
+      />
+    )}
+  </Query>
+);
 
 export default connect;
