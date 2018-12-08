@@ -1,7 +1,7 @@
 // Vendors
 import i18n from 'i18next';
 // Common
-import queried from 'src/common/queried';
+import connectQuery from 'src/common/connectQuery';
 // GQL
 import QUERY_LOCALE from 'src/queries/locale';
 // UI
@@ -11,4 +11,4 @@ const mapStateToProps = () => ({
   text: i18n.t('pages.third'),
 });
 
-export default queried(QUERY_LOCALE, mapStateToProps)(ThirdPage);
+export default connectQuery(QUERY_LOCALE, mapStateToProps)(ThirdPage);

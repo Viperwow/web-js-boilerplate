@@ -15,7 +15,7 @@ const mergeProps = (
   Object.assign({}, mapClientToProps(client, props)),
 );
 
-const connect = (
+const connectQuery = (
   query,
   mapStateToProps,
   mapClientToProps,
@@ -38,4 +38,4 @@ const connect = (
   </Query>
 );
 
-export default connect;
+export default connectQuery;
