@@ -1,0 +1,14 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+esproposal.optional_chaining=enable
+esproposal.export_star_as=enable
+esproposal.nullish_coalescing=enable
+
+[strict]
