@@ -13,7 +13,7 @@ jest.unmock('src/helpers/utility');
 
 describe('Math', () => {
   test('1 + 1 = 2', () => {
-    const output = sum(1, 'a');
+    const output = sum(1, 1);
 
     expect(output).toBe(2);
   });
