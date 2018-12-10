@@ -7,6 +7,7 @@ module.exports = {
     'plugin:lodash/canonical',
     'plugin:you-dont-need-lodash-underscore/all',
     'plugin:compat/recommended',
+    'plugin:flowtype/recommended',
   ],
   'plugins': [
     'jest',
@@ -16,6 +17,7 @@ module.exports = {
     'lodash',
     'compat',
     'sort-class-members',
+    'flowtype',
   ],
   'parser': 'babel-eslint',
   'env': { // You might have seen, that there is no 'es6: true' and etc. This is because it's inherited from plugins configurations
@@ -54,7 +56,7 @@ module.exports = {
       'aspects': ['noHref', 'invalidHref', 'preferButton'],
     }],
     'react/jsx-curly-spacing': [2, 'never'], // Enforce the usage of the no spaces between curly brackets
-    'react/prop-types': [1], // FIXME Set this field to '0' when Flow will be in
+    'react/prop-types': [0],
     'import/prefer-default-export': [0], // Allow the usage of the single exported element and make imports of the oru own modules easier
     'object-curly-spacing': [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets
     'max-len': [2, { // Overwrite airbnb defaults to use 2-spaced indents and 100 line length
@@ -72,16 +74,16 @@ module.exports = {
     'jsdoc/check-tag-names': [2],
     'jsdoc/check-types': [2],
     'jsdoc/newline-after-description': [2],
-    'jsdoc/no-undefined-types': [2], // FIXME Set this field to '0' when Flow will be in
+    'jsdoc/no-undefined-types': [0],
     'jsdoc/require-description-complete-sentence': [2],
     'jsdoc/require-example': [2],
     'jsdoc/require-hyphen-before-param-description': [2],
     'jsdoc/require-param': [2],
     'jsdoc/require-param-description': [2],
     'jsdoc/require-param-name': [2],
-    'jsdoc/require-param-type': [2], // FIXME Set this field to '0' when Flow will be in
-    'jsdoc/require-returns-description': [2],
-    'jsdoc/require-returns-type': [2], // FIXME Set this field to '0' when Flow will be in
+    'jsdoc/require-param-type': [2],
+    'jsdoc/require-returns-description': [0],
+    'jsdoc/require-returns-type': [0],
     'jsdoc/valid-types': [2],
     // Promise
     'promise/catch-or-return': [0], // Allow omitting of the catch definition
@@ -179,5 +181,27 @@ module.exports = {
       ],
       'accessorPairPositioning': 'getThenSet',
     }],
+    // Flow
+    'flowtype/array-style-complex-type': [2, 'verbose'], // Make type declarations to be more readable (extend recommended configuration)
+    'flowtype/array-style-simple-type': [2, 'verbose'], // Make type declarations to be more readable (extend recommended configuration)
+    'flowtype/define-flow-type': [2], // Do not use undefined flow types
+    'flowtype/delimiter-dangle': [2, 'always-multiline'], // It's all about trailing commas, but in flow types
+    'flowtype/newline-after-flow-annotation': [2, "always"], // Always put new line after flowtype init declaration (extend recommended configuration)
+    'flowtype/no-dupe-keys': [2], // No duplicates in type definitions (extend recommended configuration)
+    'flowtype/no-existential-type': [2], // Disallows use of the existential type (*) (extend recommended configuration)
+    'flowtype/no-flow-fix-me-comments': [1], // Warn if flowtype fix-me declaration would be used somewhere in code (extend recommended configuration)
+    'flowtype/no-mutable-array': [2], // No usage of the mutable arrays (extend recommended configuration)
+    'flowtype/no-primitive-constructor-types': [2], // Disallows use of primitive constructors as types, such as Boolean, Number and String (extend recommended configuration)
+    'flowtype/no-unused-expressions': [2], // An extension of ESLint's no-unused-expressions (extend recommended configuration)
+    'flowtype/no-weak-types': [1], // Warns against weak type annotations any, Object and Function, but should be used ONLY for the first code implementation
+    'flowtype/object-type-delimiter': [2, 'comma'], // Delimiter in type declarations (extend recommended configuration)
+    'flowtype/require-compound-type-alias': [2, 'always'], // Always separate type declarations from their usage if multiple types are being provided (extend recommended configuration)
+    'flowtype/require-exact-type': [2, 'always'], // Prefer exact types (extend recommended configuration)
+    'flowtype/require-parameter-type': [2], // Require function's parameters to be assigned with types
+    'flowtype/require-return-type': [2, 'always'], // Requires function's returning value to be assigned with type
+    'flowtype/require-types-at-top': [2, 'always'], // Require all type declarations to be at the top of the file, after any import declarations (extend recommended configuration)
+    'flowtype/require-variable-type': [0], // Do not require variables types to be declared (extend recommended configuration)
+    'flowtype/semi': [2], // Require semicolons in type declarations
+    'flowtype/type-import-style': [2, 'declaration'], // Enforce short type import declaration (extend recommended configuration)
   },
 };
