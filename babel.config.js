@@ -47,8 +47,13 @@ module.exports = {
     }],
     'babel-plugin-graphql-tag', // Transform graphql-tag at the runtime and remove dependency from the output
     'babel-plugin-import-graphql', // To allow import separated .graphql and .gql files
+    process.env.NODE_ENV !== 'test' // Add this plugin everywhere, but testing (tests is meant to test valid/invalid data input/output)
+    && ['babel-plugin-flow-runtime', {
+      assert: process.env.DEBUG_ENV,
+      annotate: process.env.DEBUG_ENV,
+    }],
     '@babel/plugin-transform-strict-mode', // To just enable strict mode in each file
-  ],
+  ].filter(Boolean),
   presets: [
     [
       '@babel/preset-env',
