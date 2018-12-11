@@ -17,12 +17,14 @@ module.exports = {
       'node_modules/*', // Ignore node modules (we got nothing to test here)
       'specs/*', // Ignore Gherkin tests
       'configs/*', // Ignore all the configs
+      'flow-typed/*', // Ignore flow-typed
     ],
     coverage: {
       exclude: [
         'node_modules/*', // Ignore node modules (we got nothing to cover here)
         'specs/*', // Ignore Gherkin tests
         'configs/*', // Ignore all the configs
+        'flow-typed/*', // Ignore flow-typed
       ],
     },
   },

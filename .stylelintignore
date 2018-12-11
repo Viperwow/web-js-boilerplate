@@ -1,4 +1,5 @@
 # ignore build files and docs
 dist/
 node_modules/
+flow-typed/
 
