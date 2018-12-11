@@ -7,3 +7,4 @@ webpack.config.js
 /dist
 /docs
 /node_modules
+/flow-typed

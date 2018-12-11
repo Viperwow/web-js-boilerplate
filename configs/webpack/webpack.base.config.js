@@ -10,6 +10,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
+const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 
 // Configs
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
@@ -73,7 +74,10 @@ module.exports = function (data) {
         },
         {
           test: /(?<!worker)\.js(x)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
-          exclude: NODE_MODULES_PATH,
+          exclude: [
+            FLOW_TYPED_PATH,
+            NODE_MODULES_PATH,
+          ],
           use: [
             {
               loader: 'babel-loader', // Do babel transform
