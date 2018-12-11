@@ -11,4 +11,10 @@ esproposal.optional_chaining=enable
 esproposal.export_star_as=enable
 esproposal.nullish_coalescing=enable
 
+module.name_mapper='^src' -> '<PROJECT_ROOT>/src'
+module.name_mapper='^spec' -> '<PROJECT_ROOT>/spec'
+module.name_mapper='^gemini' -> '<PROJECT_ROOT>/gemini'
+module.name_mapper='^configs' -> '<PROJECT_ROOT>/configs'
+module.name_mapper='^assets' -> '<PROJECT_ROOT>/assets'
+
 [strict]
