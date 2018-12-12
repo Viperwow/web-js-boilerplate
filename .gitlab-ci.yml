@@ -1,0 +1,38 @@
+image: node:8.14.0-alpine
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - node_modules
+    - yarn.lock
+
+stages:
+  - eslint_check
+  - stylelint_check
+  - flow_check
+  - jest_check
+
+before_script:
+  - apk add python2 make g++
+  - yarn install --ignore-engines
+
+eslint_check:
+  stage: eslint_check
+  script:
+    - yarn test:eslint
+  only:
+    - branches
+
+stylelint_check:
+  stage: stylelint_check
+  script:
+    - yarn test:stylelint
+  only:
+    - branches
+
+jest_check:
+  stage: jest_check
+  script:
+    - yarn test:jest
+  only:
+    - branches
