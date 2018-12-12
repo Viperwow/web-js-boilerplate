@@ -13,10 +13,12 @@ stages:
   - jest_check
 
 before_script:
-  - apk add python2 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
-  - apk add make --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
-  - apk add gcc --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
+  - apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++
   - yarn install --ignore-engines
+  - apk del build-dependencies
 
 eslint_check:
   stage: eslint_check
