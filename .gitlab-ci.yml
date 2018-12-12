@@ -1,3 +1,11 @@
+image: node@8.14.0-alpine
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - node_modules
+    - yarn.lock
+
 stages:
   - eslint_check
   - stylelint_check
