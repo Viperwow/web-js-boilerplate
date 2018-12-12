@@ -1,11 +1,11 @@
 // Vendors
-const webpack = require('webpack');
-const path = require('path');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
+const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
+const CircularDependencyPlugin = require('circular-dependency-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const StyleLintPlugin = require('stylelint-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
@@ -22,7 +22,7 @@ const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
 const IMG_SIZE_LIMIT = 10 * 1024; // 10kB
 const FONTS_SIZE_LIMIT = 10 * 1024; // 10kB
 
-module.exports = function (data) {
+module.exports = function makeBaseConfig(data) {
   const IS_RC = data.env === 'rc';
   const ENVIRONMENT = data.env === 'production' || IS_RC
     ? 'production'
@@ -56,7 +56,7 @@ module.exports = function (data) {
       chunkFilename: IS_DEVELOPMENT_MODE
         ? '[id].js' // Id <=> name, because of optimize.namedChunks: true in 'development mode'
         : '[id].[name].[contenthash].js',
-      globalObject : `(typeof self === undefined ? this : self)`, // WARNING: dirty hack to make it works, because webpack 4 is unable to deal with workers in web related environments (see https://github.com/webpack/webpack/issues/6642 for more info)
+      globalObject: '(typeof self === undefined ? this : self)', // WARNING: dirty hack to make it works, because webpack 4 is unable to deal with workers in web related environments (see https://github.com/webpack/webpack/issues/6642 for more info)
     },
     resolve: {
       modules: [ // So there are an array of paths where to look for modules based on publicPath (by the way, keep in mind, that this paths affects every file extension, so babel module resolver's paths complement it for JS)
@@ -108,8 +108,8 @@ module.exports = function (data) {
               options: {
                 name: IS_DEVELOPMENT_MODE
                   ? '[name].js'
-                  : '[hash].worker.js'
-              }
+                  : '[hash].worker.js',
+              },
             },
             {
               loader: 'babel-loader', // To support polyfilling of workers
@@ -247,7 +247,7 @@ module.exports = function (data) {
         },
       }),
       new webpack.EnvironmentPlugin({
-        BROWSERSLIST_CONFIG: BROWSERSLIST_CONFIG, // Browserslist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
+        BROWSERSLIST_CONFIG, // Browserslist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
       }),
       new CircularDependencyPlugin({ // Try to find circular dependencies at the build-time (it'd be used for dynamic import statements)
         exclude: /node_modules/, // Exclude node_modules (it doesn't support direct path, just RegExp)

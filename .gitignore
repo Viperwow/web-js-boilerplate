@@ -1,5 +1,5 @@
-# ignore build files and docs
-.idea/
-/dist
-/docs
-/node_modules
+# Ignore build files, IDE settigs and docs
+/.idea/
+/dist/
+/docs/
+/node_modules/
