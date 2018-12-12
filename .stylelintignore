@@ -1,5 +1,6 @@
-# ignore build files and docs
-dist/
-node_modules/
-flow-typed/
-
+# Ignore build files, IDE settings and docs
+/.idea/
+/dist/
+/docs/
+/node_modules/
+/flow-typed/

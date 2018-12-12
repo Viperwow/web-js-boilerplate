@@ -1,6 +1,6 @@
 // Vendors
-const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
+const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
+const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
 
 // Configs
 const BaseWebpackConfig = require('./webpack.base.config');
@@ -15,4 +15,3 @@ module.exports = function developmentWebpackConfig(data) {
     ],
   });
 };
-
