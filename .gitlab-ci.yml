@@ -15,6 +15,8 @@ stages:
 before_script:
   - apk --no-cache --virtual build-dependencies add python2 make g++
   - yarn install --ignore-engines
+
+after_script:
   - apk del build-dependencies
 
 eslint_check:
@@ -28,13 +30,6 @@ stylelint_check:
   stage: stylelint_check
   script:
     - yarn test:stylelint
-  only:
-    - branches
-
-flow_check:
-  stage: flow_check
-  script:
-    - yarn test:flow
   only:
     - branches
 
