@@ -15,7 +15,7 @@ stages:
 before_script:
   - apk update && \
     apk upgrade && \
-    apk add python
+    apk add python3 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
   - yarn install --ignore-engines
 
 eslint_check:
