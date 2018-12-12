@@ -13,6 +13,9 @@ stages:
   - jest_check
 
 before_script:
+  - apk update && \
+    apk upgrade && \
+    apk add python3
   - yarn install --ignore-engines
 
 eslint_check:
