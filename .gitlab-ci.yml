@@ -13,11 +13,8 @@ stages:
   - jest_check
 
 before_script:
-  - apk --no-cache --virtual build-dependencies add python2 make g++
+  - apk add python2 make g++
   - yarn install --ignore-engines
-
-after_script:
-  - apk del build-dependencies
 
 eslint_check:
   stage: eslint_check
