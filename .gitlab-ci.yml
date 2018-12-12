@@ -14,7 +14,7 @@ stages:
 
 before_script:
   - apk --no-cache --virtual build-dependencies add \
-    python \
+    python2 \
     make \
     g++
   - yarn install --ignore-engines
