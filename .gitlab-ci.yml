@@ -4,34 +4,38 @@ cache:
   key: "$CI_COMMIT_REF_SLUG"
   paths:
     - node_modules
-    - yarn.lock
 
 stages:
-  - eslint_check
-  - stylelint_check
-  - flow_check
-  - jest_check
+  - install
+  - testing
 
 before_script:
   - apk add python2 make g++
   - yarn install --ignore-engines
 
-eslint_check:
-  stage: eslint_check
+dependencies:
+  stage: install
+  script:
+    - echo "Dependencies successfully installed"
+  only:
+    - branches
+
+eslint:
+  stage: testing
   script:
     - yarn test:eslint
   only:
     - branches
 
-stylelint_check:
-  stage: stylelint_check
+stylelint:
+  stage: testing
   script:
     - yarn test:stylelint
   only:
     - branches
 
-jest_check:
-  stage: jest_check
+jest:
+  stage: testing
   script:
     - yarn test:jest
   only:
