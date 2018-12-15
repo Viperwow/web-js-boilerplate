@@ -1,4 +1,4 @@
-image: node:8.14.0-alpine
+image: node:8.14.0-jessie
 
 cache:
   key: "$CI_COMMIT_REF_SLUG"
@@ -10,7 +10,6 @@ stages:
   - testing
 
 before_script:
-  - apk add python2 make g++
   - yarn install --ignore-engines
 
 dependencies:
@@ -38,5 +37,12 @@ jest:
   stage: testing
   script:
     - yarn test:jest
+  only:
+    - branches
+
+flow:
+  stage: testing
+  script:
+    - yarn test:flow
   only:
     - branches
