@@ -37,6 +37,7 @@ module.exports = {
         '.js',
         '.jsx',
         '.mjs',
+        '.js.flow',
       ],
     },
     'polyfills': [ // Add babel polyfills here that is compatible with browsers from the .browserslistrc (see more at https://github.com/amilajack/eslint-plugin-compat/wiki/Adding-polyfills)
