@@ -43,6 +43,7 @@
     "apollo-utilities": "1.0.21",
     "classnames": "2.2.6",
     "date-fns": "2.0.0-alpha.26",
+    "date-fns-tz": "0.1.1",
     "flow-runtime": "0.17.0",
     "graphql": "14.0.2",
     "graphql-anywhere": "4.1.19",

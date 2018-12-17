@@ -1,6 +1,5 @@
 // Vendors
 import {
-  format as _format,
   formatDistance as _formatDistance,
   formatDistanceStrict as _formatDistanceStrict,
   formatRelative as _formatRelative,
@@ -9,6 +8,7 @@ import {
   enGB as en,
   ru,
 } from 'date-fns/locale';
+import {format as _format} from 'date-fns-tz';
 // Helpers
 import {getLocale} from 'src/helpers/locale';
 
