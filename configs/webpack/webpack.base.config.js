@@ -63,7 +63,7 @@ module.exports = function makeBaseConfig(data) {
         'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
         ROOT_PATH, // App modules root to import from
       ],
-      extensions: ['.js', '.jsx', '.mjs'], // Allow files with following extensions being recognized without extension in import
+      extensions: ['.js', '.jsx', '.mjs', '.js.flow'], // Allow files with following extensions being recognized without extension in import
     },
     module: {
       rules: [
@@ -73,7 +73,7 @@ module.exports = function makeBaseConfig(data) {
           type: 'javascript/auto',
         },
         {
-          test: /(?<!worker)\.js(x)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
+          test: /(?<!worker)\.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
           exclude: [
             FLOW_TYPED_PATH,
             NODE_MODULES_PATH,
@@ -82,7 +82,7 @@ module.exports = function makeBaseConfig(data) {
             {
               loader: 'babel-loader', // Do babel transform
               options: {
-                cacheDirectory: true, // Cache traspilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+                cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
               },
             },
             {
@@ -100,7 +100,7 @@ module.exports = function makeBaseConfig(data) {
           loader: 'graphql-tag/loader',
         },
         {
-          test: /\.worker\.js$/,
+          test: /\.worker\.js(.flow)?$/,
           exclude: NODE_MODULES_PATH,
           use: [
             {
@@ -114,7 +114,7 @@ module.exports = function makeBaseConfig(data) {
             {
               loader: 'babel-loader', // To support polyfilling of workers
               options: {
-                cacheDirectory: true, // Cache traspilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+                cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
               },
             },
             {
@@ -263,6 +263,13 @@ module.exports = function makeBaseConfig(data) {
         flattening: true,
         paths: true,
       }),
+      new webpack.ContextReplacementPlugin(
+        /date-fns[/\\]/,
+        new RegExp(`[/\\\\](${[
+          'en',
+          'ru',
+        ].join('|')})[/\\\\]`),
+      ),
     ],
   };
 };
