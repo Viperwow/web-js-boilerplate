@@ -1,51 +1,143 @@
 // Vendors
-import React, {Fragment} from 'react';
-import loadable from 'react-loadable';
-import {noop} from 'lodash';
+import React, {
+  Component,
+  Fragment,
+  Suspense,
+} from 'react';
+import {constant as _constant} from 'lodash';
 
-const _defaultProps = {
+const _defaultOptions = {
   delay: 300,
   timeout: 10000,
 };
 const _LoaderComponent = () => <Fragment>Loading...</Fragment>;
 const _ErrorComponent = () => <Fragment>Error!</Fragment>;
 const _TimeoutComponent = () => <Fragment>Timeout!</Fragment>;
-const _renderComponent = (
-  LoaderComponent = noop,
-  ErrorComponent = noop,
-  TimeoutComponent = noop,
-  props = {},
-) => {
-  let result = null;
-  const {
-    pastDelay,
-    error,
-    timedOut,
-    ...restProps
-  } = props;
 
-  if (pastDelay) {
-    result = <LoaderComponent {...{...restProps}} />;
-  } else if (error) {
-    result = <ErrorComponent {...{...restProps, error}} />;
-  } else if (timedOut) {
-    result = <TimeoutComponent {...{...restProps}} />;
-  }
-
-  return result;
-};
-
-export default (importer, options = _defaultProps) => (
+export default (
+  importer,
+  options = {},
   LoaderComponent = _LoaderComponent,
   ErrorComponent = _ErrorComponent,
   TimeoutComponent = _TimeoutComponent,
-) => loadable({
-  ...options,
-  loader: () => (importer || null),
-  loading: (props = {}) => _renderComponent(
-    LoaderComponent,
-    ErrorComponent,
-    TimeoutComponent,
-    props,
-  ),
-});
+) => class Loadable extends Component {
+  state = {
+    isMounted: false,
+    error: null,
+    isTimedOut: false,
+    isDelayEnded: false,
+    LoadedComponent: _constant(null),
+  };
+
+  _delayJob = () => {
+    const delayHandler = setTimeout(() => {
+      const {
+        isMounted,
+      } = this.state;
+
+      if (isMounted) {
+        this.setState(state => ({
+          ...state,
+          isDelayEnded: true,
+        }));
+      }
+
+      clearTimeout(delayHandler);
+    }, this._options.delay);
+
+    return delayHandler;
+  };
+
+  _timeoutJob = () => {
+    const timeoutHandler = setTimeout(() => {
+      const {
+        isMounted,
+      } = this.state;
+
+      if (isMounted) {
+        this.setState(state => ({
+          ...state,
+          isTimedOut: true,
+        }));
+      }
+
+      clearTimeout(timeoutHandler);
+    }, this._options.timeout);
+
+    return timeoutHandler;
+  };
+
+  constructor(...args) {
+    super(...args);
+
+    this._options = {
+      ..._defaultOptions,
+      ...options,
+    };
+  }
+
+  componentDidMount() {
+    this._delayJob();
+    const timeoutHandler = this._timeoutJob();
+
+    this.setState(state => ({
+      ...state,
+      isMounted: true,
+      LoadedComponent: React.lazy(async () => {
+        const loadedModule = await importer;
+
+        clearTimeout(timeoutHandler);
+
+        return loadedModule;
+      }),
+    }));
+  }
+
+  componentDidCatch(error) {
+    const {
+      isMounted,
+    } = this.state;
+
+    if (isMounted) {
+      this.setState(state => ({
+        ...state,
+        error,
+      }));
+    }
+  }
+
+  componentWillUnmount() {
+    this.setState(state => ({
+      ...state,
+      isMounted: false,
+    }));
+  }
+
+  render() {
+    let result = null;
+    const {
+      error,
+      isTimedOut,
+      isDelayEnded,
+      LoadedComponent,
+    } = this.state;
+
+    if (isTimedOut) {
+      result = <TimeoutComponent {...this.props} />;
+    } else if (error) {
+      result = <ErrorComponent {...{...this.props, error}} />;
+    } else {
+      const fallbackComponent = isDelayEnded
+        ? <LoaderComponent {...this.props} />
+        : null;
+
+      result = (
+        <Suspense fallback={fallbackComponent}>
+          <LoadedComponent {...this.props} />
+        </Suspense>
+      );
+    }
+
+    return result;
+  }
+};

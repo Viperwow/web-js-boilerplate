@@ -9,18 +9,18 @@ const _localeNameMappings = { // Is needed for debugging purposes
   ru: () => import('assets/locales/ru.js' /* webpackChunkName: "ru" */),
 };
 
-const _loadLocaleDynamically = async (locale = i18n.language) => {
+const getLocale = () => i18n.language.split('-')[0];
+
+const _loadLocaleDynamically = async (locale = getLocale()) => {
   const localeModule = await _localeNameMappings[locale]();
 
   i18n.addResourceBundle(locale, 'translation', localeModule.default, true, true);
   document.title = i18n.t('document.title');
 };
 
-const _setStoreLocale = (client, locale = i18n.language) => {
+const _setStoreLocale = (client, locale = getLocale()) => {
   client.mutate({mutation: MUTATION_LOCALE, variables: {locale}});
 };
-
-const getLocale = () => i18n.language;
 
 const initLocale = client => new Promise((resolve, reject) => {
   i18n
@@ -50,7 +50,7 @@ const initLocale = client => new Promise((resolve, reject) => {
     });
 });
 
-const _setI18nLocale = (locale = i18n.language) => new Promise((resolve, reject) => {
+const _setI18nLocale = (locale = getLocale()) => new Promise((resolve, reject) => {
   i18n.changeLanguage(locale, error => {
     if (error) {
       reject(error);
@@ -60,7 +60,7 @@ const _setI18nLocale = (locale = i18n.language) => new Promise((resolve, reject)
   });
 });
 
-const setLocale = (locale = i18n.language) => _setI18nLocale(locale);
+const setLocale = (locale = getLocale()) => _setI18nLocale(locale);
 
 export {
   getLocale,
