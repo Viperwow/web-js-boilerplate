@@ -1,6 +1,6 @@
 module.exports = {
   plugins: [
-    ['module-resolver', {
+    ['babel-plugin-module-resolver', {
       root: [
         './', // Project root
       ],
@@ -35,7 +35,7 @@ module.exports = {
     }],
     '@babel/plugin-proposal-json-strings', // Allow special separators that JSON use, but ES not
     // Additional
-    ['transform-imports', { // To transform "import {a} from 'xxx'" into the "import a from 'xxx'"
+    ['babel-plugin-transform-imports', { // To transform "import {a} from 'xxx'" into the "import a from 'xxx'"
       lodash: {
         transform: 'lodash/${member}', // eslint-disable-line no-template-curly-in-string
         preventFullImport: true,
@@ -45,19 +45,25 @@ module.exports = {
         preventFullImport: true,
       },
     }],
-    'graphql-tag', // Transform graphql-tag at the runtime and remove dependency from the output
-    'import-graphql', // To allow import separated .graphql and .gql files
+    'babel-plugin-graphql-tag', // Transform graphql-tag at the runtime and remove dependency from the output
+    'babel-plugin-import-graphql', // To allow import separated .graphql and .gql files
+    process.env.NODE_ENV !== 'test' // Add this plugin everywhere, but testing (tests is meant to test valid/invalid data input/output)
+    && ['babel-plugin-flow-runtime', {
+      assert: process.env.DEBUG_ENV,
+      annotate: process.env.DEBUG_ENV,
+    }],
     '@babel/plugin-transform-strict-mode', // To just enable strict mode in each file
-  ],
+  ].filter(Boolean),
   presets: [
     [
-      '@babel/env',
+      '@babel/preset-env',
       {
         modules: false,
         useBuiltIns: 'usage',
       },
     ],
     '@babel/preset-react',
+    '@babel/preset-flow',
   ],
   env: {
     development: {
@@ -67,16 +73,17 @@ module.exports = {
     },
     test: {
       plugins: [
-        'dynamic-import-node', // Is needed to support dynamic imports in jest tests running by node (see https://github.com/airbnb/enzyme/issues/1460#issuecomment-388358778 for more info)
+        'babel-plugin-dynamic-import-node', // Is needed to support dynamic imports in jest tests running by node (see https://github.com/airbnb/enzyme/issues/1460#issuecomment-388358778 for more info)
       ],
       presets: [
         [
-          '@babel/env',
+          '@babel/preset-env',
           {
             useBuiltIns: 'usage',
           },
         ],
         '@babel/preset-react',
+        '@babel/preset-flow',
       ],
     },
   },

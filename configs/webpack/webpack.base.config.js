@@ -1,15 +1,16 @@
 // Vendors
-const webpack = require('webpack');
-const path = require('path');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
+const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
+const CircularDependencyPlugin = require('circular-dependency-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const StyleLintPlugin = require('stylelint-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
+const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 
 // Configs
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
@@ -21,7 +22,7 @@ const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
 const IMG_SIZE_LIMIT = 10 * 1024; // 10kB
 const FONTS_SIZE_LIMIT = 10 * 1024; // 10kB
 
-module.exports = function (data) {
+module.exports = function makeBaseConfig(data) {
   const IS_RC = data.env === 'rc';
   const ENVIRONMENT = data.env === 'production' || IS_RC
     ? 'production'
@@ -55,14 +56,14 @@ module.exports = function (data) {
       chunkFilename: IS_DEVELOPMENT_MODE
         ? '[id].js' // Id <=> name, because of optimize.namedChunks: true in 'development mode'
         : '[id].[name].[contenthash].js',
-      globalObject : `(typeof self === undefined ? this : self)`, // WARNING: dirty hack to make it works, because webpack 4 is unable to deal with workers in web related environments (see https://github.com/webpack/webpack/issues/6642 for more info)
+      globalObject: '(typeof self === undefined ? this : self)', // WARNING: dirty hack to make it works, because webpack 4 is unable to deal with workers in web related environments (see https://github.com/webpack/webpack/issues/6642 for more info)
     },
     resolve: {
       modules: [ // So there are an array of paths where to look for modules based on publicPath (by the way, keep in mind, that this paths affects every file extension, so babel module resolver's paths complement it for JS)
         'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
         ROOT_PATH, // App modules root to import from
       ],
-      extensions: ['.js', '.jsx', '.mjs'], // Allow files with following extensions being recognized without extension in import
+      extensions: ['.js', '.jsx', '.mjs', '.js.flow'], // Allow files with following extensions being recognized without extension in import
     },
     module: {
       rules: [
@@ -72,13 +73,16 @@ module.exports = function (data) {
           type: 'javascript/auto',
         },
         {
-          test: /(?<!worker)\.js(x)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
-          exclude: NODE_MODULES_PATH,
+          test: /(?<!worker)\.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
+          exclude: [
+            FLOW_TYPED_PATH,
+            NODE_MODULES_PATH,
+          ],
           use: [
             {
               loader: 'babel-loader', // Do babel transform
               options: {
-                cacheDirectory: true, // Cache traspilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+                cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
               },
             },
             {
@@ -96,7 +100,7 @@ module.exports = function (data) {
           loader: 'graphql-tag/loader',
         },
         {
-          test: /\.worker\.js$/,
+          test: /\.worker\.js(.flow)?$/,
           exclude: NODE_MODULES_PATH,
           use: [
             {
@@ -104,13 +108,13 @@ module.exports = function (data) {
               options: {
                 name: IS_DEVELOPMENT_MODE
                   ? '[name].js'
-                  : '[hash].worker.js'
-              }
+                  : '[hash].worker.js',
+              },
             },
             {
               loader: 'babel-loader', // To support polyfilling of workers
               options: {
-                cacheDirectory: true, // Cache traspilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+                cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
               },
             },
             {
@@ -243,9 +247,7 @@ module.exports = function (data) {
         },
       }),
       new webpack.EnvironmentPlugin({
-        BABEL_ENV: ENVIRONMENT,
-        NODE_ENV: ENVIRONMENT, // Set NODE_ENV global variable with provided value (by default NODE_ENV is based on BABEL_ENV, so we may not to provide it at all) (see https://babeljs.io/docs/usage/babelrc/#env-option for more info)
-        BROWSERSLIST_CONFIG: BROWSERSLIST_CONFIG, // Browserslist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
+        BROWSERSLIST_CONFIG, // Browserslist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
       }),
       new CircularDependencyPlugin({ // Try to find circular dependencies at the build-time (it'd be used for dynamic import statements)
         exclude: /node_modules/, // Exclude node_modules (it doesn't support direct path, just RegExp)
@@ -261,6 +263,13 @@ module.exports = function (data) {
         flattening: true,
         paths: true,
       }),
+      new webpack.ContextReplacementPlugin(
+        /date-fns[/\\]/,
+        new RegExp(`[/\\\\](${[
+          'en',
+          'ru',
+        ].join('|')})[/\\\\]`),
+      ),
     ],
   };
 };

@@ -1,0 +1,48 @@
+image: node:8.14.0-jessie
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - node_modules
+
+stages:
+  - install
+  - testing
+
+before_script:
+  - yarn install --ignore-engines
+
+dependencies:
+  stage: install
+  script:
+    - echo "Dependencies successfully installed"
+  only:
+    - branches
+
+eslint:
+  stage: testing
+  script:
+    - yarn test:eslint
+  only:
+    - branches
+
+stylelint:
+  stage: testing
+  script:
+    - yarn test:stylelint
+  only:
+    - branches
+
+jest:
+  stage: testing
+  script:
+    - yarn test:jest
+  only:
+    - branches
+
+flow:
+  stage: testing
+  script:
+    - yarn test:flow
+  only:
+    - branches

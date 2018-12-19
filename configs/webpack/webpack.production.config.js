@@ -1,10 +1,10 @@
 // Vendors
-const path = require('path');
-const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const TerserWebpackPlugin = require('terser-webpack-plugin');
-const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
+const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
+const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
+const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
+const CleanWebpackPlugin = require('clean-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const TerserWebpackPlugin = require('terser-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default; // eslint-disable-line import/no-extraneous-dependencies
 
 // Configs
 const BaseWebpackConfig = require('./webpack.base.config');

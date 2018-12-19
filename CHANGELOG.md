@@ -1,8 +1,37 @@
 # CHANGELOG
 
 ## [Unreleased]
-### Add
-- `css-modules` support
+### Added
+- Add `css-modules` support
+- Add `Storybook` support
+- Add `documentation` generation for `non-react` code
+- Add `re-reselect` to improve performance of the app
+
+## [0.0.4] - 2018-12-19
+### Added
+- Add `Flow-type`
+- Add `Flowtyped` to achieve `jest` support
+- Add `Flowtype` runtime checks using `flow-runtime`
+- Add `Eslint` rules related to the `Flow-type`
+- Add `Stylelint` script to the `package.json`
+- Add localization wrappers for the `date-fns`
+- Add `IANA` timezones support for the `date-fns`
+- Add `gitlab CI` file to make sure that everything is okay on merge
+
+### Changed
+- Change`babel` plugins/presets naming to full names
+- Move `env` variables to the `package.json` scripts section to make them available on the build stage
+- Upgrade `date-fns` from `1.x.x` to `2.x.x`
+- Upgrade `i18next` dependencies to the latest versions at the moment
+- Linting is being applied to the whole project instead of source folders (`eslint`, `stylelint`, `flow-type`)
+
+### Fixed
+- Fix `jest` tests to work with `Flow-type`
+- Fix `i18next` locale imports, because of dramatic misunderstanding of detection rules well disclosed [here](https://github.com/i18next/react-i18next/issues/420#issuecomment-380800730)
+
+### Removed
+- Remove docs auto-generation based on comments due to lack of modern syntax support
+- Remove `react-loadable` in respect of the `react`'s internal `React.Suspense` and `React.lazy`
 
 ## [0.0.3] - 2018-12-08
 ### Added
