@@ -1,6 +1,6 @@
 {
   "name": "web-js-boilerplate",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Boilerplate for any web project",
   "main": "index.jsx",
   "readme": "./README.md",
