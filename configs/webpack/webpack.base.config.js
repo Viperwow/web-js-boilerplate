@@ -67,6 +67,23 @@ module.exports = function makeBaseConfig(data) {
     },
     module: {
       rules: [
+        {
+          enforce: 'pre', // Allow to do linting before other loaders will start (this loader would be called on "pitching" phase, for more info see https://webpack.js.org/api/loaders/#pitching-loader)
+          test: /.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
+          exclude: [
+            FLOW_TYPED_PATH,
+            NODE_MODULES_PATH,
+          ],
+          use: [
+            {
+              loader: 'eslint-loader', // Do eslint before any transformations
+              options: {
+                cache: true,
+                configFile: ESLINT_CONFIG, // Get config from there
+              },
+            },
+          ],
+        },
         { // To support apollo graphql .mjs imports for webpack 4.x.x
           test: /\.mjs$/,
           include: /node_modules/,
@@ -76,20 +93,14 @@ module.exports = function makeBaseConfig(data) {
           test: /(?<!worker)\.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
           exclude: [
             FLOW_TYPED_PATH,
-            NODE_MODULES_PATH,
+            /\bcore-js\b/, // To forbid babel transpile itself dependencies while processsing sources in the node_modules
+            /@babel\b/, // To be sure to not occasionally process @babel/transform-runtime (see https://github.com/babel/babel/issues/7559#issuecomment-424948932 for more)
           ],
           use: [
             {
               loader: 'babel-loader', // Do babel transform
               options: {
                 cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
-              },
-            },
-            {
-              loader: 'eslint-loader', // Do eslint before any transformations
-              options: {
-                cache: true,
-                configFile: ESLINT_CONFIG, // Get config from there
               },
             },
           ],
@@ -100,7 +111,7 @@ module.exports = function makeBaseConfig(data) {
           loader: 'graphql-tag/loader',
         },
         {
-          test: /\.worker\.js(.flow)?$/,
+          test: /\.worker\.js$/,
           exclude: NODE_MODULES_PATH,
           use: [
             {
@@ -115,13 +126,6 @@ module.exports = function makeBaseConfig(data) {
               loader: 'babel-loader', // To support polyfilling of workers
               options: {
                 cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
-              },
-            },
-            {
-              loader: 'eslint-loader', // Do eslint before any transformations
-              options: {
-                cache: true,
-                configFile: ESLINT_CONFIG, // Get config from there
               },
             },
           ],
