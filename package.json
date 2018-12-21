@@ -53,11 +53,13 @@
     "immutable": "4.0.0-rc.12",
     "lodash": "4.17.11",
     "normalize.css": "8.0.0",
+    "re-reselect": "2.2.0",
     "react": "16.6.3",
     "react-apollo": "2.2.4",
     "react-dom": "16.6.3",
     "react-hot-loader": "4.3.12",
     "react-router-dom": "4.3.1",
+    "reselect": "4.0.0",
     "unfetch": "4.0.1",
     "unorm": "1.4.1",
     "uuid": "3.3.2"
