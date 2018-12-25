@@ -14,13 +14,9 @@ const {PROJECT_DIST_NAME} = require('./constants');
 
 // Paths
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
-const DIST = path.join(ROOT_PATH, `/${PROJECT_DIST_NAME}`);
 
 module.exports = function makeProductionWebpackConfig(data) {
   return webpackMerge(makeBaseWebpackConfig(data), {
-    output: {
-      path: DIST,
-    },
     optimization: {
       minimizer: [
         new TerserWebpackPlugin({
