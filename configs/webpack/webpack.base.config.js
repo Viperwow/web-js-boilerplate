@@ -4,13 +4,13 @@ const path = require('path'); // eslint-disable-line import/no-extraneous-depend
 const CircularDependencyPlugin = require('circular-dependency-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const StyleLintPlugin = require('stylelint-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
 // Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
+const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
 
 // Configs
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
@@ -22,7 +22,7 @@ const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
 const IMG_SIZE_LIMIT = 10 * 1024; // 10kB
 const FONTS_SIZE_LIMIT = 10 * 1024; // 10kB
 
-module.exports = function makeBaseConfig(data) {
+module.exports = function makeBaseWebpackConfig(data) {
   const IS_RC = data.env === 'rc';
   const ENVIRONMENT = data.env === 'production' || IS_RC
     ? 'production'
@@ -32,10 +32,8 @@ module.exports = function makeBaseConfig(data) {
   const ORDERED_DEPENDENCIES = [
     'unfetch/polyfill/index.js', // To support Fetch API in older browsers, because @babel/polyfill doesn't provide such a polyfill (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
   ];
-  const APP_DEPENDENCIES = [
+  const DEPENDENCIES = [
     ...ORDERED_DEPENDENCIES,
-    path.join(ROOT_PATH, '/src/index.jsx'), // Add our js entry point
-    path.join(ROOT_PATH, '/assets/sass/index.sass'), // Add our sass/css entry point
     'normalize.css',
   ];
 
@@ -46,7 +44,7 @@ module.exports = function makeBaseConfig(data) {
       fs: 'empty', // To fix babel-plugin-react-css-modules's error of the unavailability of resolved 'fs' in target: "web" (webpack default) (see https://github.com/webpack-contrib/css-loader/issues/447 for more info)
     },
     entry: {
-      app: APP_DEPENDENCIES,
+      app: DEPENDENCIES,
     },
     output: {
       publicPath: '/', // Place from where everything would be served in webpack-dev-server
@@ -235,20 +233,7 @@ module.exports = function makeBaseConfig(data) {
       }),
       new StyleLintPlugin({
         configFile: STYLELINT_CONFIG,
-        customSyntax: path.join(NODE_MODULES_PATH, '/postcss-sass'), // Enabling Sass parsing
-      }),
-      new HtmlWebpackPlugin({
-        title: 'Web-js-boilerplate', // Page title
-        template: path.join(ROOT_PATH, '/src/index.html'), // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
-        chunksSortMode: 'dependency',
-        minify: {
-          collapseWhitespace: true, // Remove all whitespaces
-          removeRedundantAttributes: true, // remove attributes that is not needed
-          removeComments: true, // Remove comments from html
-          minifyURLs: true, // Minify all urls
-          sortAttributes: true,
-          sortClassName: true,
-        },
+        customSyntax: POSTCSS_SASS_PARSER_PATH, // Enabling Sass parsing
       }),
       new webpack.EnvironmentPlugin({
         BROWSERSLIST_CONFIG, // Browserslist config will be used directly by webpack (see https://github.com/ai/browserslist#config-file for more info)
