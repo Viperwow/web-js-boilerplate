@@ -9,11 +9,15 @@ const makeDevelopmentWebpackConfig = require('./webpack.development.config');
 const makeProductionWebpackConfig = require('./webpack.production.config');
 const makeRcWebpackConfig = require('./webpack.rc.config');
 
+// Constants
+const {PROJECT_DIST_NAME} = require('./constants');
+
 // Paths
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const HTML_INDEX_PATH = path.join(ROOT_PATH, '/src/index.html'); // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
 const JS_INDEX_PATH = path.join(ROOT_PATH, '/src/index.jsx'); // Add our js entry point
 const STYLES_INDEX_PATH = path.join(ROOT_PATH, '/assets/sass/index.sass'); // Add our sass/css entry point
+const DIST = path.join(ROOT_PATH, `/${PROJECT_DIST_NAME}`);
 
 module.exports = function makeAppWebpackConfig(data) {
   let currentWebpackConfig;
@@ -33,7 +37,14 @@ module.exports = function makeAppWebpackConfig(data) {
       break;
   }
 
+  const output = ['production', 'rc'].includes(data.env)
+    ? {
+      output: DIST,
+    }
+    : {};
+
   return webpackMerge(currentWebpackConfig, {
+    ...output,
     entry: {
       app: [
         JS_INDEX_PATH,

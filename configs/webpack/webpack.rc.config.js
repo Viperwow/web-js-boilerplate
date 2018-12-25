@@ -14,13 +14,9 @@ const {PROJECT_DIST_NAME} = require('./constants');
 
 // Paths
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
-const DIST = path.join(ROOT_PATH, `/${PROJECT_DIST_NAME}`);
 
 module.exports = function makeRcWebpackConfig(data) {
   return webpackMerge(makeBaseWebpackConfig(data), {
-    output: {
-      path: DIST,
-    },
     devtool: 'inline-cheap-module-source-map', // Allows us to read production code without uglification
     optimization: {
       minimizer: [
