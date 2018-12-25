@@ -2,19 +2,22 @@
 const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
 const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
-const CleanWebpackPlugin = require('clean-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const TerserWebpackPlugin = require('terser-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default; // eslint-disable-line import/no-extraneous-dependencies
+const CleanWebpackPlugin = require('clean-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
 // Configs
-const BaseWebpackConfig = require('./webpack.base.config');
+const makeBaseWebpackConfig = require('./webpack.base.config');
 
-// Path
+// Constants
+const {PROJECT_DIST_NAME} = require('./constants');
+
+// Paths
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
-const DIST = path.join(ROOT_PATH, '/dist');
+const DIST = path.join(ROOT_PATH, `/${PROJECT_DIST_NAME}`);
 
-module.exports = function productionWebpackConfig(data) {
-  return webpackMerge(BaseWebpackConfig(data), {
+module.exports = function makeProductionWebpackConfig(data) {
+  return webpackMerge(makeBaseWebpackConfig(data), {
     output: {
       path: DIST,
     },
@@ -33,7 +36,7 @@ module.exports = function productionWebpackConfig(data) {
       ],
     },
     plugins: [
-      new CleanWebpackPlugin('dist', {
+      new CleanWebpackPlugin(PROJECT_DIST_NAME, {
         root: ROOT_PATH,
       }),
       new webpack.HashedModuleIdsPlugin(),
