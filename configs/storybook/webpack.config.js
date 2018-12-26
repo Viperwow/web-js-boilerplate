@@ -31,6 +31,7 @@ module.exports = function makeStorybookWebpackConfig(baseConfig, env) {
       app: [
         STORYBOOK_INDEX_PATH,
         STYLES_INDEX_PATH,
+        'webpack-hot-middleware/client.js?reload=true',
       ],
     },
     module: {
