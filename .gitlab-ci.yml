@@ -4,10 +4,12 @@ cache:
   key: "$CI_COMMIT_REF_SLUG"
   paths:
     - node_modules
+    - jest-results.json
 
 stages:
   - install
   - testing
+  - linting
 
 before_script:
   - yarn install --ignore-engines
@@ -19,29 +21,29 @@ dependencies:
   only:
     - branches
 
-eslint:
+jest:
   stage: testing
+  script:
+    - yarn test:jest:output
+  only:
+    - branches
+
+eslint:
+  stage: linting
   script:
     - yarn test:eslint
   only:
     - branches
 
 stylelint:
-  stage: testing
+  stage: linting
   script:
     - yarn test:stylelint
   only:
     - branches
 
-jest:
-  stage: testing
-  script:
-    - yarn test:jest
-  only:
-    - branches
-
 flow:
-  stage: testing
+  stage: linting
   script:
     - yarn test:flow
   only:
