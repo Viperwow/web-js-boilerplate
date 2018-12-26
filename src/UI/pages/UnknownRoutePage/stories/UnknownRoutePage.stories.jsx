@@ -3,23 +3,23 @@ import React from 'react';
 import {storiesOf} from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import {text} from '@storybook/addon-knobs'; // eslint-disable-line import/no-extraneous-dependencies
 // UI
-import SecondPage from 'src/UI/pages/SecondPage';
+import UnknownRoutePage from 'src/UI/pages/UnknownRoutePage';
 // Constants
-const TEXT_PROP = 'Second page';
+const TEXT_PROP = 'Unknown route page';
 
 storiesOf('Pages', module)
   .addParameters({
     info: {
       text: `
-          Second page description
+          Unknown route page description
         `,
     },
   })
   .addParameters({
     jest: [
-      'SecondPage',
+      'UnknownRoutePage',
     ],
   })
-  .add('Second page', () => (
-    <SecondPage text={text('text', TEXT_PROP)} />
+  .add('Unknown route page', () => (
+    <UnknownRoutePage text={text('text', TEXT_PROP)} />
   ));

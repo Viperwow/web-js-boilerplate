@@ -33,6 +33,18 @@ module.exports = function makeStorybookWebpackConfig(baseConfig, env) {
         STYLES_INDEX_PATH,
       ],
     },
+    module: {
+      rules: [
+        {
+          test: /\.stories\.js(x)?(.flow)?$/,
+          loaders: [
+            {
+              loader: require.resolve('@storybook/addon-storysource/loader'),
+            },
+          ],
+        },
+      ],
+    },
     plugins: baseConfig.plugins.filter( // Ignore storybook default plugins to prevent plugins duplication
       plugin => !(plugin instanceof webpack.HotModuleReplacementPlugin)
         && !(plugin instanceof WatchMissingNodeModulesPlugin),
