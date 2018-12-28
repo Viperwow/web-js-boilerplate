@@ -18,11 +18,7 @@
     "test:jest": "jest -c ./configs/jest/jest.config.js",
     "test:jest:update": "yarn test:jest -- -u",
     "test:jest:output": "yarn test:jest -- --json --outputFile=jest-results.json",
-    "test:jest:output:watch": "yarn test:jest:output -- --watch || true",
-    "test:gemini": "gemini test",
-    "test:gemini:update": "gemini update",
-    "selenium:install": "./node_modules/.bin/selenium-standalone install",
-    "selenium:start": "selenium-standalone start"
+    "test:jest:output:watch": "yarn test:jest:output -- --watch || true"
   },
   "repository": {
     "type": "git",
@@ -135,8 +131,6 @@
     "file-loader": "2.0.0",
     "flow-bin": "0.87.0",
     "flow-typed": "2.5.1",
-    "gemini": "5.9.1",
-    "gemini-babel": "1.0.0",
     "html-webpack-plugin": "3.2.0",
     "imagemin-webpack-plugin": "2.3.0",
     "jest": "23.6.0",
@@ -151,7 +145,6 @@
     "react-dev-utils": "7.0.0",
     "react-test-renderer": "16.6.3",
     "sass-loader": "7.1.0",
-    "selenium-standalone": "6.15.3",
     "style-loader": "0.23.1",
     "stylelint": "9.6.0",
     "stylelint-config-sass-guidelines": "5.2.0",
