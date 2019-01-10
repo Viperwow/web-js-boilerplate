@@ -19,10 +19,10 @@ class Layout extends Component {
         <div className="layout">
           <Switch>
             <Redirect exact from="/" to="/1" />
-            <Route exact path="/1" component={DynamicMainPage} />
-            <Route exact path="/2" component={DynamicSecondPage} />
-            <Route exact path="/3" component={DynamicThirdPage} />
-            <Route component={DynamicUnknownRoutePage} />
+            <Route exact path="/1" render={DynamicMainPage} />
+            <Route exact path="/2" render={DynamicSecondPage} />
+            <Route exact path="/3" render={DynamicThirdPage} />
+            <Route render={DynamicUnknownRoutePage} />
           </Switch>
         </div>
       </Router>
