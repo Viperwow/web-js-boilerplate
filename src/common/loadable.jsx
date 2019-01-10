@@ -77,19 +77,21 @@ export default (
   }
 
   componentDidMount() {
-    this._delayJob();
+    const delayHandler = this._delayJob();
     const timeoutHandler = this._timeoutJob();
+    const LoadedComponent = React.lazy(async () => {
+      const loadedModule = await importer;
+
+      clearTimeout(delayHandler);
+      clearTimeout(timeoutHandler);
+
+      return loadedModule;
+    });
 
     this.setState(state => ({
       ...state,
       isMounted: true,
-      LoadedComponent: React.lazy(async () => {
-        const loadedModule = await importer;
-
-        clearTimeout(timeoutHandler);
-
-        return loadedModule;
-      }),
+      LoadedComponent,
     }));
   }
 
