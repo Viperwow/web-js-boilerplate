@@ -3,7 +3,34 @@
 exports[`UnknownRoutePage component should render correctly With default props 1`] = `
 <div
   className="page"
-/>
+>
+  <ul>
+    <li>
+      <Link
+        replace={true}
+        to="/1"
+      >
+        1
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={true}
+        to="/2"
+      >
+        2
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={true}
+        to="/3"
+      >
+        3
+      </Link>
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`UnknownRoutePage component should render correctly With text prop 1`] = `
@@ -11,5 +38,31 @@ exports[`UnknownRoutePage component should render correctly With text prop 1`] =
   className="page"
 >
   text
+  <ul>
+    <li>
+      <Link
+        replace={true}
+        to="/1"
+      >
+        1
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={true}
+        to="/2"
+      >
+        2
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={true}
+        to="/3"
+      >
+        3
+      </Link>
+    </li>
+  </ul>
 </div>
 `;

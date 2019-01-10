@@ -13,22 +13,22 @@ exports[`Layout component should render correctly With default props 1`] = `
         to="/1"
       />
       <Route
-        component={[MockFunction]}
         exact={true}
         path="/1"
+        render={[MockFunction]}
       />
       <Route
-        component={[MockFunction]}
         exact={true}
         path="/2"
+        render={[MockFunction]}
       />
       <Route
-        component={[MockFunction]}
         exact={true}
         path="/3"
+        render={[MockFunction]}
       />
       <Route
-        component={[MockFunction]}
+        render={[MockFunction]}
       />
     </Switch>
   </div>
