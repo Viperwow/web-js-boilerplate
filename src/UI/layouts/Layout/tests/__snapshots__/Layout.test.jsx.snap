@@ -24,7 +24,14 @@ exports[`Layout component should render correctly With default props 1`] = `
         exact={true}
         path="/3"
       />
-      <Route />
+      <Route
+        exact={true}
+        path="/not-found"
+      />
+      <Redirect
+        push={false}
+        to="/not-found"
+      />
     </Switch>
   </div>
 </BrowserRouter>

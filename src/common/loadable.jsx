@@ -55,7 +55,7 @@ export default ({
       const delayHandler = this._delayJob();
       const timeoutHandler = this._timeoutJob();
       const LoadedComponent = React.lazy(async () => {
-        const loadedModule = await importer;
+        const loadedModule = await importer();
 
         clearTimeout(delayHandler);
         clearTimeout(timeoutHandler);

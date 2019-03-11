@@ -24,7 +24,7 @@ exports[`SecondPage component should render correctly With default props 1`] = `
     <li>
       <Link
         replace={true}
-        to="/4"
+        to="/not-found"
       >
         4
       </Link>
@@ -58,7 +58,7 @@ exports[`SecondPage component should render correctly With text prop 1`] = `
     <li>
       <Link
         replace={true}
-        to="/4"
+        to="/not-found"
       >
         4
       </Link>
