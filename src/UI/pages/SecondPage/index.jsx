@@ -21,7 +21,7 @@ class SecondPage extends Component {
             </Link>
           </li>
           <li>
-            <Link to="/4" replace>
+            <Link to="/not-found" replace>
               4
             </Link>
           </li>

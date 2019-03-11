@@ -22,7 +22,8 @@ class Layout extends Component {
             <Route exact path="/1" render={DynamicMainPage} />
             <Route exact path="/2" render={DynamicSecondPage} />
             <Route exact path="/3" render={DynamicThirdPage} />
-            <Route render={DynamicUnknownRoutePage} />
+            <Route exact path="/not-found" render={DynamicUnknownRoutePage} />
+            <Redirect to="/not-found" />
           </Switch>
         </div>
       </Router>
