@@ -30,7 +30,6 @@ module.exports = {
     '@babel/plugin-proposal-export-namespace-from', // To support symmetric import/export
     // Stage 3
     '@babel/plugin-syntax-dynamic-import', // Allow parsing of import()
-    '@babel/plugin-syntax-import-meta', // Allow to get more info about import via global var import
     ['@babel/plugin-proposal-class-properties', { // Allow class properties
       loose: false,
     }],
@@ -75,6 +74,7 @@ module.exports = {
     test: {
       plugins: [
         'babel-plugin-dynamic-import-node', // Is needed to support dynamic imports in jest tests running by node (see https://github.com/airbnb/enzyme/issues/1460#issuecomment-388358778 for more info)
+        'require-context-hook', // Is needed to allow require.context usage in tests out of the webpack's building scope (see https://github.com/storybooks/storybook/tree/master/addons/storyshots/storyshots-core for more info)
       ],
       presets: [
         [
