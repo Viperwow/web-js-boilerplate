@@ -5,19 +5,19 @@ import React, {
   Suspense,
 } from 'react';
 import {constant as _constant} from 'lodash';
+import Loader from 'src/UI/components/Loader';
 
 const _defaultOptions = {
   delay: 300,
   timeout: 10000,
 };
-const _LoaderComponent = () => <Fragment>Loading...</Fragment>;
 const _ErrorComponent = () => <Fragment>Error!</Fragment>;
 const _TimeoutComponent = () => <Fragment>Timeout!</Fragment>;
 
 export default (
   importer,
   options = {},
-  LoaderComponent = _LoaderComponent,
+  LoaderComponent = Loader,
   ErrorComponent = _ErrorComponent,
   TimeoutComponent = _TimeoutComponent,
 ) => class Loadable extends Component {

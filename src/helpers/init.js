@@ -13,7 +13,5 @@ const initialPreparations = async ({client}) => {
 };
 
 export default hot(module)(
-  connect()(
-    prepare(initialPreparations)(Layout),
-  ),
+  connect()(prepare({preparation: initialPreparations})(Layout)),
 );
