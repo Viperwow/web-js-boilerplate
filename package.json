@@ -48,6 +48,7 @@
     "graphql": "14.0.2",
     "graphql-anywhere": "4.1.19",
     "graphql-tag": "2.10.0",
+    "history": "4.7.2",
     "i18next": "13.0.0",
     "i18next-browser-languagedetector": "2.2.4",
     "immutable": "4.0.0-rc.12",

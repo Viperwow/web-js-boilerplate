@@ -1,21 +1,20 @@
-// Vendors
 import React, {Component} from 'react';
 import {
-  BrowserRouter as Router,
   Redirect,
   Route,
+  Router,
   Switch,
 } from 'react-router-dom';
-// UI
 import DynamicMainPage from 'src/UI/pages/MainPage/DynamicMainPage';
 import DynamicSecondPage from 'src/UI/pages/SecondPage/DynamicSecondPage';
 import DynamicThirdPage from 'src/UI/pages/ThirdPage/DynamicThirdPage';
 import DynamicUnknownRoutePage from 'src/UI/pages/UnknownRoutePage/DynamicUnknownRoutePage';
+import {getHistory} from 'src/helpers/history';
 
 class Layout extends Component {
   render() {
     return (
-      <Router>
+      <Router history={getHistory()}>
         <div className="layout">
           <Switch>
             <Redirect exact from="/" to="/1" />
