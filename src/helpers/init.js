@@ -1,14 +1,12 @@
-// Vendors
 import {hot} from 'react-hot-loader'; // Is being used to save React components state after HRM
-// Layouts
 import Layout from 'src/UI/layouts/Layout/index';
-// Common
 import prepare from 'src/common/prepare';
 import connect from 'src/common/connect';
-// Helpers
 import {initLocale} from 'src/helpers/locale';
+import {initHistory} from 'src/helpers/history';
 
 const initialPreparations = async ({client}) => {
+  initHistory();
   await initLocale(client);
 };
 
