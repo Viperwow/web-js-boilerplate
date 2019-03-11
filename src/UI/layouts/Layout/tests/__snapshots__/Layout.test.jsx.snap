@@ -15,21 +15,16 @@ exports[`Layout component should render correctly With default props 1`] = `
       <Route
         exact={true}
         path="/1"
-        render={[MockFunction]}
       />
       <Route
         exact={true}
         path="/2"
-        render={[MockFunction]}
       />
       <Route
         exact={true}
         path="/3"
-        render={[MockFunction]}
       />
-      <Route
-        render={[MockFunction]}
-      />
+      <Route />
     </Switch>
   </div>
 </BrowserRouter>
