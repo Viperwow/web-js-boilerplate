@@ -11,8 +11,8 @@ const mergeProps = (
   mapStateToProps = _mixPropsWithClient,
   mapClientToProps = _mixPropsWithClient,
 ) => merge(
-  Object.assign({}, mapStateToProps({store: client.extract().ROOT_QUERY}, props)),
-  Object.assign({}, mapClientToProps(client, props)),
+  {...mapStateToProps({store: client.extract().ROOT_QUERY}, props)},
+  {...mapClientToProps(client, props)},
 );
 
 const connect = (

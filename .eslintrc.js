@@ -11,6 +11,7 @@ module.exports = {
   ],
   'plugins': [
     'jest',
+    'babel',
     'promise',
     'unicorn',
     'jsdoc',
@@ -22,8 +23,10 @@ module.exports = {
   'parser': 'babel-eslint',
   'env': { // You might have seen, that there is no 'es6: true' and etc. This is because it's inherited from plugins configurations
     'worker': true,
+    'shared-node-browser': true,
   },
   'globals': {
+    'BigInt': true, // Allow to use BigInt
     'gemini': true, // Allow gemini to be used globally (WARNING maybe it's a mistake, because it's defined in the package.json as a devDependency, but mustn't be a dependency as eslint tells us)
   },
   'settings': {
@@ -62,7 +65,8 @@ module.exports = {
     'react/jsx-curly-spacing': [2, 'never'], // Enforce the usage of the no spaces between curly brackets
     'react/prop-types': [0],
     'import/prefer-default-export': [0], // Allow the usage of the single exported element and make imports of the oru own modules easier
-    'object-curly-spacing': [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets
+    'object-curly-spacing': [0], // Allow eslint-babel-plugin to handle this rule
+    'valid-typeof': [0], // Allow eslint-babel-plugin to handle this rule
     'max-len': [2, { // Overwrite airbnb defaults to use 2-spaced indents and 100 line length
       'code': 100,
       'tabWidth': 2,
@@ -124,6 +128,9 @@ module.exports = {
     'you-dont-need-lodash-underscore/uniq': [0], // We don't want unreadable and not self-descriptive code
     // Jest
     'jest/no-disabled-tests': [0], // Force the usage of all tests that have been written (it force you to remove old/unnecessary tests)
+    // Babel
+    "babel/object-curly-spacing": [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets and allows the usage of the non-named export syntax
+    "babel/valid-typeof": [2], // Overwrite defaults to support BigInt
     // Class member sorting
     'sort-class-members/sort-class-members': [2, {
       'groups': {
