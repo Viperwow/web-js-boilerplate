@@ -4,25 +4,44 @@ import i18nBrowserLanguageDetector from 'i18next-browser-languagedetector';
 // GQL
 import MUTATION_LOCALE from 'src/mutations/locale';
 
-const _localeNameMappings = { // Is needed for debugging purposes
+const LOCALE_NAME_MAPPINGS = { // Is needed for debugging purposes
   en: () => import('assets/locales/en.js' /* webpackChunkName: "en" */),
   ru: () => import('assets/locales/ru.js' /* webpackChunkName: "ru" */),
 };
 
-const getLocale = () => i18n.language.split('-')[0];
+const _getLocaleData = async locale => {
+  const localeModule = await LOCALE_NAME_MAPPINGS[locale]();
 
-const _loadLocaleDynamically = async (locale = getLocale()) => {
-  const localeModule = await _localeNameMappings[locale]();
-
-  i18n.addResourceBundle(locale, 'translation', localeModule.default, true, true);
-  document.title = i18n.t('document.title');
+  return localeModule.default;
 };
 
-const _setStoreLocale = (client, locale = getLocale()) => {
+export const getLocale = () => i18n.language.split('-')[0];
+
+const _setLocaleData = async locale => {
+  i18n.addResourceBundle(locale, 'translation', await _getLocaleData(locale), true, true);
+};
+
+const _setStoreLocale = (client, locale) => {
   client.mutate({mutation: MUTATION_LOCALE, variables: {locale}});
 };
 
-const initLocale = client => new Promise((resolve, reject) => {
+const _setDocumentTitle = () => {
+  document.title = i18n.t('document.title');
+};
+
+const _updateLocale = async (client, locale) => {
+  await _setLocaleData(locale);
+  _setStoreLocale(client, locale);
+  _setDocumentTitle();
+};
+
+const _addLocaleChangeListener = client => {
+  i18n.on('languageChanged', locale => {
+    _updateLocale(client, locale);
+  });
+};
+
+export const initLocale = client => new Promise((resolve, reject) => {
   i18n
     .use(i18nBrowserLanguageDetector) // To detect user's locale automatically
     .init({
@@ -37,20 +56,17 @@ const initLocale = client => new Promise((resolve, reject) => {
       if (error) {
         reject(error);
       } else {
-        await _loadLocaleDynamically(getLocale());
-        _setStoreLocale(client, getLocale());
+        const locale = getLocale();
 
-        i18n.on('languageChanged', async locale => {
-          await _loadLocaleDynamically(locale);
-          _setStoreLocale(client, locale);
-        });
+        await _updateLocale(client, locale);
+        _addLocaleChangeListener(client);
 
-        resolve(getLocale());
+        resolve(locale);
       }
     });
 });
 
-const _setI18nLocale = (locale = getLocale()) => new Promise((resolve, reject) => {
+export const setLocale = (locale = getLocale()) => new Promise((resolve, reject) => {
   i18n.changeLanguage(locale, error => {
     if (error) {
       reject(error);
@@ -59,11 +75,3 @@ const _setI18nLocale = (locale = getLocale()) => new Promise((resolve, reject) =
     }
   });
 });
-
-const setLocale = (locale = getLocale()) => _setI18nLocale(locale);
-
-export {
-  getLocale,
-  initLocale,
-  setLocale,
-};
