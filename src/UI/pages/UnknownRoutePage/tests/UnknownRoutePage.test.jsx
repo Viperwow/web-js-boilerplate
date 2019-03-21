@@ -3,9 +3,9 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import {shallowToJson} from 'enzyme-to-json';
 // UI
-import UnknownRoutePage from '..';
+import UnknownRoutePage from '../UnknownRoutePage';
 
-jest.unmock('..');
+jest.unmock('../UnknownRoutePage');
 
 describe('UnknownRoutePage component should render correctly', () => {
   test('With default props', () => {

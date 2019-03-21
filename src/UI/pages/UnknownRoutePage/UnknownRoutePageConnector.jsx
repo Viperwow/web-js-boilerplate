@@ -5,7 +5,7 @@ import connectQuery from 'src/common/connectQuery';
 // GQL
 import QUERY_LOCALE from 'src/queries/locale';
 // UI
-import UnknownRoutePage from '.';
+import UnknownRoutePage from './UnknownRoutePage';
 
 const mapStateToProps = () => ({
   text: i18n.t('pages.unknown'),

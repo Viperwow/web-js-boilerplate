@@ -5,7 +5,7 @@ import connectQuery from 'src/common/connectQuery';
 // GQL
 import QUERY_LOCALE from 'src/queries/locale';
 // UI
-import ThirdPage from '.';
+import ThirdPage from './ThirdPage';
 
 const mapStateToProps = () => ({
   text: i18n.t('pages.third'),

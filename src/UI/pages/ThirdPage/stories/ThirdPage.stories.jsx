@@ -3,7 +3,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import {text} from '@storybook/addon-knobs'; // eslint-disable-line import/no-extraneous-dependencies
 // UI
-import ThirdPage from 'src/UI/pages/ThirdPage';
+import ThirdPage from '../ThirdPage';
 // Constants
 const TEXT_PROP = 'Third page';
 

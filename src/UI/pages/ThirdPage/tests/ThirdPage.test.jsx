@@ -3,9 +3,9 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import {shallowToJson} from 'enzyme-to-json';
 // UI
-import ThirdPage from '..';
+import ThirdPage from '../ThirdPage';
 
-jest.unmock('..');
+jest.unmock('../ThirdPage');
 
 describe('ThirdPage component should render correctly', () => {
   test('With default props', () => {

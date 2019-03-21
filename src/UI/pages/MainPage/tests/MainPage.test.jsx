@@ -3,9 +3,9 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import {shallowToJson} from 'enzyme-to-json';
 // UI
-import MainPage from '..';
+import MainPage from '../MainPage';
 
-jest.unmock('..');
+jest.unmock('../MainPage');
 
 describe('MainPage component should render correctly', () => {
   test('With default props', () => {
