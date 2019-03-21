@@ -1,34 +1,7 @@
-// Vendors
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import loadable from 'src/common/loadable';
 
-class SecondPage extends Component {
-  render() {
-    const {text} = this.props;
+const DynamicSecondPage = loadable({
+  importer: () => import('src/UI/pages/SecondPage/SecondPageConnector' /* webpackChunkName: "SecondPage" */), // eslint-disable-line max-len
+});
 
-    return (
-      <div className="page">
-        {text}
-        <ul>
-          <li>
-            <Link to="/1" replace>
-              1
-            </Link>
-          </li>
-          <li>
-            <Link to="/3" replace>
-              3
-            </Link>
-          </li>
-          <li>
-            <Link to="/not-found" replace>
-              4
-            </Link>
-          </li>
-        </ul>
-      </div>
-    );
-  }
-}
-
-export default SecondPage;
+export default DynamicSecondPage;

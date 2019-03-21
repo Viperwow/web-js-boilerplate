@@ -5,10 +5,10 @@ import {
   Router,
   Switch,
 } from 'react-router-dom';
-import DynamicMainPage from 'src/UI/pages/MainPage/DynamicMainPage';
-import DynamicSecondPage from 'src/UI/pages/SecondPage/DynamicSecondPage';
-import DynamicThirdPage from 'src/UI/pages/ThirdPage/DynamicThirdPage';
-import DynamicUnknownRoutePage from 'src/UI/pages/UnknownRoutePage/DynamicUnknownRoutePage';
+import DynamicMainPage from 'src/UI/pages/MainPage';
+import DynamicSecondPage from 'src/UI/pages/SecondPage';
+import DynamicThirdPage from 'src/UI/pages/ThirdPage';
+import DynamicUnknownRoutePage from 'src/UI/pages/UnknownRoutePage';
 import {getHistory} from 'src/helpers/history';
 
 class Layout extends Component {

@@ -5,7 +5,7 @@ import connectQuery from 'src/common/connectQuery';
 // GQL
 import QUERY_LOCALE from 'src/queries/locale';
 // UI
-import MainPage from '.';
+import MainPage from './MainPage';
 
 const mapStateToProps = () => ({
   text: i18n.t('pages.main'),
