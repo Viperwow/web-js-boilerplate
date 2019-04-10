@@ -5,8 +5,49 @@ const path = require('path'); // eslint-disable-line import/no-extraneous-depend
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const SRC_PATH = path.join(ROOT_PATH, '/src');
 const SPECS_PATH = path.join(ROOT_PATH, '/specs');
-// FIXME Uncomment this line when you'll add any support files to the <rootDir>/specs/support
-// const SUPPORT_PATH = path.join(SPECS_PATH, '/support');
+
+const UNMOCKED_SYSTEM_DEPENDENCIES = [
+  'intellij',
+];
+
+const UNMOCKED_POLYFILLS = [
+  'node_modules/parse5',
+  'node_modules/core-js',
+  'node_modules/global',
+  'node_modules/babel-plugin-require-context-hook/register',
+];
+
+const UNMOCKED_ENZYME_DEPENDENCIES = [
+  'node_modules/enzyme',
+  'node_modules/enzyme-adapter-react-16',
+  'node_modules/enzyme-to-json',
+];
+
+const UNMOCKED_REACT_DEPENDENCIES = [
+  'node_modules/react',
+  'node_modules/react-dom',
+];
+
+const UNMOCKED_GRAPHQL_DEPENDENCIES = [
+  'node_modules/graphql',
+  'node_modules/apollo',
+];
+
+const UNMOCKED_VARIOUS_DEPENDENCIES = [
+  'node_modules/classnames',
+  'node_modules/lodash',
+];
+
+const UNMOCKED_STORYBOOK_DEPENDENCIES = [
+  'node_modules/@storybook/addon-actions',
+  'node_modules/@storybook/addon-info',
+  'node_modules/@storybook/addon-jest',
+  'node_modules/@storybook/addon-knobs',
+  'node_modules/@storybook/addon-options',
+  'node_modules/@storybook/addon-storysource',
+  'node_modules/@storybook/addon-viewport',
+  'node_modules/@storybook/react',
+];
 
 module.exports = {
   rootDir: ROOT_PATH,
@@ -20,21 +61,14 @@ module.exports = {
     '**/*.+(test|spec|steps|support).js?(x)',
   ],
   unmockedModulePathPatterns: [ // Unmock base things by default (you still have to unmock every import not described as pattern in this section or write your own mock in __mocks__ folder somewhere)
-    'node_modules/parse5',
-    'node_modules/core-js',
-    'node_modules/enzyme',
-    'node_modules/enzyme-adapter-react-16',
-    'node_modules/enzyme-to-json',
-    'node_modules/react',
-    'node_modules/react-dom',
-    'node_modules/classnames',
-    'node_modules/lodash',
-    'node_modules/graphql',
-    'node_modules/apollo',
-    'intellij',
+    ...UNMOCKED_SYSTEM_DEPENDENCIES,
+    ...UNMOCKED_POLYFILLS,
+    ...UNMOCKED_ENZYME_DEPENDENCIES,
+    ...UNMOCKED_REACT_DEPENDENCIES,
+    ...UNMOCKED_GRAPHQL_DEPENDENCIES,
+    ...UNMOCKED_VARIOUS_DEPENDENCIES,
+    ...UNMOCKED_STORYBOOK_DEPENDENCIES,
   ],
-  // FIXME Uncomment this line when you'll add any support files to the <rootDir>/specs/support
-  // setupFiles: [`${SUPPORT_PATH}`],
   setupTestFrameworkScriptFile: `${ROOT_PATH}/configs/jest/jest.config.setup.js`,
   transform: { // It's added here to support additional preprocessors usage and to not forget about such a thing in future (see https://jestjs.io/docs/en/configuration.html#transform-object-string-string for more info) and it might fail on the flow usage without this block
     '^.+\\.jsx?$': 'babel-jest', // Transform JS code using babel

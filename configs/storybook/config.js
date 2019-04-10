@@ -1,25 +1,17 @@
 // Vendors
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {
+import { // eslint-disable-line import/no-extraneous-dependencies
   addDecorator,
   configure,
 } from '@storybook/react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {
+import { // eslint-disable-line import/no-extraneous-dependencies
   configureViewport,
   INITIAL_VIEWPORTS,
 } from '@storybook/addon-viewport';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {withTests} from '@storybook/addon-jest';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {withInfo} from '@storybook/addon-info';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {withOptions} from '@storybook/addon-options';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {configureActions} from '@storybook/addon-actions';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {withKnobs} from '@storybook/addon-knobs';
-// Jest results
+import {withTests} from '@storybook/addon-jest'; // eslint-disable-line import/no-extraneous-dependencies
+import {withInfo} from '@storybook/addon-info'; // eslint-disable-line import/no-extraneous-dependencies
+import {withOptions} from '@storybook/addon-options'; // eslint-disable-line import/no-extraneous-dependencies
+import {configureActions} from '@storybook/addon-actions'; // eslint-disable-line import/no-extraneous-dependencies
+import {withKnobs} from '@storybook/addon-knobs'; // eslint-disable-line import/no-extraneous-dependencies
 import results from '../../jest-results.json'; // eslint-disable-line import/no-unresolved
 
 configureViewport({
