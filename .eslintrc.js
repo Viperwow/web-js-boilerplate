@@ -64,6 +64,7 @@ module.exports = {
     }],
     'react/jsx-curly-spacing': [2, 'never'], // Enforce the usage of the no spaces between curly brackets
     'react/prop-types': [0],
+    'import/extensions': [2, 'ignorePackages', {'js': 'never'}, {'jsx': 'never'}, {'mjs': 'never'}, {'js.flow': 'never'}],
     'import/prefer-default-export': [0], // Allow the usage of the single exported element and make imports of the oru own modules easier
     'object-curly-spacing': [0], // Allow eslint-babel-plugin to handle this rule
     'valid-typeof': [0], // Allow eslint-babel-plugin to handle this rule
