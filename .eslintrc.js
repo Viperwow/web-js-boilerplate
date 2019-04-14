@@ -45,6 +45,7 @@ module.exports = {
     },
     'polyfills': [ // Add babel polyfills here that is compatible with browsers from the .browserslistrc (see more at https://github.com/amilajack/eslint-plugin-compat/wiki/Adding-polyfills)
       'promises',
+      'fetch',
     ],
     'flowtype': {
       'onlyFilesWithFlowAnnotation': true
