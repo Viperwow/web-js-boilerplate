@@ -1,7 +1,7 @@
 // Vendors
 import React from 'react';
 import {ApolloConsumer} from 'react-apollo';
-import {merge} from 'lodash';
+import {merge as _merge} from 'lodash';
 
 const _mixPropsWithClient = (client, props = {}) => ({client, ...props});
 
@@ -10,7 +10,7 @@ const mergeProps = (
   props = {},
   mapStateToProps = _mixPropsWithClient,
   mapClientToProps = _mixPropsWithClient,
-) => merge(
+) => _merge(
   {...mapStateToProps({store: client.extract().ROOT_QUERY}, props)},
   {...mapClientToProps(client, props)},
 );

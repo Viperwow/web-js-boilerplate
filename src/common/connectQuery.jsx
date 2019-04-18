@@ -1,7 +1,7 @@
 // Vendors
 import React from 'react';
 import {Query} from 'react-apollo';
-import {merge} from 'lodash';
+import {merge as _merge} from 'lodash';
 
 const _doubleIdentity = (client, props = {}) => ({client, ...props});
 
@@ -10,7 +10,7 @@ const mergeProps = (
   props = {},
   mapStateToProps = _doubleIdentity,
   mapClientToProps = _doubleIdentity,
-) => merge(
+) => _merge(
   {...mapStateToProps({store: client.extract().ROOT_QUERY}, props)},
   {...mapClientToProps(client, props)},
 );
