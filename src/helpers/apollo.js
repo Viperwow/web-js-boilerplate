@@ -1,4 +1,3 @@
-// Vendors
 import {ApolloClient} from 'apollo-client';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {withClientState} from 'apollo-link-state';
@@ -6,9 +5,8 @@ import {ApolloLink} from 'apollo-link';
 import {HttpLink} from 'apollo-link-http';
 import {onError} from 'apollo-link-error';
 import {RetryLink} from 'apollo-link-retry';
-// GQL
-import {TYPE_DEF_LOCALE} from 'src/types/gql';
-import setLocale from 'src/resolvers/locale';
+import {LOCALE_TYPE_DEF} from 'src/typedefs';
+import {setLocale} from 'src/resolvers';
 
 const cache = new InMemoryCache(); // Create apollo cache (same thing as meant as Redux app's 'local state')
 
@@ -16,14 +14,14 @@ const httpLink = new HttpLink({
   uri: 'https://launchpad.graphql.com/j90lv4pm5p', // 'http://localhost:3000/graphql',
 });
 
-const localStateLink = withClientState({ // Allows you provide defaults to the 'local state' (default 'local state' is {})
+const localStateLink = withClientState({ // Allows you provide defaults to the 'local state'
   cache,
   defaults: {
     locale: 'en',
   },
   typeDefs: `
     type Mutation {
-      ${TYPE_DEF_LOCALE},
+      ${LOCALE_TYPE_DEF},
     }
   `,
   resolvers: {

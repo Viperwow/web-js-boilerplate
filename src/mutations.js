@@ -1,10 +1,7 @@
-// Vendors
 import gql from 'graphql-tag';
 
-const MUTATION_LOCALE = gql`
+export const LOCALE_MUTATION = gql`
   mutation setLocale($locale: String) {
     setLocale(locale: $locale) @client
   }
 `;
-
-export default MUTATION_LOCALE;

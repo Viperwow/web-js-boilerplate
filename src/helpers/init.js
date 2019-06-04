@@ -6,13 +6,14 @@ import {compose} from 'src/helpers/utility';
 import {initLocale} from 'src/helpers/locale';
 import {initHistory} from 'src/helpers/history';
 
-const initialPreparations = async ({client}) => {
+const initialPreparation = async ({client}) => {
   initHistory();
+
   await initLocale(client);
 };
 
 export default compose(
   hot(module),
   withApollo,
-  prepare({preparation: initialPreparations}),
+  prepare({preparation: initialPreparation}),
 )(Layout);
