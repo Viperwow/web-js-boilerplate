@@ -1,10 +1,7 @@
-// Vendors
 import gql from 'graphql-tag';
 
-const QUERY_LOCALE = gql`
+export const LOCALE_QUERY = gql`
   query getLocale {
     locale @client
   }
 `;
-
-export default QUERY_LOCALE;

@@ -1,4 +1,4 @@
-const setLocale = (_, {locale}, {cache}) => {
+export const setLocale = (_, {locale}, {cache}) => {
   cache.writeData({
     data: {
       locale,
@@ -7,5 +7,3 @@ const setLocale = (_, {locale}, {cache}) => {
 
   return locale;
 };
-
-export default setLocale;

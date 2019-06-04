@@ -6,7 +6,7 @@ const _secondParameterIdentity = (_, props) => props;
 
 const _getStateFromClient = client => client.extract().ROOT_QUERY;
 
-const mergeProps = (
+const _mergeProps = (
   client,
   props = {},
   mapStateToProps = _secondParameterIdentity,
@@ -24,7 +24,7 @@ const connectQuery = (
   <Query query={query}>
     {({client, ...restQueryProps}) => (
       <Wrapped {...{
-        ...mergeProps(
+        ..._mergeProps(
           client,
           {
             ...props,
