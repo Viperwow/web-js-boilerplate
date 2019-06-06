@@ -1,14 +1,11 @@
-// Vendors
 const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
 const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin'); // eslint-disable-line import/no-extraneous-dependencies
 
-// Configs
 const makeBaseWebpackConfig = require('./webpack.base.config');
 const DevServerConfig = require('./devserver.config');
 
-// Paths
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 

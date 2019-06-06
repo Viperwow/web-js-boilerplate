@@ -1,10 +1,8 @@
-// Vendors
 import React from 'react';
 import {storiesOf} from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import {text} from '@storybook/addon-knobs'; // eslint-disable-line import/no-extraneous-dependencies
-// UI
 import MainPage from '../MainPage';
-// Constants
+
 const TEXT_PROP = 'Main page';
 
 storiesOf('Pages', module)

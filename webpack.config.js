@@ -1,4 +1,3 @@
-// Configs
 const makeAppWebpackConfig = require('./configs/webpack/webpack.app.config.js');
 
 module.exports = function initConfig(data) { // Get env parameter from --env

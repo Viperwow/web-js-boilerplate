@@ -1,4 +1,3 @@
-// Vendors
 const postcssPresetEnv = require('postcss-preset-env'); // eslint-disable-line import/no-extraneous-dependencies
 const cssnano = require('cssnano'); // eslint-disable-line import/no-extraneous-dependencies
 

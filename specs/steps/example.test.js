@@ -1,6 +1,4 @@
-// Vendors
 import uuidv4 from 'uuid/v4';
-// Helpers
 import {
   mult,
   sum,

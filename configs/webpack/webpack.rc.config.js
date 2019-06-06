@@ -1,4 +1,3 @@
-// Vendors
 const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
 const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
@@ -6,13 +5,10 @@ const TerserWebpackPlugin = require('terser-webpack-plugin'); // eslint-disable-
 const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default; // eslint-disable-line import/no-extraneous-dependencies
 const CleanWebpackPlugin = require('clean-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
-// Configs
 const makeBaseWebpackConfig = require('./webpack.base.config');
 
-// Constants
 const {PROJECT_DIST_NAME} = require('./constants');
 
-// Paths
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 
 module.exports = function makeRcWebpackConfig(data) {
