@@ -6,7 +6,7 @@ import Loader from 'src/UI/components/Loader';
 
 const DEFAULT_DELAY = 200;
 
-export default ({
+const prepare = ({
   preparation,
   delay = DEFAULT_DELAY,
   processorSuccess = result => ({result: result || null}),
@@ -89,3 +89,5 @@ export default ({
 
   return <Prepared {...props} />;
 };
+
+export default prepare;

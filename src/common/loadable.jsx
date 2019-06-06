@@ -13,7 +13,7 @@ import Loader from 'src/UI/components/Loader';
 const DEFAULT_DELAY = 200;
 const DEFAULT_TIMEOUT = 10000;
 
-export default ({
+const loadable = ({
   importer,
   delay = DEFAULT_DELAY,
   timeout = DEFAULT_TIMEOUT,
@@ -110,3 +110,5 @@ export default ({
 
   return <Loadable {...props} />;
 };
+
+export default loadable;
