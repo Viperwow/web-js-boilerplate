@@ -1,4 +1,3 @@
-// Vendors
 const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
 const CircularDependencyPlugin = require('circular-dependency-plugin'); // eslint-disable-line import/no-extraneous-dependencies
@@ -6,19 +5,16 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin'); // eslint
 const StyleLintPlugin = require('stylelint-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
-// Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
 
-// Configs
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
 const POSTCSS_CONFIG = path.join(ROOT_PATH, '/configs/postcss.config.js');
 const ESLINT_CONFIG = path.join(ROOT_PATH, '/.eslintrc.js');
 const STYLELINT_CONFIG = path.join(ROOT_PATH, '/.stylelintrc.js');
 
-// Constants
 const IMG_SIZE_LIMIT = 10 * 1024; // 10kB
 const FONTS_SIZE_LIMIT = 10 * 1024; // 10kB
 

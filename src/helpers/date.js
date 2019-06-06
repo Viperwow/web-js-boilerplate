@@ -1,4 +1,3 @@
-// Vendors
 import {
   formatDistance as _formatDistance,
   formatDistanceStrict as _formatDistanceStrict,
@@ -9,7 +8,6 @@ import {
   ru,
 } from 'date-fns/locale';
 import {format as _format} from 'date-fns-tz';
-// Helpers
 import {getLocale} from 'src/helpers/locale';
 
 const _localeNameMappings = {

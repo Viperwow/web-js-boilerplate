@@ -1,7 +1,5 @@
-// Vendors
 const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
 
-// Path
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const SRC_PATH = path.join(ROOT_PATH, '/src');
 const SPECS_PATH = path.join(ROOT_PATH, '/specs');

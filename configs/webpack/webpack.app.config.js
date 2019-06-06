@@ -1,18 +1,14 @@
-// Vendors
 const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
 const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
-// Configs
 const makeBaseWebpackConfig = require('./webpack.base.config');
 const makeDevelopmentWebpackConfig = require('./webpack.development.config');
 const makeProductionWebpackConfig = require('./webpack.production.config');
 const makeRcWebpackConfig = require('./webpack.rc.config');
 
-// Constants
 const {PROJECT_DIST_NAME} = require('./constants');
 
-// Paths
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const HTML_INDEX_PATH = path.join(ROOT_PATH, '/src/index.html'); // Path to the template that is being used as index html and with which one this plugin will do everything that it have to do
 const JS_INDEX_PATH = path.join(ROOT_PATH, '/src/index.jsx'); // Add our js entry point

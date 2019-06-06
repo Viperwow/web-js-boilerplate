@@ -1,10 +1,8 @@
-// Vendors
 import React from 'react';
 import {storiesOf} from '@storybook/react'; // eslint-disable-line import/no-extraneous-dependencies
 import {text} from '@storybook/addon-knobs'; // eslint-disable-line import/no-extraneous-dependencies
-// UI
 import UnknownRoutePage from '../UnknownRoutePage';
-// Constants
+
 const TEXT_PROP = 'Unknown route page';
 
 storiesOf('Pages', module)

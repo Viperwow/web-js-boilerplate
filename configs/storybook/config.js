@@ -1,4 +1,3 @@
-// Vendors
 import { // eslint-disable-line import/no-extraneous-dependencies
   addDecorator,
   configure,
