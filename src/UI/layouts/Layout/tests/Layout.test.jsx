@@ -1,9 +1,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import {shallowToJson} from 'enzyme-to-json';
-import Layout from '..';
+import Layout from '../Layout';
 
-jest.unmock('..');
+jest.unmock('../Layout');
 
 describe('Layout component should render correctly', () => {
   test('With default props', () => {

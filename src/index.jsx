@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {ApolloProvider} from 'react-apollo';
-import InitLayout from 'src/helpers/init';
+import Layout from 'src/UI/layouts/Layout';
 import {
   getApolloClient,
   initApolloClient,
@@ -11,7 +11,7 @@ initApolloClient();
 
 ReactDOM.render(
   <ApolloProvider client={getApolloClient()}>
-    <InitLayout />
+    <Layout />
   </ApolloProvider>,
   document.querySelector('app'),
 );
