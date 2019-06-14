@@ -10,6 +10,9 @@ const ru = {
     third: 'Третья страница',
     unknown: 'Неизвестная страница',
   },
+  components: {
+    loader: 'Загрузка...',
+  },
 };
 
 export default ru;

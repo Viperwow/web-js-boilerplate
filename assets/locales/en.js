@@ -10,6 +10,9 @@ const en = {
     third: 'Third page',
     unknown: 'Unknown page',
   },
+  components: {
+    loader: 'Loading...',
+  },
 };
 
 export default en;
