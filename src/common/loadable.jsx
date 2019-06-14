@@ -8,7 +8,6 @@ import {
   constant as _constant,
   isFinite as _isFinite,
 } from 'lodash';
-import Loader from 'src/UI/components/Loader';
 
 const DEFAULT_DELAY = 200;
 const DEFAULT_TIMEOUT = 10000;
@@ -17,7 +16,7 @@ const loadable = ({
   importer,
   delay = DEFAULT_DELAY,
   timeout = DEFAULT_TIMEOUT,
-  LoaderComponent = Loader,
+  LoaderComponent = _constant('Loading...'),
   ErrorComponent = _constant('Error!'),
   TimeoutComponent = _constant('Timeout!'),
 }) => props => {
@@ -31,17 +30,29 @@ const loadable = ({
 
     _isMounted = false;
 
-    _delayJob = () => setTimeout(() => {
+    _delayJob = () => {
+      if (_isFinite(delay) && delay >= 0) {
+        return setTimeout(() => {
+          if (this._isMounted) {
+            this.setState({
+              isDelayEnded: true,
+            });
+          }
+        }, delay);
+      }
+
       if (this._isMounted) {
         this.setState({
           isDelayEnded: true,
         });
       }
-    }, delay);
+
+      return null;
+    };
 
     _timeoutJob = () => {
       if (_isFinite(timeout) && timeout >= 0) {
-        setTimeout(() => {
+        return setTimeout(() => {
           if (this._isMounted) {
             this.setState({
               isTimedOut: true,
@@ -49,9 +60,12 @@ const loadable = ({
           }
         }, timeout);
       }
+
+      return null;
     };
 
     componentDidMount() {
+      this._isMounted = true;
       const delayHandler = this._delayJob();
       const timeoutHandler = this._timeoutJob();
       const LoadedComponent = React.lazy(async () => {

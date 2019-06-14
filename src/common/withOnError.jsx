@@ -1,7 +1,7 @@
 /* eslint-disable react/no-this-in-sfc */
 
-import {isFunction as _isFunction} from 'lodash';
 import React, {Component} from 'react';
+import {isFunction as _isFunction} from 'lodash';
 
 const withOnError = Wrapped => props => {
   class WithOnErrorComponent extends Component {

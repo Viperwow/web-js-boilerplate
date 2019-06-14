@@ -1,8 +1,10 @@
 /* eslint-disable react/no-this-in-sfc */
 
 import React, {Component} from 'react';
-import {constant as _constant} from 'lodash';
-import Loader from 'src/UI/components/Loader';
+import {
+  constant as _constant,
+  isFinite as _isFinite,
+} from 'lodash';
 
 const DEFAULT_DELAY = 200;
 
@@ -11,7 +13,7 @@ const prepare = ({
   delay = DEFAULT_DELAY,
   processorSuccess = result => ({result: result || null}),
   processorError = error => ({error: error || null}),
-  LoaderComponent = Loader,
+  LoaderComponent = _constant('Loading...'),
 }) => Wrapped => props => {
   class Prepared extends Component {
     state = {
@@ -42,17 +44,28 @@ const prepare = ({
       }
     };
 
-    _delayJob = () => setTimeout(() => {
+    _delayJob = () => {
+      if (_isFinite(delay) && delay >= 0) {
+        setTimeout(() => {
+          if (this._isMounted) {
+            this.setState({
+              isDelay: false,
+            });
+          }
+        }, delay);
+      }
+
       if (this._isMounted) {
         this.setState({
           isDelay: false,
         });
       }
-    }, delay);
+
+      return null;
+    };
 
     componentDidMount() {
       this._isMounted = true;
-
       const delayHandler = this._delayJob();
 
       this._processPreparation()
