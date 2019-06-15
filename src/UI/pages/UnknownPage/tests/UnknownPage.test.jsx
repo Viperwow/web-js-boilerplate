@@ -1,20 +1,20 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import {shallowToJson} from 'enzyme-to-json';
-import UnknownRoutePage from '../UnknownRoutePage';
+import UnknownPage from '../UnknownPage';
 
-jest.unmock('../UnknownRoutePage');
+jest.unmock('../UnknownPage');
 
-describe('UnknownRoutePage component should render correctly', () => {
+describe('UnknownPage component should render correctly', () => {
   test('With default props', () => {
-    const output = shallow(<UnknownRoutePage />);
+    const output = shallow(<UnknownPage />);
 
     expect(shallowToJson(output))
       .toMatchSnapshot();
   });
 
   test('With text prop', () => {
-    const output = shallow(<UnknownRoutePage text="text" />);
+    const output = shallow(<UnknownPage text="text" />);
 
     expect(shallowToJson(output))
       .toMatchSnapshot();

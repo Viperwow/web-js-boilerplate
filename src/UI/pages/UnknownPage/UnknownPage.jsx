@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-class UnknownRoutePage extends Component {
+class UnknownPage extends Component {
   render() {
     const {text} = this.props;
 
@@ -30,4 +30,4 @@ class UnknownRoutePage extends Component {
   }
 }
 
-export default UnknownRoutePage;
+export default UnknownPage;
