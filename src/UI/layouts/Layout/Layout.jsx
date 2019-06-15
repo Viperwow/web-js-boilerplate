@@ -8,7 +8,7 @@ import {
 import DynamicMainPage from 'src/UI/pages/MainPage';
 import DynamicSecondPage from 'src/UI/pages/SecondPage';
 import DynamicThirdPage from 'src/UI/pages/ThirdPage';
-import DynamicUnknownRoutePage from 'src/UI/pages/UnknownRoutePage';
+import DynamicUnknownRoutePage from 'src/UI/pages/UnknownPage';
 import {getHistory} from 'src/helpers/history';
 
 const Layout = () => (
