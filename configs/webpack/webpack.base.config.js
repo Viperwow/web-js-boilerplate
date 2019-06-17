@@ -27,6 +27,7 @@ module.exports = function makeBaseWebpackConfig(data) {
   const IS_DEBUG_MODE = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps and another debug info for development and rc modes
   const ORDERED_DEPENDENCIES = [
     'unfetch/polyfill/index.js', // To support Fetch API in older browsers, because @babel/polyfill doesn't provide such a polyfill (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
+    'react-hot-loader/patch', // This is the requirement from https://github.com/gaearon/react-hot-loader
   ];
   const DEPENDENCIES = [
     ...ORDERED_DEPENDENCIES,
@@ -53,6 +54,9 @@ module.exports = function makeBaseWebpackConfig(data) {
       globalObject: '(typeof self === undefined ? this : self)', // WARNING: dirty hack to make it works, because webpack 4 is unable to deal with workers in web related environments (see https://github.com/webpack/webpack/issues/6642 for more info)
     },
     resolve: {
+      alias: {
+        'react-dom': '@hot-loader/react-dom', // It is needed to use react-dom with the same naming, because @hot-loader/react-dom is a react-dom package, but with react-hot-loading support
+      },
       modules: [ // So there are an array of paths where to look for modules based on publicPath (by the way, keep in mind, that this paths affects every file extension, so babel module resolver's paths complement it for JS)
         'node_modules', // Vendor modules root to import from (default, but it should be explicitly defined if there are anything else defined)
         ROOT_PATH, // App modules root to import from

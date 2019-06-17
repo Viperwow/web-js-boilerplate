@@ -9,7 +9,6 @@ exports[`Layout component should render correctly With default props 1`] = `
       <Redirect
         exact={true}
         from="/"
-        push={false}
         to="/1"
       />
       <Route
@@ -29,7 +28,6 @@ exports[`Layout component should render correctly With default props 1`] = `
         path="/not-found"
       />
       <Redirect
-        push={false}
         to="/not-found"
       />
     </Switch>
