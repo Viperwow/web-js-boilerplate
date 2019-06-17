@@ -35,6 +35,9 @@ module.exports = {
         'root': [ // Same as in babel.config.js, but for ESLint
           './', // Project root
         ],
+        'alias': {
+          'react-dom': '@hot-loader/react-dom', // To make eslint not to swear on react-dom imports (for more info see webpack.base.config.js)
+        },
       },
       'extensions': [ // Available extensions to be resolved via babel-module
         '.js',

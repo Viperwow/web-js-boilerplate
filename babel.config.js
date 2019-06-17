@@ -5,6 +5,9 @@ module.exports = {
       root: [
         './', // Project root
       ],
+      alias: {
+        'react-dom': '@hot-loader/react-dom', // To make babel resolve this import correctly (for more info see webpack.base.config.js)
+      },
     }],
     // Additional non-babel-preset-env
     '@babel/plugin-proposal-async-generator-functions', // Allow async/await in generators usage

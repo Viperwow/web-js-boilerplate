@@ -58,6 +58,9 @@ module.exports = {
   testMatch: [
     '**/*.+(test|spec|steps|support).js?(x)',
   ],
+  moduleNameMapper: {
+    '^react-dom(.*)': '@hot-loader/react-dom/$1',
+  },
   unmockedModulePathPatterns: [ // Unmock base things by default (you still have to unmock every import not described as pattern in this section or write your own mock in __mocks__ folder somewhere)
     ...UNMOCKED_SYSTEM_DEPENDENCIES,
     ...UNMOCKED_POLYFILLS,
