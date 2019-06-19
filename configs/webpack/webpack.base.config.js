@@ -91,8 +91,7 @@ module.exports = function makeBaseWebpackConfig(data) {
           test: /(?<!worker)\.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
           exclude: [
             FLOW_TYPED_PATH,
-            /\bcore-js\b/, // To forbid babel transpile itself dependencies while processsing sources in the node_modules
-            /@babel\b/, // To be sure to not occasionally process @babel/transform-runtime (see https://github.com/babel/babel/issues/7559#issuecomment-424948932 for more)
+            NODE_MODULES_PATH,
           ],
           use: [
             {
@@ -131,11 +130,16 @@ module.exports = function makeBaseWebpackConfig(data) {
         {
           test: /\.(sa|sc|c)ss$/, // WARNING: just keep in mind that normalize.css require to not exclude node_modules and not the only
           use: [
-            ExtractCssChunks.loader,
+            {
+              loader: ExtractCssChunks.loader,
+              options: {
+                hot: true, // if you want HMR
+                reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
+              },
+            },
             {
               loader: 'css-loader',
               options: {
-                minimize: false, // Do not minimize css (because we already did it in postcss)
                 importLoaders: 2, // Because we have 2 loaders applied before of css-loader
               },
             },

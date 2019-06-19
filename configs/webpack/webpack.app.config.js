@@ -35,7 +35,9 @@ module.exports = function makeAppWebpackConfig(data) {
 
   const output = ['production', 'rc'].includes(data.env)
     ? {
-      output: DIST,
+      output: {
+        path: DIST,
+      },
     }
     : {};
 
