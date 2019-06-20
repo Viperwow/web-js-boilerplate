@@ -40,14 +40,14 @@ const loadStories = () => {
    Automatically import all story js(x) files that end with *.stories.js
    or *.stories.jsx with .flow extension or not
    */
-  const req = require.context(
+  const requiredStoriesContext = require.context(
     '../../src',
     true,
     /\.stories\.js(x)?(.flow)?$/,
   );
 
-  req.keys()
-    .forEach(filename => req(filename));
+  requiredStoriesContext.keys()
+    .forEach(filename => requiredStoriesContext(filename));
 };
 
 configure(loadStories, module);
