@@ -47,7 +47,7 @@ module.exports = {
       ],
     },
     'polyfills': [ // Add babel polyfills here that is compatible with browsers from the .browserslistrc (see more at https://github.com/amilajack/eslint-plugin-compat/wiki/Adding-polyfills)
-      'promises',
+      'Promise',
       'fetch',
     ],
     'flowtype': {
@@ -81,6 +81,19 @@ module.exports = {
     'unicorn/filename-case': [0], // Remove necessity of the file special filename casing, because we need to use kebabCase for the most of the files, but for classes and react components we should prefer PascalCasing
     'unicorn/no-process-exit': [0], // Ignore rule for Node.js
     'unicorn/no-new-buffer': [0], // Ignore rule for Node.js
+    'unicorn/prevent-abbreviations': [2, {
+      replacements: { // Enable some well-known abbreviations in any variation
+        'props': false,
+        'env': false,
+        'dev': false,
+        'prod': false,
+        'rc': false,
+      },
+      whitelist: { // Whitelist config-related abbreviations
+        'filesExt': true,
+        'rootDir': true,
+      }
+    }],
     'unicorn/custom-error-definition': [2], // Force the only correct subclassing of the Error object
     // JSDoc
     'jsdoc/check-param-names': [2],
