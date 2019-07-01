@@ -22,13 +22,13 @@ const connectQuery = (
   mapClientToProps,
 ) => Wrapped => props => (
   <Query query={query}>
-    {({client, ...restQueryProps}) => (
+    {({client, ...queryProps}) => (
       <Wrapped {...{
         ..._mergeProps(
           client,
           {
             ...props,
-            query: restQueryProps,
+            query: queryProps,
           },
           mapStateToProps,
           mapClientToProps,

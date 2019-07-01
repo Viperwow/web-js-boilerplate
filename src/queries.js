@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const LOCALE_QUERY = gql`
-  query getLocale {
+export const GET_APP_LOCALE = gql`
+  query GetAppLocale {
     locale @client
   }
 `;

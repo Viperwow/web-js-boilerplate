@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import i18nBrowserLanguageDetector from 'i18next-browser-languagedetector';
-import {LOCALE_MUTATION} from 'src/mutations';
+import {SET_APP_LOCALE} from 'src/mutations';
 
 const LOCALE_NAME_MAPPINGS = { // Is needed for debugging purposes
   en: () => import('assets/locales/en.js' /* webpackChunkName: "en" */),
@@ -20,7 +20,7 @@ const _setLocaleData = async locale => {
 };
 
 const _setStoreLocale = (client, locale) => {
-  client.mutate({mutation: LOCALE_MUTATION, variables: {locale}});
+  client.mutate({mutation: SET_APP_LOCALE, variables: {locale}});
 };
 
 const _setDocumentTitle = () => {
