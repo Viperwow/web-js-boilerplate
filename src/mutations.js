@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const LOCALE_MUTATION = gql`
-  mutation setLocale($locale: String) {
+export const SET_APP_LOCALE = gql`
+  mutation SetAppLocale($locale: String) {
     setLocale(locale: $locale) @client
   }
 `;

@@ -2,7 +2,7 @@ import connectQuery from 'src/common/connectQuery';
 import withOnError from 'src/common/withOnError';
 import withTranslate from 'src/common/withTranslate';
 import {compose} from 'src/helpers/utility';
-import {LOCALE_QUERY} from 'src/queries';
+import {GET_APP_LOCALE} from 'src/queries';
 import ThirdPage from './ThirdPage';
 
 const mapStateToProps = (_, {t}) => ({
@@ -11,6 +11,6 @@ const mapStateToProps = (_, {t}) => ({
 
 export default compose(
   withTranslate,
-  connectQuery(LOCALE_QUERY, mapStateToProps),
+  connectQuery(GET_APP_LOCALE, mapStateToProps),
   withOnError,
 )(ThirdPage);
