@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loader component should render correctly With default props 1`] = `""`;
+
+exports[`Loader component should render correctly With text prop 1`] = `"text"`;

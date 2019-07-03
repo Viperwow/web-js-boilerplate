@@ -34,6 +34,7 @@ const UNMOCKED_GRAPHQL_DEPENDENCIES = [
 const UNMOCKED_VARIOUS_DEPENDENCIES = [
   'node_modules/classnames',
   'node_modules/lodash',
+  'node_modules/i18next',
 ];
 
 const UNMOCKED_STORYBOOK_DEPENDENCIES = [
