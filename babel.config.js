@@ -1,5 +1,5 @@
 module.exports = {
-  sourceType: 'unambiguous', // Is needed to omit module import/export consistency check to ignore some files while processsing sources in the node_modules (see https://babeljs.io/docs/en/options#sourcetype for more)
+  sourceType: 'unambiguous', // Is needed to omit module import/export consistency check to ignore some files while processing sources in the node_modules (see https://babeljs.io/docs/en/options#sourcetype for more)
   plugins: [
     ['babel-plugin-module-resolver', {
       root: [
