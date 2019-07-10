@@ -9,6 +9,10 @@ const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
+const COMMON_EXCLUSION_PATHS = [
+  FLOW_TYPED_PATH,
+  NODE_MODULES_PATH,
+];
 
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
 const POSTCSS_CONFIG = path.join(ROOT_PATH, '/configs/postcss.config.js');
@@ -68,10 +72,7 @@ module.exports = function makeBaseWebpackConfig(data) {
         {
           enforce: 'pre', // Allow to do linting before other loaders will start (this loader would be called on "pitching" phase, for more info see https://webpack.js.org/api/loaders/#pitching-loader)
           test: /.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
-          exclude: [
-            FLOW_TYPED_PATH,
-            NODE_MODULES_PATH,
-          ],
+          exclude: COMMON_EXCLUSION_PATHS,
           use: [
             {
               loader: 'eslint-loader', // Do eslint before any transformations
@@ -84,15 +85,12 @@ module.exports = function makeBaseWebpackConfig(data) {
         },
         { // To support apollo graphql .mjs imports for webpack 4.x.x
           test: /\.mjs$/,
-          include: /node_modules/,
+          include: NODE_MODULES_PATH,
           type: 'javascript/auto',
         },
         {
           test: /(?<!worker)\.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
-          exclude: [
-            FLOW_TYPED_PATH,
-            NODE_MODULES_PATH,
-          ],
+          exclude: COMMON_EXCLUSION_PATHS,
           use: [
             {
               loader: 'babel-loader', // Do babel transform
@@ -104,12 +102,12 @@ module.exports = function makeBaseWebpackConfig(data) {
         },
         {
           test: /\.(graphql|gql)$/,
-          exclude: NODE_MODULES_PATH,
+          exclude: COMMON_EXCLUSION_PATHS,
           loader: 'graphql-tag/loader',
         },
         {
           test: /\.worker\.js$/,
-          exclude: NODE_MODULES_PATH,
+          exclude: COMMON_EXCLUSION_PATHS,
           use: [
             {
               loader: 'worker-loader',
@@ -162,7 +160,7 @@ module.exports = function makeBaseWebpackConfig(data) {
         },
         {
           test: /\.(png|jpe?g|gif)$/,
-          exclude: NODE_MODULES_PATH,
+          exclude: COMMON_EXCLUSION_PATHS,
           use: [
             {
               loader: 'url-loader',
@@ -176,7 +174,7 @@ module.exports = function makeBaseWebpackConfig(data) {
         },
         {
           test: /\.svg$/,
-          exclude: NODE_MODULES_PATH,
+          exclude: COMMON_EXCLUSION_PATHS,
           use: [
             {
               loader: 'svg-url-loader',
@@ -190,7 +188,7 @@ module.exports = function makeBaseWebpackConfig(data) {
         },
         {
           test: /\.woff2?$/,
-          exclude: NODE_MODULES_PATH,
+          exclude: COMMON_EXCLUSION_PATHS,
           use: [
             {
               loader: 'url-loader',
