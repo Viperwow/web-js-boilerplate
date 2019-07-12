@@ -6,7 +6,7 @@ import ThirdPage from '../ThirdPage';
 
 const TEXT_PROP = 'Third page';
 
-storiesOf('Pages', module)
+storiesOf('App/Pages', module)
   .addParameters({
     info: {
       text: `

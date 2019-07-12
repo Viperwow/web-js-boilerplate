@@ -6,7 +6,7 @@ import MainPage from '../MainPage';
 
 const TEXT_PROP = 'Main page';
 
-storiesOf('Pages', module)
+storiesOf('App/Pages', module)
   .addParameters({
     info: {
       text: `
