@@ -6,7 +6,7 @@ import SecondPage from '../SecondPage';
 
 const TEXT_PROP = 'Second page';
 
-storiesOf('Pages', module)
+storiesOf('App/Pages', module)
   .addParameters({
     info: {
       text: `

@@ -6,7 +6,7 @@ import UnknownPage from '../UnknownPage';
 
 const TEXT_PROP = 'Unknown page';
 
-storiesOf('Pages', module)
+storiesOf('App/Pages', module)
   .addParameters({
     info: {
       text: `

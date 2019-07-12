@@ -6,7 +6,7 @@ import Loader from '../Loader';
 
 const TEXT_PROP = 'Loader';
 
-storiesOf('Components', module)
+storiesOf('Components/Base', module)
   .addParameters({
     info: {
       text: `
