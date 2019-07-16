@@ -30,7 +30,8 @@ module.exports = function makeBaseWebpackConfig(data) {
   const IS_DEVELOPMENT_MODE = ENVIRONMENT === 'development';
   const IS_DEBUG_MODE = IS_DEVELOPMENT_MODE || IS_RC; // Enable source maps and another debug info for development and rc modes
   const ORDERED_DEPENDENCIES = [
-    'unfetch/polyfill/index.js', // To support Fetch API in older browsers, because @babel/polyfill doesn't provide such a polyfill (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
+    '@ungap/global-this', // To support single global 'this' between workers, browser and node environments (read more at https://mathiasbynens.be/notes/globalthis)
+    'unfetch/polyfill', // To support Fetch API in older browsers, because @babel/polyfill doesn't provide such a polyfill (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
     'react-hot-loader/patch', // This is the requirement from https://github.com/gaearon/react-hot-loader
   ];
   const DEPENDENCIES = [
