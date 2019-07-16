@@ -27,7 +27,7 @@ module.exports = {
   },
   'globals': {
     'BigInt': true, // Allow to use BigInt
-    'gemini': true, // Allow gemini to be used globally (WARNING maybe it's a mistake, because it's defined in the package.json as a devDependency, but mustn't be a dependency as eslint tells us)
+    'globalThis': true, // Allow to use globalThis polyfill
   },
   'settings': {
     'import/resolver': {
