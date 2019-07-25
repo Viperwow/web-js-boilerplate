@@ -4,14 +4,19 @@ const CircularDependencyPlugin = require('circular-dependency-plugin'); // eslin
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const StyleLintPlugin = require('stylelint-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const packageJson = require('../../package.json');
 
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
+const DEV_DEPENDENCIES_PATHS = Object.keys(packageJson.devDependencies)
+  .map(dependencyName => path.join(NODE_MODULES_PATH, `/${dependencyName}`));
 const COMMON_EXCLUSION_PATHS = [
   FLOW_TYPED_PATH,
-  NODE_MODULES_PATH,
+  /core-js\b/,
+  /@babel\b/,
+  ...DEV_DEPENDENCIES_PATHS,
 ];
 
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
@@ -86,8 +91,16 @@ module.exports = function makeBaseWebpackConfig(data) {
         },
         { // To support apollo graphql .mjs imports for webpack 4.x.x
           test: /\.mjs$/,
-          include: NODE_MODULES_PATH,
+          exclude: COMMON_EXCLUSION_PATHS,
           type: 'javascript/auto',
+          use: [
+            {
+              loader: 'babel-loader', // Do babel transform
+              options: {
+                cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+              },
+            },
+          ],
         },
         {
           test: /(?<!worker)\.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
