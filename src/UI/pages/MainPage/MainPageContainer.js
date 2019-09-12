@@ -5,8 +5,8 @@ import {compose} from 'src/helpers/utility';
 import {GET_APP_LOCALE} from 'src/queries';
 import MainPage from './MainPage';
 
-const mapStateToProps = (_, {t}) => ({
-  text: t('pages.main'),
+const mapStateToProps = () => ({
+  text: 'pages.main',
 });
 
 export default compose(
