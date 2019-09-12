@@ -18,6 +18,7 @@ module.exports = {
     'lodash',
     'compat',
     'sort-class-members',
+    'react-hooks',
     'flowtype',
   ],
   'parser': 'babel-eslint',
@@ -51,7 +52,7 @@ module.exports = {
       'fetch',
     ],
     'flowtype': {
-      'onlyFilesWithFlowAnnotation': true
+      'onlyFilesWithFlowAnnotation': true,
     },
   },
   'rules': {
@@ -92,9 +93,16 @@ module.exports = {
       whitelist: { // Whitelist config-related abbreviations
         'filesExt': true,
         'rootDir': true,
-      }
+      },
     }],
     'unicorn/custom-error-definition': [2], // Force the only correct subclassing of the Error object
+    "unicorn/catch-error-name": [
+      "error",
+      {
+        "name": '"error" or anything with "Error" postfix',
+        "caughtErrorsIgnorePattern": "^(error$)|(.*Error$)"
+      }
+    ],
     // JSDoc
     'jsdoc/check-param-names': [2],
     'jsdoc/check-tag-names': [2],
@@ -147,8 +155,8 @@ module.exports = {
     // Jest
     'jest/no-disabled-tests': [0], // Force the usage of all tests that have been written (it force you to remove old/unnecessary tests)
     // Babel
-    "babel/object-curly-spacing": [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets and allows the usage of the non-named export syntax
-    "babel/valid-typeof": [2], // Overwrite defaults to support BigInt
+    'babel/object-curly-spacing': [2, 'never'], // Overwrite airbnb defaults to use no spaces between curly brackets and allows the usage of the non-named export syntax
+    'babel/valid-typeof': [2], // Overwrite defaults to support BigInt
     // Class member sorting
     'sort-class-members/sort-class-members': [2, {
       'groups': {
@@ -215,7 +223,7 @@ module.exports = {
     'flowtype/array-style-simple-type': [2, 'verbose'], // Make type declarations to be more readable (extend recommended configuration)
     'flowtype/define-flow-type': [2], // Do not use undefined flow types
     'flowtype/delimiter-dangle': [2, 'always-multiline'], // It's all about trailing commas, but in flow types
-    'flowtype/newline-after-flow-annotation': [2, "always"], // Always put new line after flowtype init declaration (extend recommended configuration)
+    'flowtype/newline-after-flow-annotation': [2, 'always'], // Always put new line after flowtype init declaration (extend recommended configuration)
     'flowtype/no-dupe-keys': [2], // No duplicates in type definitions (extend recommended configuration)
     'flowtype/no-existential-type': [2], // Disallows use of the existential type (*) (extend recommended configuration)
     'flowtype/no-flow-fix-me-comments': [1], // Warn if flowtype fix-me declaration would be used somewhere in code (extend recommended configuration)
@@ -232,5 +240,8 @@ module.exports = {
     'flowtype/require-variable-type': [0], // Do not require variables types to be declared (extend recommended configuration)
     'flowtype/semi': [2], // Require semicolons in type declarations
     'flowtype/type-import-style': [2, 'declaration'], // Enforce short type import declaration (extend recommended configuration)
+    // React hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 };
