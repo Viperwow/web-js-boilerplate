@@ -1,9 +1,13 @@
+import {identity as _identity} from 'lodash';
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const MainPage = ({text}) => (
+const MainPage = ({
+  text,
+  t = _identity,
+}) => (
   <div className="page">
-    {text}
+    {t(text)}
     <ul>
       <li>
         <Link to="/2" replace>

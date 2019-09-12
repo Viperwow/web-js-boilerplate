@@ -5,8 +5,8 @@ import {compose} from 'src/helpers/utility';
 import {GET_APP_LOCALE} from 'src/queries';
 import ThirdPage from './ThirdPage';
 
-const mapStateToProps = (_, {t}) => ({
-  text: t('pages.third'),
+const mapStateToProps = () => ({
+  text: 'pages.third',
 });
 
 export default compose(

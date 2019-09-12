@@ -5,8 +5,8 @@ import {compose} from 'src/helpers/utility';
 import {GET_APP_LOCALE} from 'src/queries';
 import UnknownPage from './UnknownPage';
 
-const mapStateToProps = (_, {t}) => ({
-  text: t('pages.unknown'),
+const mapStateToProps = () => ({
+  text: 'pages.unknown',
 });
 
 export default compose(

@@ -4,8 +4,8 @@ import {compose} from 'src/helpers/utility';
 import {GET_APP_LOCALE} from 'src/queries';
 import Loader from './Loader';
 
-const mapStateToProps = (_, {t}) => ({
-  text: t('components.loader'),
+const mapStateToProps = () => ({
+  text: 'components.loader',
 });
 
 export default compose(
