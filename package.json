@@ -44,6 +44,7 @@
     "date-fns": "2.1.0",
     "date-fns-tz": "1.0.7",
     "flow-runtime": "0.17.0",
+    "formdata-polyfill": "3.0.19",
     "graphql": "14.4.1",
     "graphql-anywhere": "4.2.4",
     "graphql-tag": "2.10.1",
