@@ -29,3 +29,8 @@ const ThirdPage = ({
 );
 
 export default ThirdPage;
+
+// This must be added to support HMR in dynamic imports
+if (module.hot) {
+  module.hot.accept();
+}

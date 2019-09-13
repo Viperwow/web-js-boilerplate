@@ -24,7 +24,7 @@ const loadable = ({
     state = {
       error: null,
       isTimedOut: false,
-      isDelayEnded: false,
+      isDelay: true,
       LoadedComponent: _constant(null),
     };
 
@@ -35,7 +35,7 @@ const loadable = ({
         return setTimeout(() => {
           if (this._isMounted) {
             this.setState({
-              isDelayEnded: true,
+              isDelay: false,
             });
           }
         }, delay);
@@ -43,7 +43,7 @@ const loadable = ({
 
       if (this._isMounted) {
         this.setState({
-          isDelayEnded: true,
+          isDelay: false,
         });
       }
 
@@ -98,7 +98,7 @@ const loadable = ({
       const {
         error,
         isTimedOut,
-        isDelayEnded,
+        isDelay,
         LoadedComponent,
       } = this.state;
 
@@ -110,9 +110,9 @@ const loadable = ({
         return <ErrorComponent {...{...this.props, error}} />;
       }
 
-      const fallbackComponent = isDelayEnded
-        ? <LoaderComponent {...this.props} />
-        : null;
+      const fallbackComponent = isDelay
+        ? null
+        : <LoaderComponent {...this.props} />;
 
       return (
         <Suspense fallback={fallbackComponent}>
