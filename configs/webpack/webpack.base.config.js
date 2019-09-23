@@ -144,7 +144,34 @@ module.exports = function makeBaseWebpackConfig(data) {
           ],
         },
         {
-          test: /\.(sa|sc|c)ss$/, // WARNING: just keep in mind that normalize.css require to not exclude node_modules and not the only
+          test: /\.css$/, // WARNING: just keep in mind that normalize.css require to not exclude node_modules and not the only
+          use: [
+            {
+              loader: ExtractCssChunks.loader,
+              options: {
+                hot: true, // if you want HMR
+                reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
+              },
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 2, // Because we have 2 loaders applied before of css-loader
+              },
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: IS_DEBUG_MODE,
+                config: {
+                  path: POSTCSS_CONFIG,
+                },
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(sa|sc)ss$/, // WARNING: just keep in mind that normalize.css require to not exclude node_modules and not the only
           use: [
             {
               loader: ExtractCssChunks.loader,
