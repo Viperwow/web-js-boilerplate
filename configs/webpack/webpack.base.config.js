@@ -43,6 +43,9 @@ module.exports = function makeBaseWebpackConfig(data) {
   const DEPENDENCIES = [
     ...ORDERED_DEPENDENCIES,
     'normalize.css',
+    'tailwindcss/base.css',
+    'tailwindcss/components.css',
+    'tailwindcss/utilities.css',
   ];
 
   return {
