@@ -62,6 +62,7 @@
     "regenerator-runtime": "0.13.2",
     "reselect": "4.0.0",
     "tailwindcss": "1.1.2",
+    "tailwindcss-animatecss": "0.2.1",
     "unfetch": "4.1.0",
     "unorm": "1.5.0",
     "uuid": "3.3.2"
