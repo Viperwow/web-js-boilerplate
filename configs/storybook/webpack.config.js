@@ -6,7 +6,6 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin'); // eslint-disable-
 
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const STORYBOOK_INDEX_PATH = path.join(ROOT_PATH, '/configs/storybook/config'); // Add our stories init entry point
-const STYLES_INDEX_PATH = path.join(ROOT_PATH, '/assets/sass/index.sass'); // Add our sass/css entry point
 
 module.exports = function makeStorybookWebpackConfig({config: baseConfig, mode: env}) {
   const ENVIRONMENT = env.toLowerCase();
@@ -28,7 +27,6 @@ module.exports = function makeStorybookWebpackConfig({config: baseConfig, mode: 
     entry: {
       app: [
         STORYBOOK_INDEX_PATH,
-        STYLES_INDEX_PATH,
         'webpack-hot-middleware/client.js?reload=true',
       ],
     },

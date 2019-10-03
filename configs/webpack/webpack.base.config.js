@@ -1,5 +1,7 @@
 const webpack = require('webpack'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path'); // eslint-disable-line import/no-extraneous-dependencies
+const {uniq} = require('lodash'); // eslint-disable-line import/no-extraneous-dependencies
+const escapeStringRegexp = require('escape-string-regexp'); // eslint-disable-line import/no-extraneous-dependencies
 const CircularDependencyPlugin = require('circular-dependency-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const StyleLintPlugin = require('stylelint-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
@@ -10,13 +12,21 @@ const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
-const DEV_DEPENDENCIES_PATHS = Object.keys(packageJson.devDependencies)
-  .map(dependencyName => path.join(NODE_MODULES_PATH, `/${dependencyName}`));
+const BASE_STYLES_PATH = path.join(ROOT_PATH, '/assets/sass/base.sass'); // Add our custom base styles
+const APP_DEPENDENCIES_FOR_EXCLUSION_REGEXPS = [
+  /core-js\b/,
+];
+const DEV_DEPENDENCIES_FOR_EXCLUSION_REGEXPS = uniq(
+  Object.keys(packageJson.devDependencies)
+    .map(dependencyFullName => dependencyFullName.split('/')[0]),
+)
+  .map(dependencyName => escapeStringRegexp(`${dependencyName}\\b`))
+  .map(dependencyName => new RegExp(dependencyName));
+
 const COMMON_EXCLUSION_PATHS = [
   FLOW_TYPED_PATH,
-  /core-js\b/,
-  /@babel\b/,
-  ...DEV_DEPENDENCIES_PATHS,
+  ...APP_DEPENDENCIES_FOR_EXCLUSION_REGEXPS,
+  ...DEV_DEPENDENCIES_FOR_EXCLUSION_REGEXPS,
 ];
 
 const BROWSERSLIST_CONFIG = path.join(ROOT_PATH, '/.browserslistrc');
@@ -42,8 +52,8 @@ module.exports = function makeBaseWebpackConfig(data) {
   ];
   const DEPENDENCIES = [
     ...ORDERED_DEPENDENCIES,
-    'normalize.css',
     'tailwindcss/base.css',
+    BASE_STYLES_PATH,
     'tailwindcss/components.css',
     'tailwindcss/utilities.css',
   ];
@@ -81,8 +91,8 @@ module.exports = function makeBaseWebpackConfig(data) {
       rules: [
         {
           enforce: 'pre', // Allow to do linting before other loaders will start (this loader would be called on "pitching" phase, for more info see https://webpack.js.org/api/loaders/#pitching-loader)
-          test: /.js(x)?(.flow)?$/, // Allow to look for js/jsx, but not for the workers (Help to expel the problem with workers taken for standard js files)
-          exclude: COMMON_EXCLUSION_PATHS,
+          test: /.js(x)?(.flow)?$/,
+          exclude: NODE_MODULES_PATH,
           use: [
             {
               loader: 'eslint-loader', // Do eslint before any transformations
