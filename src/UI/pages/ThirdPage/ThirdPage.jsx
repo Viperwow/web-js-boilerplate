@@ -6,7 +6,7 @@ const ThirdPage = ({
   text,
   t = _identity,
 }) => (
-  <div className="page">
+  <div>
     {t(text)}
     <ul>
       <li>

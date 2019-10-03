@@ -1,4 +1,5 @@
 const postcssPresetEnv = require('postcss-preset-env'); // eslint-disable-line import/no-extraneous-dependencies
+const postcssImport = require('postcss-import'); // eslint-disable-line import/no-extraneous-dependencies
 const postcssFlexbugsFixes = require('postcss-flexbugs-fixes'); // eslint-disable-line import/no-extraneous-dependencies
 const postcssTailwind = require('tailwindcss'); // eslint-disable-line import/no-extraneous-dependencies
 const autoprefixer = require('autoprefixer'); // eslint-disable-line import/no-extraneous-dependencies
@@ -9,6 +10,7 @@ module.exports = {
     postcssPresetEnv({
       stage: 1,
     }),
+    postcssImport,
     postcssTailwind,
     postcssFlexbugsFixes,
     autoprefixer({

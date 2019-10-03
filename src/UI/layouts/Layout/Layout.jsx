@@ -10,7 +10,7 @@ import DynamicThirdPage from 'src/UI/pages/ThirdPage';
 import DynamicUnknownRoutePage from 'src/UI/pages/UnknownPage';
 
 const Layout = () => (
-  <div className="layout">
+  <div>
     <Switch>
       <Redirect exact from="/" to="/1" />
       <Route exact path="/1" render={DynamicMainPage} />

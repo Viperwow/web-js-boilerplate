@@ -1,4 +1,5 @@
 const tailwindcssAnimateCSSPlugin = require('tailwindcss-animatecss');
+const tailwindcssTransitionsPlugin = require('tailwindcss-transitions');
 
 module.exports = {
   theme: {
@@ -16,5 +17,6 @@ module.exports = {
       },
       variants: ['responsive', 'hover', 'focus', 'active', 'disabled', 'visited'],
     }),
+    tailwindcssTransitionsPlugin(),
   ],
 };
