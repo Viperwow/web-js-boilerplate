@@ -29,6 +29,7 @@ module.exports = {
   'globals': {
     'BigInt': true, // Allow to use BigInt
     'globalThis': true, // Allow to use globalThis polyfill
+    'tw': true, // Tailwind tag support
   },
   'settings': {
     'import/resolver': {

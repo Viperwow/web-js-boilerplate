@@ -12,6 +12,7 @@ const en = {
   },
   components: {
     loader: 'Loading...',
+    button: 'Button',
   },
 };
 
