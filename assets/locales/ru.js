@@ -12,6 +12,7 @@ const ru = {
   },
   components: {
     loader: 'Загрузка...',
+    button: 'Кнопка',
   },
 };
 

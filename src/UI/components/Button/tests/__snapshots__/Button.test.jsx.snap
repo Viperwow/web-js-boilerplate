@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button component should render correctly With default props 1`] = `
+<button
+  className="btn"
+  type="submit"
+/>
+`;
+
+exports[`Button component should render correctly With text prop 1`] = `
+<button
+  className="btn"
+  type="submit"
+>
+  text
+</button>
+`;

@@ -1,1 +1,1 @@
-export {default} from 'src/UI/layouts/Apollo/Apollo';
+export {default} from 'src/UI/layouts/Apollo/ApolloContainer';

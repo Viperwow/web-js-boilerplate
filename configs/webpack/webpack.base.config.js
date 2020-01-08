@@ -13,6 +13,8 @@ const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
 const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
 const BASE_STYLES_PATH = path.join(ROOT_PATH, '/assets/sass/base.sass'); // Add our custom base styles
+const COMPONENTS_STYLES_PATH = path.join(ROOT_PATH, '/assets/sass/components.sass'); // Add our custom base styles
+const PONYFILLS_PATH = path.join(ROOT_PATH, '/ponyfills.js');
 const APP_DEPENDENCIES_FOR_EXCLUSION_REGEXPS = [
   /core-js\b/,
 ];
@@ -48,6 +50,7 @@ module.exports = function makeBaseWebpackConfig(data) {
     '@ungap/global-this', // To support single global 'this' between workers, browser and node environments (read more at https://mathiasbynens.be/notes/globalthis)
     'unfetch/polyfill', // To support Fetch API in older browsers, because @babel/polyfill doesn't provide such a polyfill (differences with official documentation related to the https://github.com/developit/unfetch/issues/93)
     'formdata-polyfill', // Add FormData polyfill (read more at https://www.npmjs.com/package/formdata-polyfill)
+    PONYFILLS_PATH, // Add ponyfills to our bundle
     'react-hot-loader/patch', // This is the requirement from https://github.com/gaearon/react-hot-loader
   ];
   const DEPENDENCIES = [
@@ -55,6 +58,7 @@ module.exports = function makeBaseWebpackConfig(data) {
     'tailwindcss/base.css',
     BASE_STYLES_PATH,
     'tailwindcss/components.css',
+    COMPONENTS_STYLES_PATH,
     'tailwindcss/utilities.css',
   ];
 
