@@ -10,8 +10,6 @@ const packageJson = require('../../package.json');
 
 const ROOT_PATH = path.join(path.resolve(__dirname), '/../..');
 const NODE_MODULES_PATH = path.join(ROOT_PATH, '/node_modules');
-const LOADERS_CACHE_PATH = path.join(NODE_MODULES_PATH, './.cache');
-const LINARIA_CACHE_PATH = path.join(LOADERS_CACHE_PATH, '/linaria-loader');
 const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
 const BASE_STYLES_PATH = path.join(ROOT_PATH, '/assets/sass/base.sass'); // Add our custom base styles
@@ -120,13 +118,6 @@ module.exports = function makeBaseWebpackConfig(data) {
                 cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
               },
             },
-            {
-              loader: 'linaria/loader',
-              options: {
-                sourceMap: IS_DEBUG_MODE,
-                cacheDirectory: LINARIA_CACHE_PATH,
-              },
-            },
           ],
         },
         {
@@ -137,13 +128,6 @@ module.exports = function makeBaseWebpackConfig(data) {
               loader: 'babel-loader', // Do babel transform
               options: {
                 cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
-              },
-            },
-            {
-              loader: 'linaria/loader',
-              options: {
-                sourceMap: IS_DEBUG_MODE,
-                cacheDirectory: LINARIA_CACHE_PATH,
               },
             },
           ],
