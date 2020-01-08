@@ -1,32 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Layout component should render correctly With default props 1`] = `
-<div>
-  <Switch>
-    <Redirect
-      exact={true}
-      from="/"
-      to="/1"
-    />
-    <Route
-      exact={true}
-      path="/1"
-    />
-    <Route
-      exact={true}
-      path="/2"
-    />
-    <Route
-      exact={true}
-      path="/3"
-    />
-    <Route
-      exact={true}
-      path="/not-found"
-    />
-    <Redirect
-      to="/not-found"
-    />
-  </Switch>
-</div>
+<Switch>
+  <Redirect
+    exact={true}
+    from="/"
+    to="/1"
+  />
+  <Route
+    exact={true}
+    path="/1"
+  />
+  <Route
+    exact={true}
+    path="/2"
+  />
+  <Route
+    exact={true}
+    path="/3"
+  />
+  <Route
+    exact={true}
+    path="/not-found"
+  />
+  <Redirect
+    to="/not-found"
+  />
+</Switch>
 `;
