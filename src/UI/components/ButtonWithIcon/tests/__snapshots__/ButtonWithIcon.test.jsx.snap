@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonWithIcon component should render correctly With default props 1`] = `
+<div
+  className="flex flex-row items-center"
+>
+  <SvgrURL
+    className="mr-2"
+  />
+  <Button
+    t={[Function]}
+  />
+</div>
+`;
+
+exports[`ButtonWithIcon component should render correctly With text prop 1`] = `
+<div
+  className="flex flex-row items-center"
+>
+  <SvgrURL
+    className="mr-2"
+  />
+  <Button
+    t={[Function]}
+    text="text"
+  />
+</div>
+`;
