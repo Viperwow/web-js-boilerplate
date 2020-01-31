@@ -232,7 +232,36 @@ module.exports = function makeBaseWebpackConfig(data) {
           ],
         },
         {
-          test: /\.svg$/,
+          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, // Every svg imported into jsx
+          issuer: {
+            test: /(?<!worker)\.js(x)?(.flow)?$/,
+          },
+          exclude: COMMON_EXCLUSION_PATHS,
+          use: [
+            {
+              loader: 'babel-loader', // Do babel transform
+              options: {
+                cacheDirectory: true, // Cache transpilation results and reuse them to speed up build (see more at https://github.com/babel/babel-loader#options)
+              },
+            },
+            {
+              loader: '@svgr/webpack',
+              options: {
+                babel: false, // By default, @svgr/webpack includes a babel-loader with an optimized configuration (see more at https://react-svgr.com/docs/webpack/#use-your-own-babel-configuration)
+              },
+            },
+            {
+              loader: 'svg-url-loader',
+              options: {
+                limit: IMG_SIZE_LIMIT,
+                iesafe: true, // To support IE's 4kB limit
+                outputPath: 'assets/img/',
+              },
+            },
+          ],
+        },
+        {
+          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, // Every svg, but not from jsx code
           exclude: COMMON_EXCLUSION_PATHS,
           use: [
             {

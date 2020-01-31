@@ -61,6 +61,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^react-dom(.*)': '@hot-loader/react-dom/$1',
+    '\\.svg': '<rootDir>/__mocks__/svgrMock.jsx',
   },
   unmockedModulePathPatterns: [ // Unmock base things by default (you still have to unmock every import not described as pattern in this section or write your own mock in __mocks__ folder somewhere)
     ...UNMOCKED_SYSTEM_DEPENDENCIES,
