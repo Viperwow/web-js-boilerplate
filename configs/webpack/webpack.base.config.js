@@ -3,7 +3,7 @@ const path = require('path'); // eslint-disable-line import/no-extraneous-depend
 const {uniq} = require('lodash'); // eslint-disable-line import/no-extraneous-dependencies
 const escapeStringRegexp = require('escape-string-regexp'); // eslint-disable-line import/no-extraneous-dependencies
 const CircularDependencyPlugin = require('circular-dependency-plugin'); // eslint-disable-line import/no-extraneous-dependencies
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const StyleLintPlugin = require('stylelint-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 const packageJson = require('../../package.json');
@@ -161,7 +161,7 @@ module.exports = function makeBaseWebpackConfig(data) {
           test: /\.css$/, // WARNING: just keep in mind that normalize.css require to not exclude node_modules and not the only
           use: [
             {
-              loader: ExtractCssChunks.loader,
+              loader: MiniCssExtractPlugin.loader,
               options: {
                 hot: true, // if you want HMR
                 reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
@@ -188,7 +188,7 @@ module.exports = function makeBaseWebpackConfig(data) {
           test: /\.(sa|sc)ss$/, // WARNING: just keep in mind that normalize.css require to not exclude node_modules and not the only
           use: [
             {
-              loader: ExtractCssChunks.loader,
+              loader: MiniCssExtractPlugin.loader,
               options: {
                 hot: true, // if you want HMR
                 reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
@@ -311,7 +311,7 @@ module.exports = function makeBaseWebpackConfig(data) {
       },
     },
     plugins: [
-      new ExtractCssChunks({
+      new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         filename: IS_DEVELOPMENT_MODE
           ? '[name].css'
