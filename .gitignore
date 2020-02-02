@@ -1,5 +1,6 @@
 # Ignore build files, IDE settigs and docs
 /.idea/
+/coverage/
 /dist/
 /docs/
 /node_modules/
