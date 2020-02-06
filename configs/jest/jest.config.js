@@ -77,4 +77,12 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest', // Transform JS code using babel
     '^.+\\.(gql|graphql)$': 'jest-transform-graphql', // To support graphql-tag usage in jest (see https://github.com/apollographql/graphql-tag#webpack-preprocessing-with-graphql-tagloader for more info)
   },
+  coverageThreshold: {
+    global: {
+      branches: 10,
+      functions: 15,
+      lines: 30,
+      statements: 30,
+    },
+  },
 };
