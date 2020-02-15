@@ -14,6 +14,7 @@ const FLOW_TYPED_PATH = path.join(ROOT_PATH, '/flow-typed');
 const POSTCSS_SASS_PARSER_PATH = path.join(NODE_MODULES_PATH, '/postcss-sass');
 const BASE_STYLES_PATH = path.join(ROOT_PATH, '/assets/sass/base.sass'); // Add our custom base styles
 const COMPONENTS_STYLES_PATH = path.join(ROOT_PATH, '/assets/sass/components.sass'); // Add our custom base styles
+const UTILITY_STYLES_PATH = path.join(ROOT_PATH, '/assets/sass/utilities.sass'); // Add our custom utilities for a tailwind
 const PONYFILLS_PATH = path.join(ROOT_PATH, '/ponyfills.js');
 const APP_DEPENDENCIES_FOR_EXCLUSION_REGEXPS = [
   /core-js\b/,
@@ -60,6 +61,7 @@ module.exports = function makeBaseWebpackConfig(data) {
     'tailwindcss/components.css',
     COMPONENTS_STYLES_PATH,
     'tailwindcss/utilities.css',
+    UTILITY_STYLES_PATH,
   ];
 
   return {
