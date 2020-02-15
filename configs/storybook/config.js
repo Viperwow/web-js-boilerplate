@@ -7,6 +7,7 @@ import {withTests} from '@storybook/addon-jest'; // eslint-disable-line import/n
 import {withInfo} from '@storybook/addon-info'; // eslint-disable-line import/no-extraneous-dependencies
 import {configureActions} from '@storybook/addon-actions'; // eslint-disable-line import/no-extraneous-dependencies
 import {withKnobs} from '@storybook/addon-knobs'; // eslint-disable-line import/no-extraneous-dependencies
+import StoryRouter from 'storybook-react-router'; // eslint-disable-line import/no-extraneous-dependencies
 import results from '../../jest-results.json'; // eslint-disable-line import/no-unresolved
 
 addDecorator( // It must be the first decorator declared or it might not work well
@@ -14,6 +15,8 @@ addDecorator( // It must be the first decorator declared or it might not work we
     source: false, // Disable unnecessary source output duplication
   }),
 );
+
+addDecorator(StoryRouter());
 
 configureActions({
   limit: 20, // Limit the number of items logged into the actions panel
