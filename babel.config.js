@@ -13,23 +13,14 @@ module.exports = {
     '@babel/plugin-proposal-async-generator-functions', // Allow async/await in generators usage
     '@babel/plugin-transform-regenerator', // Allow generators usage
     '@babel/plugin-proposal-object-rest-spread', // Allow spread/rest operations
-    // Stage 0
-    '@babel/plugin-proposal-function-bind', // Allow :: operator to easy binding things
     // Stage 1
     '@babel/plugin-proposal-export-default-from', // To support symmetric import/export
     ['@babel/plugin-proposal-optional-chaining', { // Allow optional variable usage via ?. operator
       loose: false,
     }],
-    ['@babel/plugin-proposal-pipeline-operator', { // Allow chaining using |> operator
-      proposal: 'minimal',
-    }],
     ['@babel/plugin-proposal-nullish-coalescing-operator', { // Allow to use ?? operator
       loose: false,
     }], // Better null & undefined checking (https://github.com/tc39/proposal-nullish-coalescing)
-    // Stage 2
-    ['@babel/plugin-proposal-decorators', { // To support old decorators syntax
-      legacy: true,
-    }],
     '@babel/plugin-proposal-export-namespace-from', // To support symmetric import/export
     // Stage 3
     '@babel/plugin-syntax-dynamic-import', // Allow parsing of import()
