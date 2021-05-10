@@ -51,7 +51,7 @@
     "i18next": "13.0.0",
     "i18next-browser-languagedetector": "2.2.4",
     "immutable": "4.0.0-rc.12",
-    "lodash": "4.17.11",
+    "lodash": "4.17.21",
     "normalize.css": "8.0.0",
     "react": "16.6.3",
     "react-apollo": "2.2.4",
