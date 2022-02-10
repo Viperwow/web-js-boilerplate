@@ -129,7 +129,7 @@
     "jest-cucumber": "1.0.11",
     "jest-transform-graphql": "2.1.0",
     "lodash-webpack-plugin": "0.11.5",
-    "node-sass": "4.10.0",
+    "node-sass": "7.0.0",
     "postcss": "7.0.5",
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.1.1",
